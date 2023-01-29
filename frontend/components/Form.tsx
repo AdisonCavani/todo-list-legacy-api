@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputField from "./form/InputField";
 import Loader from "./Loader";
@@ -12,20 +12,19 @@ const schema = z.object({
   code: z.string().min(1, "Code is required"),
 });
 
+type schemaType = z.infer<typeof schema>;
+
 function Form() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<z.infer<typeof schema>>({
+  } = useForm<schemaType>({
     resolver: zodResolver(schema),
   });
 
   return (
-    <form
-      className="mt-16 max-w-3xl"
-      onSubmit={handleSubmit((d) => console.log(d))}
-    >
+    <form className="mt-16 max-w-3xl" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-5">
         <InputField
           name="name"
@@ -62,5 +61,9 @@ function Form() {
     </form>
   );
 }
+
+const onSubmit: SubmitHandler<schemaType> = async (values) => {
+  console.log(values);
+};
 
 export default Form;

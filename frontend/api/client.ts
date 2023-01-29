@@ -1,5 +1,6 @@
 import { RestClient } from "@lib/http";
 import type { PostDto } from "./dtos/PostDto";
+import type { CreatePostReq } from "./req/CreatePostReq";
 import type { GetPostReq } from "./req/GetPostReq";
 import type { HealthCheckRes } from "./res/HealthCheckRes";
 
@@ -11,4 +12,8 @@ export async function getHealth() {
 
 export async function getPost(req: GetPostReq) {
   return await client.get<PostDto>("/post/get", req);
+}
+
+export async function createPost(req: CreatePostReq) {
+  return await client.post<PostDto>("/post/create", req);
 }

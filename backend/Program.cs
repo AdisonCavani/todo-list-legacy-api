@@ -18,6 +18,17 @@ builder.Services.AddSwaggerGen(options =>
     options.EnableAnnotations();
     options.DescribeAllParametersInCamelCase();
 });
+builder.Services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(policy =>
+    {
+        policy
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins("http://localhost:3000");
+    });
+});
 
 var app = builder.Build();
 
@@ -31,6 +42,7 @@ if (app.Environment.IsDevelopment())
 await app.SeedDataAsync(app.Logger);
 app.UseHsts();
 app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

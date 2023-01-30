@@ -1,7 +1,12 @@
-import Loader from "@components/Loader";
-import Search from "@components/Search";
+import { getAllPosts } from "@api/client";
+// import Search from "@components/Search";
 
-function Page() {
+async function Page() {
+  const posts = await getAllPosts({
+    page: 1,
+    pageSize: 25,
+  });
+
   return (
     <section className="mx-auto max-w-7xl">
       <div>
@@ -25,13 +30,21 @@ function Page() {
       </div>
 
       <div className="mt-10">
-        {false ? (
+        {posts.data.map(
+          ({ id, createdAt, updatedAt, code, language, theme }) => (
+            <div key={id}>
+              <time>{createdAt}</time>
+              <p>{code}</p>
+            </div>
+          )
+        )}
+        {/* {false ? (
           <div className="justify-cetner flex items-center">
             <Loader />
           </div>
         ) : (
           <Search />
-        )}
+        )} */}
       </div>
     </section>
   );

@@ -13,5 +13,6 @@ public static class Validators
         services.AddScoped<IValidator<CreatePostReq>, CreatePostReqValidator>();
         services.AddScoped<IValidator<GetPostReq>, GetPostReqValidator>();
         services.AddScoped<IValidator<UpdatePostReq>, UpdatePostReqValidator>();
+        services.AddScoped<IValidator<PaginatedReq>, PaginatedReqValidator>();
     }
 }

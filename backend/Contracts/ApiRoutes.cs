@@ -12,6 +12,7 @@ public class ApiRoutes
 
         public const string Create = $"{Endpoint}/create";
         public const string Get = $"{Endpoint}/get";
+        public const string GetAll = $"{Endpoint}/getAll";
         public const string Update = $"{Endpoint}/update";
     }
 }

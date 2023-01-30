@@ -19,7 +19,9 @@ function TextArea({ name, labelName, placeholder, inputProps, errors }: Props) {
       </label>
       <textarea
         {...inputProps}
+        id={name}
         placeholder={placeholder}
+        rows={6}
         className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none ${
           errors
             ? "focus:border-red-600 focus:ring-red-600"

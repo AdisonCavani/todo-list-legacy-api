@@ -4,9 +4,9 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputField from "./form/InputField";
-import Loader from "./Loader";
 import TextArea from "./form/TextArea";
 import { createPost } from "@api/client";
+import { IconLoader2 } from "@tabler/icons-react";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -72,10 +72,14 @@ function Form() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-3 w-full rounded-md bg-[#6469ff] px-5 py-2.5 text-center text-sm font-medium text-white sm:w-auto"
+          className={`mt-3 flex w-full gap-x-2 rounded-md px-5 py-2.5 text-center text-sm font-medium text-white sm:w-auto ${
+            isSubmitting
+              ? "cursor-not-allowed bg-[#6469ff]/80"
+              : "cursor-pointer bg-[#6469ff]"
+          }`}
         >
-          {isSubmitting && <Loader />}
-          {!isSubmitting && "Share with the community"}
+          {isSubmitting && <IconLoader2 size={20} className="animate-spin" />}
+          Share with the community
         </button>
       </div>
     </form>

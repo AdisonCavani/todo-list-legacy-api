@@ -3,9 +3,9 @@ export const ApiRoutes = {
 
   health: "/health",
 
-  post: {
-    create: "/post/create",
-    get: "/post/get",
-    getAll: "/post/getAll",
+  task: {
+    create: "/task/create",
+    get: "/task/get",
+    list: "/task/list",
   },
 };

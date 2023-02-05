@@ -6,13 +6,13 @@ public class ApiRoutes
 
     public const string Health = $"{BasePath}/health";
 
-    public static class Post
+    public static class Task
     {
-        private const string Endpoint = $"{BasePath}/post";
+        private const string Endpoint = $"{BasePath}/task";
 
         public const string Create = $"{Endpoint}/create";
         public const string Get = $"{Endpoint}/get";
-        public const string GetAll = $"{Endpoint}/getAll";
+        public const string List = $"{Endpoint}/list";
         public const string Update = $"{Endpoint}/update";
     }
 }

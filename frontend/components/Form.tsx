@@ -4,14 +4,11 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputField from "./form/InputField";
-import TextArea from "./form/TextArea";
-import { createPost } from "@api/client";
+import { createTask } from "@api/client";
 import { IconLoader2 } from "@tabler/icons-react";
 
 const schema = z.object({
-  name: z.string().min(1, "Name is required"),
   title: z.string().min(1, "Title is required"),
-  code: z.string().min(1, "Code is required"),
 });
 
 type schemaType = z.infer<typeof schema>;
@@ -26,10 +23,8 @@ function Form() {
   });
 
   const onSubmit: SubmitHandler<schemaType> = async (values) => {
-    const res = await createPost({
-      code: values.code,
-      language: 0,
-      theme: 0,
+    const res = await createTask({
+      title: values.title,
     });
 
     console.log(res);
@@ -39,27 +34,11 @@ function Form() {
     <form className="mt-16 max-w-3xl" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-5">
         <InputField
-          name="name"
-          labelName="Your name"
-          placeholder="John Doe"
-          inputProps={{ ...register("name") }}
-          errors={errors.name}
-        />
-
-        <InputField
           name="title"
           labelName="Title"
           placeholder="A brief description of this code snippet"
           inputProps={{ ...register("title") }}
           errors={errors.title}
-        />
-
-        <TextArea
-          name="code"
-          labelName="Code"
-          placeholder="Your code snippet"
-          inputProps={{ ...register("code") }}
-          errors={errors.code}
         />
       </div>
 

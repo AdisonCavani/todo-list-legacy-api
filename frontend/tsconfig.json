@@ -24,7 +24,8 @@
       "@api/*": ["api/*"],
       "@components/*": ["components/*"],
       "@lib/*": ["lib/*"],
-      "@images/*": ["public/static/images/*"]
+      "@images/*": ["public/static/images/*"],
+      "@static/*": ["public/static/*"]
     },
     "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,

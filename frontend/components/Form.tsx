@@ -57,7 +57,7 @@ function Form({ callback }: Props) {
           }`}
         >
           {isSubmitting && <IconLoader2 size={20} className="animate-spin" />}
-          Add
+          New task
         </button>
       </div>
       {errors.title && (

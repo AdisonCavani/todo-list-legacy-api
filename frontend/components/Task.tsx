@@ -1,16 +1,16 @@
 import { updateTask } from "@api/client";
 import type { TaskDto } from "@api/dtos/TaskDto";
-import { IconCalendarEvent } from "@tabler/icons-react";
+import type { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
+import { IconCalendarEvent, IconGripVertical } from "@tabler/icons-react";
 import { ChangeEvent, useState } from "react";
 
-function Task({
-  id,
-  title,
-  description,
-  dueDate,
-  dueTime,
-  isCompleted,
-}: TaskDto) {
+type Props = {
+  task: TaskDto;
+  dragHandleProps: DraggableProvidedDragHandleProps | null;
+};
+
+function Task({ dragHandleProps, task }: Props) {
+  const { id, title, description, dueDate, dueTime, isCompleted } = task;
   const [completed, setCompleted] = useState<boolean>(isCompleted);
 
   async function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -27,7 +27,18 @@ function Task({
   }
 
   return (
-    <div className="flex flex-row gap-x-2 border-b border-neutral-200">
+    <>
+      <div
+        {...dragHandleProps}
+        className="group/icon absolute flex h-6 w-6 cursor-move items-center justify-center rounded bg-transparent text-neutral-400 hover:visible hover:bg-neutral-200 hover:text-black active:invisible group-hover:visible"
+        style={{ top: "7px", left: "-30px" }}
+      >
+        <IconGripVertical
+          size={20}
+          className="invisible group-hover:visible group-hover/icon:visible"
+        />
+      </div>
+
       <input
         id={id}
         type="checkbox"
@@ -50,62 +61,61 @@ function Task({
 
         {displayTime(dueDate, dueTime)}
       </div>
-    </div>
+    </>
   );
 }
 
 function displayTime(dueDate: string | undefined, dueTime: string | undefined) {
   if (!dueDate && !dueTime) return undefined;
 
-  const options: Intl.RelativeTimeFormatOptions = {
-    localeMatcher: "best fit",
-    numeric: "auto",
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
   };
 
-  // Date and time
-  if (dueDate && dueTime) {
-    const date = new Date(`${dueDate} ${dueTime}`);
-    const today = Date.now();
+  const weekendOpt: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+  };
 
-    const diff = Math.floor((date.getTime() - today) / (1000 * 60 * 60 * 24));
-    const relative = new Intl.RelativeTimeFormat("en-US", options).format(
-      diff,
-      "day"
-    );
+  const currYearOpt: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "short",
+  };
 
+  const otherOpt: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  };
+
+  const date = new Date(dueTime ? `${dueDate} ${dueTime}` : dueDate!);
+  const today = Date.now();
+
+  const diff = Math.floor((date.getTime() - today) / (1000 * 60 * 60 * 24));
+
+  // Today and tomorrow
+  if (diff === 0 || diff === 1) {
+    const relative = new Intl.RelativeTimeFormat("en-US", {
+      localeMatcher: "best fit",
+      numeric: "auto",
+    }).format(diff, "day");
     const dateString = relative.charAt(0).toUpperCase() + relative.slice(1);
+    const timeString = date.toLocaleTimeString("en-US", timeOptions);
+    const str = dueTime ? `${dateString} ${timeString}` : dateString;
+    return styleTime(str, diff);
+  } else {
+    let options = weekendOpt;
 
-    const timeString = date.toLocaleTimeString("en-US", {
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    if (diff < 7) options = weekendOpt;
+    else if (date.getFullYear() === new Date().getFullYear())
+      options = currYearOpt;
+    else options = otherOpt;
 
-    return styleTime(`${dateString} ${timeString}`, diff);
-  }
-
-  // Date only
-  else if (dueDate && !dueTime) {
-    const date = new Date(dueDate);
-    const today = Date.now();
-
-    const diff =
-      Math.floor((date.getTime() - today) / (1000 * 60 * 60 * 24)) + 1;
-
-    const relative = new Intl.RelativeTimeFormat("en-US", options).format(
-      diff,
-      "day"
-    );
-
-    const dateString = relative.charAt(0).toUpperCase() + relative.slice(1);
-
-    return styleTime(dateString, diff);
-  }
-
-  // TODO: this shouldn't happen
-  // Time only
-  else {
-    throw new Error("Invalid date format - only time specified!");
+    const dateString = Intl.DateTimeFormat("en-US", options).format(date);
+    const timeString = date.toLocaleTimeString("en-US", timeOptions);
+    const str = dueTime ? `${dateString} ${timeString}` : dateString;
+    return styleTime(str, diff);
   }
 }
 

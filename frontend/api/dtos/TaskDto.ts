@@ -8,6 +8,7 @@ interface TaskDto extends BaseDto {
   description?: string;
   dueDate?: string;
   dueTime?: string;
+  isCompleted: boolean;
 }
 
 export type { TaskDto };

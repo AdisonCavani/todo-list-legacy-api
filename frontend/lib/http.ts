@@ -41,6 +41,22 @@ export class RestClient {
 
     return res.json() as unknown as T;
   }
+
+  public async patch<T extends BaseRes>(path: string, req?: BaseReq) {
+    const queryUrl = this._baseUrl + path;
+
+    const res = await fetch(queryUrl, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch data");
+
+    return res.json() as unknown as T;
+  }
 }
 
 function appendParams(obj: any): URLSearchParams {

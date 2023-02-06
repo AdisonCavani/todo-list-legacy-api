@@ -6,6 +6,7 @@ export const ApiRoutes = {
   task: {
     create: "/task/create",
     get: "/task/get",
+    update: "/task/update",
     list: "/task/list",
   },
 };

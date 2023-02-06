@@ -9,13 +9,13 @@
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
     "@next/font": "^13.1.6",
-    "@tabler/icons-react": "^2.1.2",
+    "@tabler/icons-react": "^2.2.0",
     "file-saver": "^2.0.5",
     "highlight.js": "^11.7.0",
     "next": "13.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.42.1",
+    "react-hook-form": "^7.43.0",
     "zod": "^3.20.2"
   },
   "devDependencies": {

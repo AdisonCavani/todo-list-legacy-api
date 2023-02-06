@@ -9,4 +9,5 @@ public class TaskDto
     public string? Description { get; set; }
     public DateOnly? DueDate { get; set; }
     public TimeOnly? DueTime { get; set; }
+    public bool IsCompleted { get; set; }
 }

@@ -3,9 +3,10 @@
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputField from "./form/InputField";
 import { createTask } from "@api/client";
 import { IconLoader2 } from "@tabler/icons-react";
+import type { TaskDto } from "@api/dtos/TaskDto";
+import type { Dispatch, SetStateAction } from "react";
 
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -13,7 +14,11 @@ const schema = z.object({
 
 type schemaType = z.infer<typeof schema>;
 
-function Form() {
+type Props = {
+  callback: (newTask: TaskDto) => void;
+};
+
+function Form({ callback }: Props) {
   const {
     register,
     handleSubmit,
@@ -27,40 +32,37 @@ function Form() {
       title: values.title,
     });
 
-    console.log(res);
+    callback(res);
   };
 
   return (
-    <form className="mt-16 max-w-3xl" onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-5">
-        <InputField
-          name="title"
-          labelName="Title"
-          placeholder="A brief description of this code snippet"
-          inputProps={{ ...register("title") }}
-          errors={errors.title}
+    <form className="max-w-3xl" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-row gap-5">
+        <input
+          {...register("title")}
+          placeholder="Add a task"
+          className={`block rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none ${
+            errors
+              ? "focus:border-red-600 focus:ring-red-600"
+              : "focus:border-[#6469ff] focus:ring-[#6469ff]"
+          }`}
         />
-      </div>
-
-      <div className="mt-10">
-        <p className="mt-2 text-sm text-[#666e75]">
-          Once you have created the snippet you wanted, you can share it with
-          others in the community
-        </p>
-
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`mt-3 flex w-full gap-x-2 rounded-md px-5 py-2.5 text-center text-sm font-medium text-white sm:w-auto ${
+          className={`flex items-center justify-center gap-x-2 rounded-md px-5 py-2.5 text-center text-sm font-medium text-white ${
             isSubmitting
               ? "cursor-not-allowed bg-[#6469ff]/80"
               : "cursor-pointer bg-[#6469ff]"
           }`}
         >
           {isSubmitting && <IconLoader2 size={20} className="animate-spin" />}
-          Share with the community
+          Add
         </button>
       </div>
+      {errors.title && (
+        <p className="mt-2 text-sm text-red-600">{errors.title?.message}</p>
+      )}
     </form>
   );
 }

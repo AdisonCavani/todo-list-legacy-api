@@ -8,7 +8,7 @@ import {
   DropResult,
   ResponderProvided,
 } from "@hello-pangea/dnd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Form from "./Form";
 import Task from "./Task";
 
@@ -17,12 +17,7 @@ interface Props {
 }
 
 function App({ tasks }: Props) {
-  const [items, setItems] = useState<TaskDto[]>([]);
-
-  useEffect(() => {
-    setItems(tasks);
-  }, [tasks]);
-
+  const [items, setItems] = useState<TaskDto[]>(tasks);
   function callbackFn(newTask: TaskDto) {
     setItems([...items, newTask]);
   }

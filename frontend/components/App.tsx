@@ -4,7 +4,7 @@ import type { TaskDto } from "@api/dtos/TaskDto";
 import { Disclosure, Transition } from "@headlessui/react";
 import { sortTasksByDueDate } from "@lib/sort";
 import type { AppDispatch } from "@lib/store";
-import { addTasks, selectTasks } from "@lib/taskSlice";
+import { addTasksReducer, selectTasks } from "@lib/taskSlice";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ function App({ tasks }: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
   useMemo(() => {
-    dispatch(addTasks(tasks));
+    dispatch(addTasksReducer(tasks));
   }, [tasks, dispatch]);
 
   const items = useSelector(selectTasks);

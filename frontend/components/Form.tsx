@@ -12,10 +12,11 @@ import { Menu, Transition } from "@headlessui/react";
 import { createTask } from "@api/client";
 import DateComponent from "./Date";
 import { useDispatch } from "react-redux";
-import { addTask } from "@lib/taskSlice";
+import { addTaskReducer } from "@lib/taskSlice";
 import type { AppDispatch } from "@lib/store";
 
 function Form() {
+  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [title, setTitle] = useState<string>("");
@@ -31,9 +32,7 @@ function Form() {
       dueDate: date?.toISOString().split("T")[0],
     });
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const dispatch = useDispatch<AppDispatch>();
-    dispatch(addTask(task));
+    dispatch(addTaskReducer(task));
 
     setTitle("");
     setDate(undefined);

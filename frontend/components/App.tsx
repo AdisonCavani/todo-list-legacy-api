@@ -1,13 +1,14 @@
 "use client";
 
 import type { TaskDto } from "@api/dtos/TaskDto";
+import { Disclosure, Transition } from "@headlessui/react";
 import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult,
-  ResponderProvided,
-} from "@hello-pangea/dnd";
+  sortTasksByTitle,
+  sortTasksByCreationDate,
+  sortTasksByImportance,
+  sortTasksByDueDate,
+} from "@lib/sort";
+import { IconChevronRight } from "@tabler/icons-react";
 import { useState } from "react";
 import Form from "./Form";
 import Task from "./Task";
@@ -22,47 +23,53 @@ function App({ tasks }: Props) {
     setItems([...items, newTask]);
   }
 
-  function handleOnDragEnd(result: DropResult, _: ResponderProvided) {
-    if (!result.destination) return;
+  const notFinishedTasks = items
+    .filter((x) => !x.isCompleted)
+    .sort(sortTasksByDueDate);
 
-    const myArr = Array.from(items);
-    const [reorderedItem] = myArr.splice(result.source.index, 1);
-    myArr.splice(result.destination.index, 0, reorderedItem!);
-
-    setItems(myArr);
-  }
+  const finishedTasks = items
+    .filter((x) => x.isCompleted)
+    .sort(sortTasksByDueDate);
 
   return (
     <>
-      <h1 className="text-2xl font-bold">Tasks</h1>
+      <h1 className="mb-3 text-xl font-bold">Tasks</h1>
 
       <Form callback={callbackFn} />
 
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="tasks">
-          {(provided) => (
-            <ul {...provided.droppableProps} ref={provided.innerRef}>
-              {items.map((task, index) => (
-                <Draggable key={task.id} draggableId={task.id} index={index}>
-                  {(provided) => (
-                    <li
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className="group relative flex flex-row gap-x-2 border-b border-neutral-200"
-                    >
-                      <Task
-                        dragHandleProps={provided.dragHandleProps}
-                        task={task}
-                      />
-                    </li>
-                  )}
-                </Draggable>
+      <ul className="flex flex-col gap-y-2">
+        {notFinishedTasks.map((task) => (
+          <Task key={task.id} {...task} />
+        ))}
+      </ul>
+
+      <Disclosure>
+        <Disclosure.Button className="flex items-center gap-x-3 border-b border-neutral-300 py-2 text-sm ui-open:border-b-0">
+          <IconChevronRight
+            size={22}
+            className="stroke-1 text-neutral-500 transition-transform ui-open:rotate-90 ui-open:transform"
+          />
+          <h3 className="p-2 font-semibold">Completed</h3>
+          <span className="">{finishedTasks.length}</span>
+        </Disclosure.Button>
+
+        <Transition
+          enter="transition duration-100 ease-out"
+          enterFrom="transform scale-95 opacity-0"
+          enterTo="transform scale-100 opacity-100"
+          leave="transition duration-75 ease-out"
+          leaveFrom="transform scale-100 opacity-100"
+          leaveTo="transform scale-95 opacity-0"
+        >
+          <Disclosure.Panel>
+            <ul className="flex flex-col gap-y-2">
+              {finishedTasks.map((task) => (
+                <Task key={task.id} {...task} />
               ))}
-              {provided.placeholder}
             </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
+          </Disclosure.Panel>
+        </Transition>
+      </Disclosure>
     </>
   );
 }

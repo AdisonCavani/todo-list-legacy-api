@@ -8,7 +8,7 @@ async function Page() {
   });
 
   return (
-    <section className="mx-auto flex max-w-7xl flex-col gap-y-6 px-6">
+    <section className="mx-auto flex max-w-7xl flex-col gap-y-2">
       <App tasks={res.data} />
     </section>
   );

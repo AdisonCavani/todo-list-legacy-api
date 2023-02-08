@@ -1,7 +1,3 @@
-import type { BaseDto } from "@api/dtos/BaseDto";
-import type { BaseReq } from "@api/req/BaseReq";
-import type { BaseRes } from "@api/res/BaseRes";
-
 export class RestClient {
   private _baseUrl: string;
 
@@ -9,7 +5,7 @@ export class RestClient {
     this._baseUrl = baseUrl;
   }
 
-  public async get<T extends BaseRes | BaseDto>(path: string, req?: BaseReq) {
+  public async get<T>(path: string, req?: any) {
     const queryUrl = req
       ? `${this._baseUrl + path}?${appendParams(req)}`
       : this._baseUrl + path;
@@ -23,10 +19,10 @@ export class RestClient {
 
     if (!res.ok) throw new Error("Failed to fetch data");
 
-    return res.json() as unknown as T;
+    return res.json() as T;
   }
 
-  public async post<T extends BaseRes>(path: string, req?: BaseReq) {
+  public async post<T>(path: string, req?: any) {
     const queryUrl = this._baseUrl + path;
 
     const res = await fetch(queryUrl, {
@@ -39,10 +35,10 @@ export class RestClient {
 
     if (!res.ok) throw new Error("Failed to fetch data");
 
-    return res.json() as unknown as T;
+    return res.json() as T;
   }
 
-  public async patch<T extends BaseRes>(path: string, req?: BaseReq) {
+  public async patch<T>(path: string, req?: any) {
     const queryUrl = this._baseUrl + path;
 
     const res = await fetch(queryUrl, {
@@ -55,7 +51,7 @@ export class RestClient {
 
     if (!res.ok) throw new Error("Failed to fetch data");
 
-    return res.json() as unknown as T;
+    return res.json() as T;
   }
 }
 

@@ -1,6 +1,4 @@
-import type { BaseDto } from "./BaseDto";
-
-interface TaskDto extends BaseDto {
+type TaskDto = {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -9,6 +7,6 @@ interface TaskDto extends BaseDto {
   dueDate?: string;
   dueTime?: string;
   isCompleted: boolean;
-}
+};
 
 export type { TaskDto };

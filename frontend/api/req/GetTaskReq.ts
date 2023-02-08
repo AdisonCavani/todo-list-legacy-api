@@ -1,7 +1,5 @@
-import type { BaseReq } from "./BaseReq";
-
-interface GetTaskReq extends BaseReq {
+type GetTaskReq = {
   id: string;
-}
+};
 
 export type { GetTaskReq };

@@ -2,12 +2,7 @@
 
 import type { TaskDto } from "@api/dtos/TaskDto";
 import { Disclosure, Transition } from "@headlessui/react";
-import {
-  sortTasksByTitle,
-  sortTasksByCreationDate,
-  sortTasksByImportance,
-  sortTasksByDueDate,
-} from "@lib/sort";
+import { sortTasksByDueDate } from "@lib/sort";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useState } from "react";
 import Form from "./Form";

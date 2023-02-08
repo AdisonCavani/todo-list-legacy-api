@@ -1,9 +1,7 @@
-import type { BaseDto } from "./BaseDto";
-
-interface HealthCheckDto extends BaseDto {
+type HealthCheckDto = {
   status: string;
   component: string;
   description?: string | undefined;
-}
+};
 
 export type { HealthCheckDto };

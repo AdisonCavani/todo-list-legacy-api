@@ -2,6 +2,8 @@ import { Inter } from "@next/font/google";
 import type { PropsWithChildren } from "react";
 import Header from "@components/Header";
 
+export const dynamic = "force-dynamic";
+
 const fontInter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",

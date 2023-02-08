@@ -1,8 +1,6 @@
-import type { BaseReq } from "./BaseReq";
-
-interface PaginatedReq extends BaseReq {
+type PaginatedReq = {
   pageSize: number;
   page: number;
-}
+};
 
 export type { PaginatedReq };

@@ -3,8 +3,11 @@
 import type { TaskDto } from "@api/dtos/TaskDto";
 import { Disclosure, Transition } from "@headlessui/react";
 import { sortTasksByDueDate } from "@lib/sort";
+import type { AppDispatch } from "@lib/store";
+import { addTasks, selectTasks } from "@lib/taskSlice";
 import { IconChevronRight } from "@tabler/icons-react";
-import { useState } from "react";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Form from "./Form";
 import Task from "./Task";
 
@@ -13,10 +16,13 @@ interface Props {
 }
 
 function App({ tasks }: Props) {
-  const [items, setItems] = useState<TaskDto[]>(tasks);
-  function callbackFn(newTask: TaskDto) {
-    setItems([...items, newTask]);
-  }
+  const dispatch = useDispatch<AppDispatch>();
+
+  useMemo(() => {
+    dispatch(addTasks(tasks));
+  }, [tasks, dispatch]);
+
+  const items = useSelector(selectTasks);
 
   const notFinishedTasks = items
     .filter((x) => !x.isCompleted)
@@ -30,9 +36,9 @@ function App({ tasks }: Props) {
     <>
       <h1 className="mb-3 text-xl font-bold">Tasks</h1>
 
-      <Form callback={callbackFn} />
+      <Form />
 
-      <ul className="flex flex-col gap-y-2">
+      <ul className="z-[1] flex flex-col gap-y-2">
         {notFinishedTasks.map((task) => (
           <Task key={task.id} {...task} />
         ))}
@@ -57,7 +63,7 @@ function App({ tasks }: Props) {
           leaveTo="transform scale-95 opacity-0"
         >
           <Disclosure.Panel>
-            <ul className="flex flex-col gap-y-2">
+            <ul className="z-[1] flex flex-col gap-y-2">
               {finishedTasks.map((task) => (
                 <Task key={task.id} {...task} />
               ))}

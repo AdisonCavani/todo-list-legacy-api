@@ -1,4 +1,5 @@
 import { RestClient } from "@lib/http";
+import { cache } from "react";
 import type { TaskDto } from "./dtos/TaskDto";
 import type { CreateTaskReq } from "./req/CreateTaskReq";
 import type { GetTaskReq } from "./req/GetTaskReq";
@@ -10,17 +11,17 @@ import { ApiRoutes } from "./routes";
 
 const client = new RestClient(ApiRoutes.baseUrl);
 
-export async function getHealth() {
+export const getHealth = cache(async () => {
   return await client.get<HealthCheckRes>(ApiRoutes.health);
-}
+});
 
-export async function getTask(req: GetTaskReq) {
+export const getTask = cache(async (req: GetTaskReq) => {
   return await client.get<TaskDto>(ApiRoutes.task.get, req);
-}
+});
 
-export async function listTasks(req: PaginatedReq) {
+export const listTasks = cache(async (req: PaginatedReq) => {
   return await client.get<PaginatedRes<TaskDto>>(ApiRoutes.task.list, req);
-}
+});
 
 export async function createTask(req: CreateTaskReq) {
   return await client.post<TaskDto>(ApiRoutes.task.create, req);

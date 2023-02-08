@@ -3,39 +3,46 @@
 import {
   IconBell,
   IconCalendarEvent,
+  IconLoader2,
   IconRepeat,
   IconTrash,
 } from "@tabler/icons-react";
-import type { TaskDto } from "@api/dtos/TaskDto";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { createTask } from "@api/client";
 import DateComponent from "./Date";
+import { useDispatch } from "react-redux";
+import { addTask } from "@lib/taskSlice";
+import type { AppDispatch } from "@lib/store";
 
-type Props = {
-  callback: (newTask: TaskDto) => void;
-};
+function Form() {
+  const [loading, setLoading] = useState<boolean>(false);
 
-function Form({ callback }: Props) {
   const [title, setTitle] = useState<string>("");
   const [date, setDate] = useState<Date>();
 
-  const submitDisabled = title.trim().length === 0;
+  const submitDisabled = title.trim().length === 0 || loading;
 
   async function handleOnSubmit() {
+    setLoading(true);
+
     const task = await createTask({
       title: title,
       dueDate: date?.toISOString().split("T")[0],
     });
 
-    callback(task);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const dispatch = useDispatch<AppDispatch>();
+    dispatch(addTask(task));
 
     setTitle("");
     setDate(undefined);
+
+    setLoading(false);
   }
 
   return (
-    <div className="rounded-md border-neutral-200 bg-white shadow-md">
+    <div className="z-[2] rounded-md border-neutral-200 bg-white shadow-md">
       <div className="flex flex-row items-center gap-x-2 px-4">
         <button className="text-neutral-400">
           <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400"></div>
@@ -176,7 +183,11 @@ function Form({ callback }: Props) {
           onClick={handleOnSubmit}
           className="border bg-white py-[6px] px-2 text-xs font-semibold disabled:cursor-not-allowed disabled:text-neutral-400"
         >
-          Add
+          {loading ? (
+            <IconLoader2 size={16} className="mx-1 animate-spin" />
+          ) : (
+            <p className="mx-[1px]">Add</p>
+          )}
         </button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { listTasks } from "@api/client";
 import App from "@components/App";
+import ReduxProvider from "@components/ReduxProvider";
 
 async function Page() {
   const res = await listTasks({
@@ -9,7 +10,9 @@ async function Page() {
 
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-y-2">
-      <App tasks={res.data} />
+      <ReduxProvider>
+        <App tasks={res.data} />
+      </ReduxProvider>
     </section>
   );
 }

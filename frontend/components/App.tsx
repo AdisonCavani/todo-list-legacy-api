@@ -1,27 +1,14 @@
 "use client";
 
-import type { TaskDto } from "@api/dtos/TaskDto";
 import { Disclosure, Transition } from "@headlessui/react";
 import { sortTasksByDueDate } from "@lib/sort";
-import type { AppDispatch } from "@lib/store";
-import { addTasksReducer, selectTasks } from "@lib/taskSlice";
+import { selectTasks } from "@lib/taskSlice";
 import { IconChevronRight } from "@tabler/icons-react";
-import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Form from "./Form";
 import Task from "./Task";
 
-interface Props {
-  tasks: TaskDto[];
-}
-
-function App({ tasks }: Props) {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useMemo(() => {
-    dispatch(addTasksReducer(tasks));
-  }, [tasks, dispatch]);
-
+function App() {
   const items = useSelector(selectTasks);
 
   const notFinishedTasks = items

@@ -3,7 +3,7 @@ import type { TaskDto } from "@api/dtos/TaskDto";
 import type { AppDispatch } from "@lib/store";
 import { updateTaskReducer } from "@lib/taskSlice";
 import { IconCalendarEvent, IconStar } from "@tabler/icons-react";
-import { ChangeEvent, useState } from "react";
+import type { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import DateComponent from "./Date";
 
@@ -16,11 +16,8 @@ function Task({
   isCompleted,
 }: TaskDto) {
   const dispatch = useDispatch<AppDispatch>();
-  const [completed, setCompleted] = useState<boolean>(isCompleted);
 
   async function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setCompleted(e.target.checked);
-
     const task = await updateTask({
       id: id,
       title: title,
@@ -38,7 +35,7 @@ function Task({
       <input
         id={id}
         type="checkbox"
-        checked={completed}
+        checked={isCompleted}
         onChange={handleChange}
         className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 checked:bg-neutral-400"
       />
@@ -47,7 +44,7 @@ function Task({
         <label
           htmlFor={id}
           className={`text-sm ${
-            completed
+            isCompleted
               ? "text-neutral-500 line-through decoration-neutral-500"
               : "text-black no-underline"
           }`}

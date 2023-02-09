@@ -26,7 +26,7 @@ const taskSlice = createSlice({
     addTasksReducer: (state, action: PayloadAction<TaskDto[]>) => {
       const keys = new Set(state.items.map((task) => task.id));
 
-      action.payload.map((task) => {
+      action.payload.forEach((task) => {
         if (!keys.has(task.id)) state.items.push(task);
       });
     },

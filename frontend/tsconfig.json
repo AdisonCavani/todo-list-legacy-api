@@ -25,7 +25,8 @@
       "@components/*": ["components/*"],
       "@lib/*": ["lib/*"],
       "@images/*": ["public/static/images/*"],
-      "@static/*": ["public/static/*"]
+      "@static/*": ["public/static/*"],
+      "@styles/*": ["styles/*"]
     },
     "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,

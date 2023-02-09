@@ -1,3 +1,5 @@
+"use client";
+
 import {
   IconBell,
   IconCalendarEvent,

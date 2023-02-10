@@ -1,6 +1,7 @@
 import { Inter } from "@next/font/google";
 import type { PropsWithChildren } from "react";
 import Header from "@components/header";
+import ToastWrapper from "@components/toastWrapper";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,7 @@ function Layout({ children }: PropsWithChildren) {
       <body className="bg-neutral-100">
         <Header />
         <main className="w-full px-6 py-8">{children}</main>
+        <ToastWrapper />
       </body>
     </html>
   );

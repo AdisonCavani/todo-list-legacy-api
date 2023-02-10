@@ -26,7 +26,6 @@ function sortTasksByDueDate(a: TaskDto, b: TaskDto): number {
   return aDate - bDate;
 }
 
-// TODO: add important task do schema
 function sortTasksByImportance(a: TaskDto, b: TaskDto): number {
   if (a.isImportant && !b.isImportant) return -1;
 
@@ -39,9 +38,11 @@ function sortTasksByCreationDate(a: TaskDto, b: TaskDto): number {
   return Date.parse(a.createdAt) - Date.parse(b.createdAt);
 }
 
-export {
+export const sortMethods = {
   sortTasksByTitle,
   sortTasksByDueDate,
   sortTasksByImportance,
   sortTasksByCreationDate,
 };
+
+export type SortMethodsTypes = keyof typeof sortMethods;

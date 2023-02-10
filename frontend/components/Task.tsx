@@ -1,6 +1,5 @@
-import { updateTask } from "@api/client";
 import type { TaskDto } from "@api/dtos/TaskDto";
-import { useStore } from "@lib/store";
+import { useUpdateTaskMutation } from "@lib/hooks";
 import {
   IconCalendarEvent,
   IconStar,
@@ -8,43 +7,22 @@ import {
 } from "@tabler/icons-react";
 import DateComponent from "./Date";
 
-function Task({
-  id,
-  title,
-  description,
-  dueDate,
-  dueTime,
-  isCompleted,
-  isImportant,
-}: TaskDto) {
-  const { updateTaskReducer } = useStore();
+function Task(task: TaskDto) {
+  const { id, title, dueDate, dueTime, isCompleted, isImportant } = task;
+  const { mutate } = useUpdateTaskMutation();
 
   async function handleCompletedChange() {
-    const task = await updateTask({
-      id: id,
-      title: title,
-      description: description,
-      dueDate: dueDate,
-      dueTime: dueTime,
+    mutate({
+      ...task,
       isCompleted: !isCompleted,
-      isImportant: isImportant,
     });
-
-    updateTaskReducer(task);
   }
 
   async function onImportantChange() {
-    const task = await updateTask({
-      id: id,
-      title: title,
-      description: description,
-      dueDate: dueDate,
-      dueTime: dueTime,
-      isCompleted: isCompleted,
+    mutate({
+      ...task,
       isImportant: !isImportant,
     });
-
-    updateTaskReducer(task);
   }
 
   return (

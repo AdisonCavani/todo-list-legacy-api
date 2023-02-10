@@ -1,5 +1,6 @@
 import { listTasks } from "@api/client";
 import StoreInitializer from "@components/StoreInitializer";
+import ReactQueryWrapper from "@components/ReactQueryWrapper";
 import App from "@components/App";
 
 async function Page() {
@@ -13,7 +14,9 @@ async function Page() {
       <StoreInitializer tasks={res.data} />
 
       <section className="mx-auto flex max-w-7xl flex-col gap-y-2">
-        <App />
+        <ReactQueryWrapper>
+          <App />
+        </ReactQueryWrapper>
       </section>
     </>
   );

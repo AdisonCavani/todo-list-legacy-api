@@ -9,34 +9,24 @@ import {
 } from "@tabler/icons-react";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { createTask } from "@api/client";
 import DateComponent from "./Date";
-import { useStore } from "@lib/store";
+import { useCreateTaskMutation } from "@lib/hooks";
 
 function Form() {
-  const [loading, setLoading] = useState<boolean>(false);
-
   const [title, setTitle] = useState<string>("");
   const [date, setDate] = useState<Date>();
 
-  const submitDisabled = title.trim().length === 0 || loading;
-
-  const { addTaskReducer } = useStore();
+  const { mutate, isLoading } = useCreateTaskMutation();
+  const submitDisabled = title.trim().length === 0 || isLoading;
 
   async function handleOnSubmit() {
-    setLoading(true);
-
-    const task = await createTask({
+    mutate({
       title: title,
       dueDate: date?.toISOString().split("T")[0],
     });
 
-    addTaskReducer(task);
-
     setTitle("");
     setDate(undefined);
-
-    setLoading(false);
   }
 
   return (
@@ -181,7 +171,7 @@ function Form() {
           onClick={handleOnSubmit}
           className="border bg-white py-[6px] px-2 text-xs font-semibold disabled:cursor-not-allowed disabled:text-neutral-400"
         >
-          {loading ? (
+          {isLoading ? (
             <IconLoader2 size={16} className="mx-1 animate-spin" />
           ) : (
             <p className="mx-[1px]">Add</p>

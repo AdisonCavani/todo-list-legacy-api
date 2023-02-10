@@ -10,4 +10,5 @@ public class TaskDto
     public DateOnly? DueDate { get; set; }
     public TimeOnly? DueTime { get; set; }
     public bool IsCompleted { get; set; }
+    public bool? IsImportant { get; set; }
 }

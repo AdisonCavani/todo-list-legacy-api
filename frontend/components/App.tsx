@@ -1,7 +1,7 @@
 "use client";
 
 import { Disclosure, Transition } from "@headlessui/react";
-import { sortTasksByDueDate } from "@lib/sort";
+import { sortTasksByImportance } from "@lib/sort";
 import { useStore } from "@lib/store";
 import { IconChevronRight } from "@tabler/icons-react";
 import Form from "./Form";
@@ -12,11 +12,11 @@ function App() {
 
   const notFinishedTasks = tasks
     .filter((x) => !x.isCompleted)
-    .sort(sortTasksByDueDate);
+    .sort(sortTasksByImportance);
 
   const finishedTasks = tasks
     .filter((x) => x.isCompleted)
-    .sort(sortTasksByDueDate);
+    .sort(sortTasksByImportance);
 
   return (
     <>

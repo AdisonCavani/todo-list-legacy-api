@@ -1,8 +1,11 @@
 import { updateTask } from "@api/client";
 import type { TaskDto } from "@api/dtos/TaskDto";
 import { useStore } from "@lib/store";
-import { IconCalendarEvent, IconStar } from "@tabler/icons-react";
-import type { ChangeEvent } from "react";
+import {
+  IconCalendarEvent,
+  IconStar,
+  IconStarFilled,
+} from "@tabler/icons-react";
 import DateComponent from "./Date";
 
 function Task({
@@ -12,17 +15,33 @@ function Task({
   dueDate,
   dueTime,
   isCompleted,
+  isImportant,
 }: TaskDto) {
   const { updateTaskReducer } = useStore();
 
-  async function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  async function handleCompletedChange() {
     const task = await updateTask({
       id: id,
       title: title,
       description: description,
       dueDate: dueDate,
       dueTime: dueTime,
-      isCompleted: e.target.checked,
+      isCompleted: !isCompleted,
+      isImportant: isImportant,
+    });
+
+    updateTaskReducer(task);
+  }
+
+  async function onImportantChange() {
+    const task = await updateTask({
+      id: id,
+      title: title,
+      description: description,
+      dueDate: dueDate,
+      dueTime: dueTime,
+      isCompleted: isCompleted,
+      isImportant: !isImportant,
     });
 
     updateTaskReducer(task);
@@ -34,7 +53,7 @@ function Task({
         id={id}
         type="checkbox"
         checked={isCompleted}
-        onChange={handleChange}
+        onChange={handleCompletedChange}
         className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 checked:bg-neutral-400"
       />
 
@@ -67,9 +86,8 @@ function Task({
         )}
       </div>
 
-      <button className="text-neutral-400">
-        <IconStar size={18} />
-        {/* <IconStarFilled /> */}
+      <button className="text-neutral-400" onClick={onImportantChange}>
+        {isImportant ? <IconStarFilled size={18} /> : <IconStar size={18} />}
       </button>
     </li>
   );

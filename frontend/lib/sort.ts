@@ -28,9 +28,9 @@ function sortTasksByDueDate(a: TaskDto, b: TaskDto): number {
 
 // TODO: add important task do schema
 function sortTasksByImportance(a: TaskDto, b: TaskDto): number {
-  // if (a.important && !b.important) return -1;
+  if (a.isImportant && !b.isImportant) return -1;
 
-  // if (!a.important && b.important) return 1;
+  if (!a.isImportant && b.isImportant) return 1;
 
   return sortTasksByDueDate(a, b);
 }

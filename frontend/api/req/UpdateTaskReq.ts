@@ -5,6 +5,7 @@ type UpdateTaskReq = {
   dueDate?: string | undefined;
   dueTime?: string | undefined;
   isCompleted?: boolean;
+  isImportant?: boolean;
 };
 
 export type { UpdateTaskReq };

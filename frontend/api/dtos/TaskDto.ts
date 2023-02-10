@@ -7,6 +7,7 @@ type TaskDto = {
   dueDate?: string;
   dueTime?: string;
   isCompleted: boolean;
+  isImportant: boolean;
 };
 
 export type { TaskDto };

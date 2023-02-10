@@ -48,7 +48,7 @@ function Task({
   }
 
   return (
-    <li className="group relative flex flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4 shadow-md">
+    <li className="group relative flex flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4 shadow-ms">
       <input
         id={id}
         type="checkbox"

@@ -40,7 +40,7 @@ function Form() {
   }
 
   return (
-    <div className="z-[2] rounded-md border-neutral-200 bg-white shadow-md">
+    <div className="z-[2] rounded-md border-neutral-200 bg-white shadow-ms">
       <div className="flex flex-row items-center gap-x-2 px-4">
         <button className="text-neutral-400">
           <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400"></div>
@@ -76,7 +76,7 @@ function Form() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute top-0 left-0 z-10 mt-8 min-w-[200px] rounded bg-white py-2 text-sm text-black shadow-md">
+              <Menu.Items className="absolute top-0 left-0 z-10 mt-8 min-w-[200px] rounded bg-white py-2 text-sm text-black shadow-xl">
                 <p className="mb-2 border-b px-2 pt-2 pb-3 text-center font-semibold">
                   Due
                 </p>

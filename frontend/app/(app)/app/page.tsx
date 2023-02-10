@@ -1,7 +1,6 @@
 import { listTasks } from "@api/client";
+import StoreInitializer from "@components/StoreInitializer";
 import App from "@components/App";
-import ReduxInitializer from "@components/ReduxInitializer";
-import ReduxProvider from "@components/ReduxProvider";
 
 async function Page() {
   const res = await listTasks({
@@ -10,12 +9,13 @@ async function Page() {
   });
 
   return (
-    <section className="mx-auto flex max-w-7xl flex-col gap-y-2">
-      <ReduxProvider>
-        <ReduxInitializer tasks={res.data} />
+    <>
+      <StoreInitializer tasks={res.data} />
+
+      <section className="mx-auto flex max-w-7xl flex-col gap-y-2">
         <App />
-      </ReduxProvider>
-    </section>
+      </section>
+    </>
   );
 }
 

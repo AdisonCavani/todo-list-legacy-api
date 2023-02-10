@@ -43,7 +43,7 @@ public class List : EndpointBaseAsync
             return NotFound();
 
         var posts = await _context.Tasks
-            .OrderBy(x => x.Id)
+            .OrderByDescending(x => x.CreatedAt)
             .Skip((req.Page - 1) * req.PageSize)
             .Take(req.PageSize)
             .ToListAsync(ct);

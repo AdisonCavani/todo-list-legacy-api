@@ -11,18 +11,17 @@ import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { createTask } from "@api/client";
 import DateComponent from "./Date";
-import { useDispatch } from "react-redux";
-import { addTaskReducer } from "@lib/taskSlice";
-import type { AppDispatch } from "@lib/store";
+import { useStore } from "@lib/store";
 
 function Form() {
-  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [title, setTitle] = useState<string>("");
   const [date, setDate] = useState<Date>();
 
   const submitDisabled = title.trim().length === 0 || loading;
+
+  const { addTaskReducer } = useStore();
 
   async function handleOnSubmit() {
     setLoading(true);
@@ -32,7 +31,7 @@ function Form() {
       dueDate: date?.toISOString().split("T")[0],
     });
 
-    dispatch(addTaskReducer(task));
+    addTaskReducer(task);
 
     setTitle("");
     setDate(undefined);

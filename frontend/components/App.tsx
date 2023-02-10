@@ -2,20 +2,19 @@
 
 import { Disclosure, Transition } from "@headlessui/react";
 import { sortTasksByDueDate } from "@lib/sort";
-import { selectTasks } from "@lib/taskSlice";
+import { useStore } from "@lib/store";
 import { IconChevronRight } from "@tabler/icons-react";
-import { useSelector } from "react-redux";
 import Form from "./Form";
 import Task from "./Task";
 
 function App() {
-  const items = useSelector(selectTasks);
+  const { tasks } = useStore();
 
-  const notFinishedTasks = items
+  const notFinishedTasks = tasks
     .filter((x) => !x.isCompleted)
     .sort(sortTasksByDueDate);
 
-  const finishedTasks = items
+  const finishedTasks = tasks
     .filter((x) => x.isCompleted)
     .sort(sortTasksByDueDate);
 

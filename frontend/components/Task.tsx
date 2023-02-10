@@ -1,10 +1,8 @@
 import { updateTask } from "@api/client";
 import type { TaskDto } from "@api/dtos/TaskDto";
-import type { AppDispatch } from "@lib/store";
-import { updateTaskReducer } from "@lib/taskSlice";
+import { useStore } from "@lib/store";
 import { IconCalendarEvent, IconStar } from "@tabler/icons-react";
 import type { ChangeEvent } from "react";
-import { useDispatch } from "react-redux";
 import DateComponent from "./Date";
 
 function Task({
@@ -15,7 +13,7 @@ function Task({
   dueTime,
   isCompleted,
 }: TaskDto) {
-  const dispatch = useDispatch<AppDispatch>();
+  const { updateTaskReducer } = useStore();
 
   async function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const task = await updateTask({
@@ -27,7 +25,7 @@ function Task({
       isCompleted: e.target.checked,
     });
 
-    dispatch(updateTaskReducer(task));
+    updateTaskReducer(task);
   }
 
   return (

@@ -9,7 +9,7 @@ import {
 } from "@tabler/icons-react";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import DateComponent from "./Date";
+import DateComponent from "./date";
 import { useCreateTaskMutation } from "@lib/hooks";
 
 function Form() {

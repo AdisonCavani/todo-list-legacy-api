@@ -1,4 +1,4 @@
-import type { HealthCheckDto } from "@api/dtos/HealthCheckDto";
+import type { HealthCheckDto } from "@api/dtos/healthCheckDto";
 
 type HealthCheckRes = {
   status: string;

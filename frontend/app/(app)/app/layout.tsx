@@ -1,6 +1,6 @@
 import { Inter } from "@next/font/google";
 import type { PropsWithChildren } from "react";
-import Header from "@components/Header";
+import Header from "@components/header";
 
 export const dynamic = "force-dynamic";
 

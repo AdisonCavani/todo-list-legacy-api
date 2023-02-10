@@ -1,7 +1,7 @@
 import { listTasks } from "@api/client";
-import StoreInitializer from "@components/StoreInitializer";
-import ReactQueryWrapper from "@components/ReactQueryWrapper";
-import App from "@components/App";
+import StoreInitializer from "@components/storeInitializer";
+import ReactQueryWrapper from "@components/reactQueryWrapper";
+import App from "@components/app";
 
 async function Page() {
   const res = await listTasks({

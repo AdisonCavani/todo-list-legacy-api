@@ -1,11 +1,11 @@
 import { RestClient } from "@lib/http";
-import type { TaskDto } from "./dtos/TaskDto";
-import type { CreateTaskReq } from "./req/CreateTaskReq";
-import type { GetTaskReq } from "./req/GetTaskReq";
-import type { PaginatedReq } from "./req/PaginatedReq";
-import type { UpdateTaskReq } from "./req/UpdateTaskReq";
-import type { HealthCheckRes } from "./res/HealthCheckRes";
-import type { PaginatedRes } from "./res/PaginatedRes";
+import type { TaskDto } from "./dtos/taskDto";
+import type { CreateTaskReq } from "./req/createTaskReq";
+import type { GetTaskReq } from "./req/getTaskReq";
+import type { PaginatedReq } from "./req/paginatedReq";
+import type { UpdateTaskReq } from "./req/updateTaskReq";
+import type { HealthCheckRes } from "./res/healthCheckRes";
+import type { PaginatedRes } from "./res/paginatedRes";
 import { ApiRoutes } from "./routes";
 
 const client = new RestClient(ApiRoutes.baseUrl);

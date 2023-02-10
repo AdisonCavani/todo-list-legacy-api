@@ -4,8 +4,8 @@ import { Disclosure, Transition } from "@headlessui/react";
 import { sortTasksByImportance } from "@lib/sort";
 import { useStore } from "@lib/store";
 import { IconChevronRight } from "@tabler/icons-react";
-import Form from "./Form";
-import Task from "./Task";
+import Form from "./form";
+import Task from "./task";
 
 function App() {
   const { tasks } = useStore();

@@ -1,11 +1,11 @@
-import type { TaskDto } from "@api/dtos/TaskDto";
+import type { TaskDto } from "@api/dtos/taskDto";
 import { useUpdateTaskMutation } from "@lib/hooks";
 import {
   IconCalendarEvent,
   IconStar,
   IconStarFilled,
 } from "@tabler/icons-react";
-import DateComponent from "./Date";
+import DateComponent from "./date";
 
 function Task(task: TaskDto) {
   const { id, title, dueDate, dueTime, isCompleted, isImportant } = task;

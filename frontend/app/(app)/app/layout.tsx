@@ -14,7 +14,7 @@ function Layout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={`font-sans ${fontInter.variable} antialiased`}>
       <head />
-      <body className="bg-neutral-100">
+      <body className="bg-neutral-50">
         <Header />
         <main className="w-full px-6 py-8">{children}</main>
         <ToastWrapper />

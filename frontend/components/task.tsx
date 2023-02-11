@@ -36,8 +36,7 @@ function Task(task: TaskDto) {
       />
 
       <div className="flex min-h-[52px] w-full flex-col justify-center py-2 px-4">
-        <label
-          htmlFor={id}
+        <p
           className={`text-sm ${
             isCompleted
               ? "text-neutral-500 line-through decoration-neutral-500"
@@ -45,7 +44,7 @@ function Task(task: TaskDto) {
           }`}
         >
           {title}
-        </label>
+        </p>
 
         {dueDate && dueTime && (
           <DateComponent

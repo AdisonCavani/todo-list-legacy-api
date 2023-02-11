@@ -43,7 +43,7 @@ function Form() {
         />
       </div>
 
-      <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-100 px-4">
+      <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-50 px-4">
         <div className="flex flex-row items-center gap-x-2 text-neutral-500">
           <Menu as="div" className="relative">
             <Menu.Button

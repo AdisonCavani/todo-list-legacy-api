@@ -27,11 +27,11 @@ function sortTasksByDueDate(a: TaskDto, b: TaskDto): number {
 }
 
 function sortTasksByImportance(a: TaskDto, b: TaskDto): number {
-  if (a.isImportant && !b.isImportant) return -1;
+  if (a.isImportant && !b.isImportant) return 1;
 
-  if (!a.isImportant && b.isImportant) return 1;
+  if (!a.isImportant && b.isImportant) return -1;
 
-  return sortTasksByDueDate(a, b);
+  return sortTasksByDueDate(b, a);
 }
 
 function sortTasksByCreationDate(a: TaskDto, b: TaskDto): number {
@@ -45,4 +45,15 @@ export const sortMethods = {
   sortTasksByCreationDate,
 };
 
-export type SortMethodsTypes = keyof typeof sortMethods;
+export const sortMethodsNames = {
+  sortTasksByTitle: "alphabetically",
+  sortTasksByDueDate: "by due date",
+  sortTasksByImportance: "by importance",
+  sortTasksByCreationDate: "by creation date",
+};
+
+type SortMethodsTypes = keyof typeof sortMethods;
+export type SortingOptions = {
+  fn: SortMethodsTypes;
+  order: "asc" | "desc";
+};

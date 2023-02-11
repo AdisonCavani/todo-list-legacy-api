@@ -1,32 +1,51 @@
 "use client";
 
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { sortMethods, SortMethodsTypes } from "@lib/sort";
+import { sortMethods, sortMethodsNames, SortingOptions } from "@lib/sort";
 import { useStore } from "@lib/store";
 import {
   IconArrowsSort,
   IconCalendarPlus,
   IconCalendarTime,
   IconChevronRight,
+  IconChevronUp,
   IconStar,
+  IconX,
 } from "@tabler/icons-react";
-import { Fragment, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import Form from "./form";
 import Task from "./task";
 
 function App() {
   const { tasks } = useStore();
-  const defaultSortingFn: SortMethodsTypes = "sortTasksByImportance";
-  const [sortingFn, setSortingFn] =
-    useState<SortMethodsTypes>(defaultSortingFn);
 
-  const notFinishedTasks = tasks
-    .filter((x) => !x.isCompleted)
-    .sort(sortMethods[sortingFn]);
+  const defaultSorting: SortingOptions = {
+    fn: "sortTasksByImportance",
+    order: "desc",
+  };
+  const [sorting, setSorting] = useState<SortingOptions>(defaultSorting);
 
-  const finishedTasks = tasks
-    .filter((x) => x.isCompleted)
-    .sort(sortMethods[sortingFn]);
+  const notFinishedTasks = useMemo(
+    () =>
+      tasks
+        .filter((x) => !x.isCompleted)
+        .sort((a, b) => {
+          if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
+          return sortMethods[sorting.fn](b, a);
+        }),
+    [sorting.fn, sorting.order, tasks]
+  );
+
+  const finishedTasks = useMemo(
+    () =>
+      tasks
+        .filter((x) => x.isCompleted)
+        .sort((a, b) => {
+          if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
+          return sortMethods[sorting.fn](b, a);
+        }),
+    [sorting.fn, sorting.order, tasks]
+  );
 
   return (
     <>
@@ -56,7 +75,12 @@ function App() {
                 <Menu.Item as="li">
                   <button
                     className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100"
-                    onClick={() => setSortingFn("sortTasksByImportance")}
+                    onClick={() =>
+                      setSorting({
+                        fn: "sortTasksByImportance",
+                        order: "desc",
+                      })
+                    }
                   >
                     <IconStar size={20} className="mx-2 stroke-1" />
                     <p className="mx-1 px-1 text-sm text-neutral-700">
@@ -67,7 +91,12 @@ function App() {
                 <Menu.Item as="li">
                   <button
                     className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100"
-                    onClick={() => setSortingFn("sortTasksByDueDate")}
+                    onClick={() =>
+                      setSorting({
+                        fn: "sortTasksByDueDate",
+                        order: "asc",
+                      })
+                    }
                   >
                     <IconCalendarTime size={20} className="mx-2 stroke-1" />
                     <p className="mx-1 px-1 text-sm text-neutral-700">
@@ -78,7 +107,12 @@ function App() {
                 <Menu.Item as="li">
                   <button
                     className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100"
-                    onClick={() => setSortingFn("sortTasksByTitle")}
+                    onClick={() =>
+                      setSorting({
+                        fn: "sortTasksByTitle",
+                        order: "asc",
+                      })
+                    }
                   >
                     <IconArrowsSort size={20} className="mx-2 stroke-1" />
                     <p className="mx-1 px-1 text-sm text-neutral-700">
@@ -89,7 +123,12 @@ function App() {
                 <Menu.Item as="li">
                   <button
                     className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100"
-                    onClick={() => setSortingFn("sortTasksByCreationDate")}
+                    onClick={() =>
+                      setSorting({
+                        fn: "sortTasksByCreationDate",
+                        order: "desc",
+                      })
+                    }
                   >
                     <IconCalendarPlus size={20} className="mx-2 stroke-1" />
                     <p className="mx-1 px-1 text-sm text-neutral-700">
@@ -101,6 +140,30 @@ function App() {
             </Menu.Items>
           </Transition>
         </Menu>
+      </div>
+
+      <div className="ml-auto mb-2 flex items-center gap-x-3">
+        <button
+          onClick={() =>
+            setSorting((prev) => ({
+              ...prev,
+              order: prev.order === "asc" ? "desc" : "asc",
+            }))
+          }
+        >
+          <IconChevronUp
+            size={24}
+            className={`${
+              sorting.order === "asc" ? "rotate-0" : "rotate-180"
+            } stroke-1 transition-transform`}
+          />
+        </button>
+        <p className="text-xs font-semibold">
+          Sorted {sortMethodsNames[sorting.fn]}
+        </p>
+        <button onClick={() => setSorting(defaultSorting)}>
+          <IconX size={20} className="stroke-1" />
+        </button>
       </div>
 
       <Form />

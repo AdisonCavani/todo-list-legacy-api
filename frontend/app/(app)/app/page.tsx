@@ -6,7 +6,7 @@ import App from "@components/app";
 async function Page() {
   const res = await listTasks({
     page: 1,
-    pageSize: 25,
+    pageSize: 100,
   });
 
   return (

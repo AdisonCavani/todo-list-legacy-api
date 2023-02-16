@@ -14,18 +14,22 @@ export const getHealth = async () => {
   return await client.get<HealthCheckRes>(ApiRoutes.health);
 };
 
-export const getTask = async (req: GetTaskReq) => {
-  return await client.get<TaskDto>(ApiRoutes.task.get, req);
+export const getTask = async (req: GetTaskReq, jwtToken: string) => {
+  return await client.get<TaskDto>(ApiRoutes.task.get, req, jwtToken);
 };
 
-export const listTasks = async (req: PaginatedReq) => {
-  return await client.get<PaginatedRes<TaskDto>>(ApiRoutes.task.list, req);
+export const listTasks = async (req: PaginatedReq, jwtToken: string) => {
+  return await client.get<PaginatedRes<TaskDto>>(
+    ApiRoutes.task.list,
+    req,
+    jwtToken
+  );
 };
 
-export async function createTask(req: CreateTaskReq) {
-  return await client.post<TaskDto>(ApiRoutes.task.create, req);
+export async function createTask(req: CreateTaskReq, jwtToken: string) {
+  return await client.post<TaskDto>(ApiRoutes.task.create, req, jwtToken);
 }
 
-export async function updateTask(req: UpdateTaskReq) {
-  return await client.patch<TaskDto>(ApiRoutes.task.update, req);
+export async function updateTask(req: UpdateTaskReq, jwtToken: string) {
+  return await client.patch<TaskDto>(ApiRoutes.task.update, req, jwtToken);
 }

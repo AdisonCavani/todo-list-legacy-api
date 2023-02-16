@@ -15,7 +15,7 @@ public class AppDbContext : DbContext
     {
         // Enable extension for UUID generation
         builder.HasPostgresExtension("uuid-ossp");
-        
+
         builder.Entity<TaskEntity>()
             .HasKey(x => x.Id);
 
@@ -26,10 +26,14 @@ public class AppDbContext : DbContext
             .IsRequired();
 
         builder.Entity<TaskEntity>()
+            .Property(x => x.UserId)
+            .IsRequired();
+
+        builder.Entity<TaskEntity>()
             .Property(x => x.CreatedAt)
             .HasColumnType("timestamp without time zone")
             .HasDefaultValueSql("current_timestamp at time zone 'utc'");
-        
+
         builder.Entity<TaskEntity>()
             .Property(x => x.UpdatedAt)
             .HasColumnType("timestamp without time zone")

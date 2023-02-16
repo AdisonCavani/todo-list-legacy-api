@@ -20,7 +20,7 @@ public class Health : EndpointBaseAsync
         _healthCheckService = healthCheckService;
         _logger = logger;
     }
-
+    
     [HttpGet(ApiRoutes.Health)]
     [SwaggerOperation(Tags = new[] { "Health Endpoint" })]
     public override async Task<ActionResult<HealthCheckRes>> HandleAsync(

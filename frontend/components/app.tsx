@@ -12,7 +12,7 @@ import {
   IconStar,
   IconX,
 } from "@tabler/icons-react";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useState } from "react";
 import Form from "./form";
 import Task from "./task";
 
@@ -25,27 +25,19 @@ function App() {
   };
   const [sorting, setSorting] = useState<SortingOptions>(defaultSorting);
 
-  const notFinishedTasks = useMemo(
-    () =>
-      tasks
-        .filter((x) => !x.isCompleted)
-        .sort((a, b) => {
-          if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
-          return sortMethods[sorting.fn](b, a);
-        }),
-    [sorting.fn, sorting.order, tasks]
-  );
+  const notFinishedTasks = tasks
+    .filter((x) => !x.isCompleted)
+    .sort((a, b) => {
+      if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
+      return sortMethods[sorting.fn](b, a);
+    });
 
-  const finishedTasks = useMemo(
-    () =>
-      tasks
-        .filter((x) => x.isCompleted)
-        .sort((a, b) => {
-          if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
-          return sortMethods[sorting.fn](b, a);
-        }),
-    [sorting.fn, sorting.order, tasks]
-  );
+  const finishedTasks = tasks
+    .filter((x) => x.isCompleted)
+    .sort((a, b) => {
+      if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
+      return sortMethods[sorting.fn](b, a);
+    });
 
   return (
     <>

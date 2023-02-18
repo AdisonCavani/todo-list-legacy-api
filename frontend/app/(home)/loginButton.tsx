@@ -2,17 +2,17 @@
 
 import { ClientSafeProvider, signIn } from "next-auth/react";
 
-function LoginButton({ id, name, callbackUrl }: ClientSafeProvider) {
+function LoginButton({ id, callbackUrl }: ClientSafeProvider) {
   return (
     <button
+      className="rounded-lg bg-red-600 px-4 py-2 font-semibold text-white"
       onClick={() =>
         signIn(id, {
           callbackUrl: callbackUrl,
         })
       }
-      className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-600"
     >
-      Sign in with {name}
+      Login
     </button>
   );
 }

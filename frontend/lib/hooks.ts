@@ -12,13 +12,13 @@ function useCreateTaskMutation() {
     mutationFn: (req: Parameters<typeof createTask>[0]) =>
       createTask(req, session.data?.user.accessToken!),
     onSuccess(data) {
-      toast.success("Task created successfully", {
+      toast.success("Task created successfully.", {
         id: "taskCreated",
       });
       addTaskReducer(data);
     },
     onError() {
-      toast.error("Failed to create task", {
+      toast.error("Failed to create task.", {
         id: "taskCreated",
       });
     },
@@ -33,13 +33,13 @@ function useUpdateTaskMutation() {
     mutationFn: (req: Parameters<typeof updateTask>[0]) =>
       updateTask(req, session.data?.user.accessToken!),
     onSuccess(data) {
-      toast.success("Task updated successfully", {
+      toast.success("Task updated successfully.", {
         id: "taskUpdated",
       });
       updateTaskReducer(data);
     },
     onError() {
-      toast.error("Failed to update task", {
+      toast.error("Failed to update task.", {
         id: "taskUpdated",
       });
     },

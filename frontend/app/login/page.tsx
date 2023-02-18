@@ -12,11 +12,12 @@ async function Page() {
 
   return (
     <div className="flex justify-center">
-      {Object.values(providers!).map((provider) => (
-        <div key={provider.id}>
-          <LoginButton {...provider} />
-        </div>
-      ))}
+      {providers &&
+        Object.values(providers).map((provider) => (
+          <div key={provider.id}>
+            <LoginButton {...provider} />
+          </div>
+        ))}
     </div>
   );
 }

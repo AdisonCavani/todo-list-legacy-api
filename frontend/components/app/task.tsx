@@ -26,7 +26,7 @@ function Task(task: TaskDto) {
   }
 
   return (
-    <li className="group relative flex flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4 shadow-ms">
+    <li className="group relative flex flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4">
       <input
         id={id}
         type="checkbox"

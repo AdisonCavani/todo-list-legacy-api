@@ -23,7 +23,7 @@ function Sidebar() {
       </div>
 
       <div className="flex items-center gap-x-3 rounded-lg border border-neutral-200 px-2">
-        <IconSearch size={20} className="text-neutral-500" />
+        <IconSearch size={18} className="text-neutral-500" />
         <input
           type="text"
           placeholder="Search"
@@ -40,7 +40,6 @@ function Sidebar() {
           icon={<IconChevronsRight size={20} className="text-neutral-500" />}
           text="Upcoming"
           count={12}
-          isSelected={true}
         />
 
         <SidebarItem
@@ -48,6 +47,7 @@ function Sidebar() {
           icon={<IconListCheck size={20} className="text-neutral-500" />}
           text="Today"
           count={5}
+          isSelected
         />
 
         <SidebarItem

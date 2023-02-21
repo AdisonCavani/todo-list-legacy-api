@@ -9,7 +9,7 @@ type Props = {
   isSelected?: boolean;
 };
 
-function SidebarItem({ href, icon, text, count, isSelected }: Props) {
+function SidebarItem({ icon, text, count, isSelected }: Props) {
   return (
     <a
       className={clsx(

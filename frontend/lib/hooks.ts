@@ -1,4 +1,6 @@
-import { createTask, updateTask } from "@api/client";
+import { patch, post } from "@api/client2";
+import type { CreateTaskReq } from "@api/req/createTaskReq";
+import type { UpdateTaskReq } from "@api/req/updateTaskReq";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { toast } from "react-hot-toast";
@@ -9,8 +11,8 @@ function useCreateTaskMutation() {
   const session = useSession();
 
   return useMutation({
-    mutationFn: (req: Parameters<typeof createTask>[0]) =>
-      createTask(req, session.data?.user.accessToken!),
+    mutationFn: (req: CreateTaskReq) =>
+      post("/task/create", req, session.data?.user.accessToken!),
     onSuccess(data) {
       toast.success("Task created successfully.", {
         id: "taskCreated",
@@ -30,8 +32,8 @@ function useUpdateTaskMutation() {
   const session = useSession();
 
   return useMutation({
-    mutationFn: (req: Parameters<typeof updateTask>[0]) =>
-      updateTask(req, session.data?.user.accessToken!),
+    mutationFn: (req: UpdateTaskReq) =>
+      patch("/task/update", req, session.data?.user.accessToken!),
     onSuccess(data) {
       toast.success("Task updated successfully.", {
         id: "taskUpdated",

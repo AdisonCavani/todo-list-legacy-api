@@ -1,6 +1,6 @@
-import { patch, post } from "@api/client2";
-import type { CreateTaskReq } from "@api/req/createTaskReq";
-import type { UpdateTaskReq } from "@api/req/updateTaskReq";
+import { patch, post } from "@api/client";
+import type { CreateTaskReq } from "@api/req/CreateTaskReq";
+import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { toast } from "react-hot-toast";

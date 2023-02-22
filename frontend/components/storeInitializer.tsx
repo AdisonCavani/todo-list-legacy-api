@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useStore } from "@lib/store";
-import type { TaskDto } from "@api/dtos/taskDto";
+import type { TaskDto } from "@api/dtos/TaskDto";
 
 type Props = {
   tasks: TaskDto[];

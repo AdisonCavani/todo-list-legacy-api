@@ -1,4 +1,4 @@
-import { HealthCheckDtoSchema } from "@api/dtos/healthCheckDto";
+import { HealthCheckDtoSchema } from "@api/dtos/HealthCheckDto";
 import { z } from "zod";
 
 const HealthCheckResSchema = z.object({

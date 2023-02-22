@@ -1,5 +1,5 @@
-import type { TaskDto } from "@api/dtos/taskDto";
-// import { useUpdateTaskMutation } from "@lib/hooks";
+import type { TaskDto } from "@api/dtos/TaskDto";
+import { useUpdateTaskMutation } from "@lib/hooks";
 import {
   IconCalendarEvent,
   IconStar,
@@ -9,20 +9,20 @@ import DateComponent from "./date";
 
 function Task(task: TaskDto) {
   const { id, title, dueDate, dueTime, isCompleted, isImportant } = task;
-  // const { mutate } = useUpdateTaskMutation();
+  const { mutate } = useUpdateTaskMutation();
 
   async function handleCompletedChange() {
-    // mutate({
-    //   ...task,
-    //   isCompleted: !isCompleted,
-    // });
+    mutate({
+      ...task,
+      isCompleted: !isCompleted,
+    });
   }
 
   async function onImportantChange() {
-    // mutate({
-    //   ...task,
-    //   isImportant: !isImportant,
-    // });
+    mutate({
+      ...task,
+      isImportant: !isImportant,
+    });
   }
 
   return (

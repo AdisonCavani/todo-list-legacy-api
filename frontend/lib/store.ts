@@ -1,4 +1,4 @@
-import type { TaskDto } from "@api/dtos/taskDto";
+import type { TaskDto } from "@api/dtos/TaskDto";
 import { create } from "zustand";
 
 type State = {

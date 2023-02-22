@@ -1,3 +1,4 @@
+import { TaskDtoSchema } from "@api/dtos/TaskDto";
 import { z } from "zod";
 
 function PaginatedResSchema<T extends z.ZodTypeAny>(schema: T) {
@@ -10,13 +11,8 @@ function PaginatedResSchema<T extends z.ZodTypeAny>(schema: T) {
   });
 }
 
-type PaginatedRes<T> = {
-  data: T[];
-  currentPage: number;
-  pageSize: number;
-  totalPages: number;
-  totalCount: number;
-};
+const PaginatedResTaskDtoSchema = PaginatedResSchema(TaskDtoSchema);
+type PaginatedResTaskDto = z.infer<typeof PaginatedResTaskDtoSchema>;
 
-export { PaginatedResSchema };
-export type { PaginatedRes };
+export { PaginatedResTaskDtoSchema };
+export type { PaginatedResTaskDto };

@@ -4,6 +4,8 @@ import { GetTaskReqSchema } from "./req/GetTaskReq";
 import { HealthCheckResSchema } from "./res/HealthCheckRes";
 import { CreateTaskReqSchema } from "./req/CreateTaskReq";
 import { UpdateTaskReqSchema } from "./req/UpdateTaskReq";
+import { PaginatedReqSchema } from "./req/PaginatedReq";
+import { PaginatedResTaskDtoSchema } from "./res/PaginatedRes";
 
 const baseUrl = "https://localhost:7087/api";
 
@@ -17,6 +19,11 @@ const getEndpoint = {
     auth: true,
     request: GetTaskReqSchema,
     response: TaskDtoSchema,
+  },
+  "/task/list": {
+    auth: true,
+    request: PaginatedReqSchema,
+    response: PaginatedResTaskDtoSchema,
   },
 };
 

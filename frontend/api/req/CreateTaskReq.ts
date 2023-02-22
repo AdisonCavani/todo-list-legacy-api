@@ -2,9 +2,9 @@ import { z } from "zod";
 
 const CreateTaskReqSchema = z.object({
   title: z.string(),
-  description: z.string().nullish(),
-  dueDate: z.string().nullish(),
-  dueTime: z.string().nullish(),
+  description: z.optional(z.string().nullable()),
+  dueDate: z.optional(z.string().nullable()),
+  dueTime: z.optional(z.string().nullable()),
 });
 
 type CreateTaskReq = z.infer<typeof CreateTaskReqSchema>;

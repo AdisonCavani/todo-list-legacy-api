@@ -6,9 +6,9 @@ const TaskDtoSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   title: z.string(),
-  description: z.optional(z.string()),
-  dueDate: z.optional(z.string()),
-  dueTime: z.optional(z.string()),
+  description: z.optional(z.string().nullable()),
+  dueDate: z.optional(z.string().nullable()),
+  dueTime: z.optional(z.string().nullable()),
   isCompleted: z.boolean(),
   isImportant: z.boolean(),
 });

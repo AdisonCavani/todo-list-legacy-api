@@ -37,6 +37,7 @@ function Form() {
         </button>
         <input
           placeholder="Add a task"
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="block min-h-[52px] w-full px-4 py-2 text-sm placeholder-neutral-600 outline-none"
         />

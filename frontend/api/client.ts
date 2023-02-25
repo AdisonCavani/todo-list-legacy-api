@@ -47,7 +47,7 @@ export async function get<Endpoint extends keyof typeof getEndpoint>(
   endpoint: Endpoint,
   request?: z.infer<(typeof getEndpoint)[Endpoint]["request"]>,
   jwtToken?: string
-): Promise<z.infer<(typeof getEndpoint)[Endpoint]["response"]>> {
+): Promise<z.infer<(typeof getEndpoint)[Endpoint]["response"]> | undefined> {
   const queryUrl = request
     ? `${baseUrl + endpoint}?${appendParams(request)}`
     : baseUrl + endpoint;
@@ -133,11 +133,11 @@ async function fetchApi(
     body: body,
   });
 
-  const json = await res.json();
-
   if (!res.ok) throw new Error("Failed to fetch data");
 
-  // if (res.status === 204) return;
+  if (res.status === 204) return;
+
+  const json = await res.json();
 
   return json;
 }

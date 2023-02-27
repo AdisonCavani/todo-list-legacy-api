@@ -85,8 +85,12 @@ function Task(task: TaskDto) {
           </div>
         </div>
 
-        <button className="text-neutral-400" onClick={onImportantChange}>
-          {isImportant ? <IconStarFilled size={18} /> : <IconStar size={18} />}
+        <button onClick={onImportantChange}>
+          {isImportant ? (
+            <IconStarFilled size={18} className="text-yellow-400" />
+          ) : (
+            <IconStar size={18} className="text-neutral-400" />
+          )}
         </button>
       </li>
 

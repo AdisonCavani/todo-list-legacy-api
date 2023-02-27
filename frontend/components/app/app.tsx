@@ -12,6 +12,7 @@ import {
   IconStar,
   IconX,
 } from "@tabler/icons-react";
+import clsx from "clsx";
 import { Fragment, useState } from "react";
 import Form from "./form";
 import Task from "./task";
@@ -145,9 +146,10 @@ function App() {
         >
           <IconChevronUp
             size={24}
-            className={`${
+            className={clsx(
+              "stroke-1 transition-transform",
               sorting.order === "asc" ? "rotate-0" : "rotate-180"
-            } stroke-1 transition-transform`}
+            )}
           />
         </button>
         <p className="text-xs font-semibold">

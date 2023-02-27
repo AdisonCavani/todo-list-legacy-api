@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z, ZodObject } from "zod";
 import { TaskDtoSchema } from "./dtos/TaskDto";
 import { GetTaskReqSchema } from "./req/GetTaskReq";
 import { HealthCheckResSchema } from "./res/HealthCheckRes";
@@ -6,6 +6,7 @@ import { CreateTaskReqSchema } from "./req/CreateTaskReq";
 import { UpdateTaskReqSchema } from "./req/UpdateTaskReq";
 import { PaginatedReqSchema } from "./req/PaginatedReq";
 import { PaginatedResTaskDtoSchema } from "./res/PaginatedRes";
+import { DeleteTaskReqSchema } from "./req/DeleteTaskReq";
 
 const baseUrl = "https://localhost:7087/api";
 
@@ -43,7 +44,15 @@ const patchEndpoint = {
   },
 };
 
-export async function get<Endpoint extends keyof typeof getEndpoint>(
+const deleteEndpoint = {
+  "/task/delete": {
+    auth: true,
+    request: DeleteTaskReqSchema,
+    response: undefined,
+  },
+};
+
+export async function httpGet<Endpoint extends keyof typeof getEndpoint>(
   endpoint: Endpoint,
   request?: z.infer<(typeof getEndpoint)[Endpoint]["request"]>,
   jwtToken?: string
@@ -57,14 +66,14 @@ export async function get<Endpoint extends keyof typeof getEndpoint>(
     queryUrl,
     undefined,
     getEndpoint[endpoint],
-    jwtToken
+    jwtToken,
+    getEndpoint[endpoint].response
   );
-  getEndpoint[endpoint].response.parse(res);
 
   return res;
 }
 
-export async function post<Endpoint extends keyof typeof postEndpoint>(
+export async function httpPost<Endpoint extends keyof typeof postEndpoint>(
   endpoint: Endpoint,
   request: z.infer<(typeof postEndpoint)[Endpoint]["request"]>,
   jwtToken?: string
@@ -76,14 +85,14 @@ export async function post<Endpoint extends keyof typeof postEndpoint>(
     queryUrl,
     request,
     postEndpoint[endpoint],
-    jwtToken
+    jwtToken,
+    postEndpoint[endpoint].response
   );
-  postEndpoint[endpoint].response.parse(res);
 
   return res;
 }
 
-export async function patch<Endpoint extends keyof typeof patchEndpoint>(
+export async function httpPatch<Endpoint extends keyof typeof patchEndpoint>(
   endpoint: Endpoint,
   request: z.infer<(typeof patchEndpoint)[Endpoint]["request"]>,
   jwtToken?: string
@@ -95,9 +104,30 @@ export async function patch<Endpoint extends keyof typeof patchEndpoint>(
     queryUrl,
     request,
     patchEndpoint[endpoint],
-    jwtToken
+    jwtToken,
+    patchEndpoint[endpoint].response
   );
-  patchEndpoint[endpoint].response.parse(res);
+
+  return res;
+}
+
+export async function httpDelete<Endpoint extends keyof typeof deleteEndpoint>(
+  endpoint: Endpoint,
+  request?: z.infer<(typeof deleteEndpoint)[Endpoint]["request"]>,
+  jwtToken?: string
+): Promise<undefined> {
+  const queryUrl = request
+    ? `${baseUrl + endpoint}?${appendParams(request)}`
+    : baseUrl + endpoint;
+
+  const res = await fetchApi(
+    "DELETE",
+    queryUrl,
+    undefined,
+    deleteEndpoint[endpoint],
+    jwtToken,
+    deleteEndpoint[endpoint].response
+  );
 
   return res;
 }
@@ -109,7 +139,8 @@ async function fetchApi(
   queryUrl: string,
   request: any,
   object: any,
-  jwtToken: string | undefined
+  jwtToken: string | undefined,
+  schema: ZodObject<any> | undefined
 ) {
   if (object.auth && !jwtToken) throw new Error("You need to pass jwt token");
 
@@ -138,6 +169,8 @@ async function fetchApi(
   if (res.status === 204) return;
 
   const json = await res.json();
+
+  if (schema) schema.parse(json);
 
   return json;
 }

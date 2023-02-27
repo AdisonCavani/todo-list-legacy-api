@@ -11,6 +11,7 @@ import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import DateComponent from "./date";
 import { useCreateTaskMutation } from "@lib/hooks";
+import clsx from "clsx";
 
 function Form() {
   const [title, setTitle] = useState<string>("");
@@ -47,9 +48,10 @@ function Form() {
         <div className="flex flex-row items-center gap-x-2 text-neutral-500">
           <Menu as="div" className="relative">
             <Menu.Button
-              className={`flex items-center gap-x-2 rounded p-1 hover:bg-neutral-200 ${
+              className={clsx(
+                "flex items-center gap-x-2 rounded p-1 hover:bg-neutral-200",
                 date && "border bg-white"
-              }`}
+              )}
             >
               <IconCalendarEvent size={20} />
               {date && (
@@ -159,9 +161,11 @@ function Form() {
               </Menu.Items>
             </Transition>
           </Menu>
+
           <button className="flex items-center rounded p-1 hover:bg-neutral-200">
             <IconBell size={20} />
           </button>
+
           <button className="flex items-center rounded p-1 hover:bg-neutral-200">
             <IconRepeat size={20} />
           </button>

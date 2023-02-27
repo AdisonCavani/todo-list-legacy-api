@@ -5,7 +5,7 @@ type State = {
   tasks: TaskDto[];
   addTaskReducer: (payloadTask: TaskDto) => void;
   updateTaskReducer: (payloadTask: TaskDto) => void;
-  removeTaskReducer: (id: string) => void;
+  deleteTaskReducer: (id: string) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -20,10 +20,10 @@ export const useStore = create<State>((set) => ({
       ...state,
       tasks: updateTask(state.tasks, payloadTask),
     })),
-  removeTaskReducer: (id) =>
+  deleteTaskReducer: (id) =>
     set((state) => ({
       ...state,
-      tasks: removeTask(state.tasks, id),
+      tasks: deleteTask(state.tasks, id),
     })),
 }));
 
@@ -53,7 +53,7 @@ function updateTask(tasks: TaskDto[], payloadTask: TaskDto) {
   return tasks;
 }
 
-function removeTask(tasks: TaskDto[], id: string) {
+function deleteTask(tasks: TaskDto[], id: string) {
   const index = tasks.findIndex((task) => task.id === id);
 
   if (index >= 0) tasks.splice(index, 1);

@@ -2,14 +2,18 @@ import StoreInitializer from "@components/storeInitializer";
 import ReactQueryWrapper from "@components/reactQueryWrapper";
 import App from "@components/app/app";
 import AuthWrapper from "@components/authWrapper";
-import { get } from "@api/client";
+import { httpGet } from "@api/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@lib/auth";
+
+export const metadata = {
+  title: "Tasks",
+};
 
 async function Page() {
   const session = await getServerSession(authOptions);
 
-  const res = await get(
+  const res = await httpGet(
     "/task/list",
     {
       page: 1,

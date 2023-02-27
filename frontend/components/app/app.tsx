@@ -41,11 +41,11 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-between">
-        <h1 className="mb-3 text-xl font-bold">Tasks</h1>
+      <div className="mb-3 flex items-center justify-between">
+        <h1 className="text-xl font-bold">Tasks</h1>
 
         <Menu as="div" className="relative">
-          <Menu.Button className="px-3 py-1">
+          <Menu.Button className="">
             <IconArrowsSort size={22} className="stroke-1" />
           </Menu.Button>
 
@@ -134,7 +134,7 @@ function App() {
         </Menu>
       </div>
 
-      <div className="ml-auto mb-2 flex items-center gap-x-3">
+      <div className="mb-2 flex items-center justify-end gap-x-3">
         <button
           onClick={() =>
             setSorting((prev) => ({
@@ -170,7 +170,7 @@ function App() {
 
       {finishedTasks.length > 0 && (
         <Disclosure>
-          <Disclosure.Button className="flex items-center gap-x-3 border-b border-neutral-300 py-2 text-sm ui-open:border-b-0">
+          <Disclosure.Button className="mt-4 flex w-full items-center gap-x-3 border-b border-neutral-300 py-2 text-sm ui-open:border-b-0">
             <IconChevronRight
               size={22}
               className="stroke-1 text-neutral-500 transition-transform ui-open:rotate-90 ui-open:transform"

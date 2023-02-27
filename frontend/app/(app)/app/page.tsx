@@ -1,7 +1,7 @@
-import StoreInitializer from "@components/storeInitializer";
-import ReactQueryWrapper from "@components/reactQueryWrapper";
+import StoreInitializer from "@components/store-initializer";
+import ReactQueryWrapper from "@components/react-query-wrapper";
 import App from "@components/app/app";
-import AuthWrapper from "@components/authWrapper";
+import AuthWrapper from "@components/auth-wrapper";
 import { httpGet } from "@api/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@lib/auth";

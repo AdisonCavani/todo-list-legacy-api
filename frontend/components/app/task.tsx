@@ -8,7 +8,7 @@ import {
 } from "@tabler/icons-react";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import DateComponent from "./date";
-import DialogForm from "./dialogForm";
+import DialogForm from "./dialog-form";
 
 function Task(task: TaskDto) {
   const { id, title, description, dueDate, dueTime, isCompleted, isImportant } =

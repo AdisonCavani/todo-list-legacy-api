@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import ToastWrapper from "@components/toastWrapper";
+import ToastWrapper from "@components/toast-wrapper";
 import Header from "@components/app/header";
 
 export const dynamic = "force-dynamic";

@@ -3,7 +3,7 @@ import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import Link from "next/link";
-import LoginButton from "./loginButton";
+import LoginButton from "./login-button";
 
 async function Header() {
   const session = await getServerSession(authOptions);

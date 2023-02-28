@@ -1,10 +1,10 @@
-import StoreInitializer from "@components/store-initializer";
-import ReactQueryWrapper from "@components/react-query-wrapper";
+import { httpGet } from "@api/client";
 import App from "@components/app/app";
 import AuthWrapper from "@components/auth-wrapper";
-import { httpGet } from "@api/client";
-import { getServerSession } from "next-auth";
+import ReactQueryWrapper from "@components/react-query-wrapper";
+import StoreInitializer from "@components/store-initializer";
 import { authOptions } from "@lib/auth";
+import { getServerSession } from "next-auth";
 
 export const metadata = {
   title: "Tasks",

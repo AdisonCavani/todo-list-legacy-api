@@ -1,5 +1,7 @@
 "use client";
 
+import Form from "./form";
+import Task from "./task";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { sortMethods, sortMethodsNames, SortingOptions } from "@lib/sort";
 import { useStore } from "@lib/store";
@@ -14,8 +16,6 @@ import {
 } from "@tabler/icons-react";
 import clsx from "clsx";
 import { Fragment, useState } from "react";
-import Form from "./form";
-import Task from "./task";
 
 function App() {
   const { tasks } = useStore();
@@ -175,7 +175,7 @@ function App() {
           <Disclosure.Button className="mt-4 flex w-full items-center gap-x-3 border-b border-neutral-300 py-2 text-sm ui-open:border-b-0">
             <IconChevronRight
               size={22}
-              className="stroke-1 text-neutral-500 transition-transform ui-open:rotate-90 ui-open:transform"
+              className="stroke-1 text-neutral-500 transition-transform ui-open:rotate-90"
             />
             <h3 className="p-2 font-semibold">Completed</h3>
             <span className="">{finishedTasks.length}</span>

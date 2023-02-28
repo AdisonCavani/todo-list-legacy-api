@@ -1,12 +1,12 @@
-import { z, ZodObject } from "zod";
 import { TaskDtoSchema } from "./dtos/TaskDto";
-import { GetTaskReqSchema } from "./req/GetTaskReq";
-import { HealthCheckResSchema } from "./res/HealthCheckRes";
 import { CreateTaskReqSchema } from "./req/CreateTaskReq";
-import { UpdateTaskReqSchema } from "./req/UpdateTaskReq";
-import { PaginatedReqSchema } from "./req/PaginatedReq";
-import { PaginatedResTaskDtoSchema } from "./res/PaginatedRes";
 import { DeleteTaskReqSchema } from "./req/DeleteTaskReq";
+import { GetTaskReqSchema } from "./req/GetTaskReq";
+import { PaginatedReqSchema } from "./req/PaginatedReq";
+import { UpdateTaskReqSchema } from "./req/UpdateTaskReq";
+import { HealthCheckResSchema } from "./res/HealthCheckRes";
+import { PaginatedResTaskDtoSchema } from "./res/PaginatedRes";
+import { z, ZodObject } from "zod";
 
 const baseUrl = "https://localhost:7087/api";
 

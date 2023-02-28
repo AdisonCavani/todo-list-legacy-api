@@ -1,3 +1,5 @@
+import DateComponent from "./date";
+import DialogForm from "./dialog-form";
 import type { TaskDto } from "@api/dtos/TaskDto";
 import { useUpdateTaskMutation } from "@lib/hooks";
 import {
@@ -7,8 +9,6 @@ import {
   IconStarFilled,
 } from "@tabler/icons-react";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import DateComponent from "./date";
-import DialogForm from "./dialog-form";
 
 function Task(task: TaskDto) {
   const { id, title, description, dueDate, dueTime, isCompleted, isImportant } =

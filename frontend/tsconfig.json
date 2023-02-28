@@ -23,9 +23,7 @@
     "paths": {
       "@api/*": ["api/*"],
       "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"],
-      "@images/*": ["public/static/images/*"],
-      "@static/*": ["public/static/*"]
+      "@lib/*": ["lib/*"]
     },
     "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,

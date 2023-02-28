@@ -1,5 +1,8 @@
 "use client";
 
+import DateComponent from "./date";
+import { Menu, Transition } from "@headlessui/react";
+import { useCreateTaskMutation } from "@lib/hooks";
 import {
   IconBell,
   IconCalendarEvent,
@@ -7,11 +10,8 @@ import {
   IconRepeat,
   IconTrash,
 } from "@tabler/icons-react";
-import { Fragment, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import DateComponent from "./date";
-import { useCreateTaskMutation } from "@lib/hooks";
 import clsx from "clsx";
+import { Fragment, useState } from "react";
 
 function Form() {
   const [title, setTitle] = useState<string>("");
@@ -40,7 +40,7 @@ function Form() {
           placeholder="Add a task"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="block min-h-[52px] w-full px-4 py-2 text-sm placeholder-neutral-600 outline-none"
+          className="block min-h-[52px] w-full px-4 py-2 text-sm outline-none placeholder:text-neutral-600"
         />
       </div>
 

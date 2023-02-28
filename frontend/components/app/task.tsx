@@ -1,12 +1,14 @@
 import DateComponent from "./date";
 import type { TaskDto } from "@api/dtos/TaskDto";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@lib/hooks";
+import { cn } from "@lib/utils";
 import {
   IconCalendarEvent,
   IconLoader2,
   IconNote,
   IconStar,
   IconStarFilled,
+  IconTrash,
 } from "@tabler/icons-react";
 import {
   Dialog,
@@ -17,18 +19,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@ui/dialog";
-import { ChangeEventHandler, MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 
 function Task(task: TaskDto) {
-  const { id, title, description, dueDate, dueTime, isCompleted, isImportant } =
+  const { title, description, dueDate, dueTime, isCompleted, isImportant } =
     task;
   const { mutate } = useUpdateTaskMutation();
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const handleCompletedChange: ChangeEventHandler<HTMLInputElement> = async (
-    event
-  ) => {
+  const handleOnClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.stopPropagation();
 
     mutate({
@@ -58,7 +58,7 @@ function Task(task: TaskDto) {
     description ?? ""
   );
 
-  // const isSubmitDisabled = dialogTitle.trim().length <= 0;
+  const isSubmitDisabled = dialogTitle.trim().length <= 0;
 
   function handleOnSubmit() {
     updateTask({
@@ -93,12 +93,12 @@ function Task(task: TaskDto) {
     >
       <DialogTrigger asChild>
         <li className="group relative flex cursor-pointer flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4 shadow-ms hover:bg-neutral-200/50">
-          <input
-            id={id}
-            type="checkbox"
-            checked={isCompleted}
-            onChange={handleCompletedChange}
-            className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 checked:bg-neutral-400"
+          <button
+            onClick={handleOnClick}
+            className={cn(
+              "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400",
+              isCompleted && "bg-neutral-400"
+            )}
           />
 
           <div className="flex min-h-[52px] w-full flex-col justify-center py-2 px-4">
@@ -147,7 +147,19 @@ function Task(task: TaskDto) {
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Update task</DialogTitle>
+          <div className="flex justify-between">
+            <DialogTitle>Update task</DialogTitle>
+            <button
+              onClick={handleOnDelete}
+              className="rounded-md bg-red-100 p-[6px] text-red-900 hover:bg-red-200"
+            >
+              {deleteTaskLoading ? (
+                <IconLoader2 size={18} className="animate-spin" />
+              ) : (
+                <IconTrash size={18} />
+              )}
+            </button>
+          </div>
           <DialogDescription>
             Make changes to your task here. Click save when you&apos;re done.
           </DialogDescription>
@@ -191,6 +203,7 @@ function Task(task: TaskDto) {
 
         <DialogFooter>
           <button
+            disabled={isSubmitDisabled}
             onClick={handleOnSubmit}
             className="flex w-full items-center justify-center rounded-md bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 disabled:cursor-not-allowed"
           >

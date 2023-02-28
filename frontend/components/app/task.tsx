@@ -92,7 +92,7 @@ function Task(task: TaskDto) {
       }}
     >
       <DialogTrigger asChild>
-        <li className="group relative flex cursor-pointer flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4 shadow-ms hover:bg-neutral-200/50">
+        <li className="group relative flex cursor-pointer flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4 shadow-ms hover:bg-neutral-100">
           <button
             onClick={handleOnClick}
             className={cn(

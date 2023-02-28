@@ -3,6 +3,7 @@
 import DateComponent from "./date";
 import { Menu, Transition } from "@headlessui/react";
 import { useCreateTaskMutation } from "@lib/hooks";
+import { cn } from "@lib/utils";
 import {
   IconBell,
   IconCalendarEvent,
@@ -10,7 +11,6 @@ import {
   IconRepeat,
   IconTrash,
 } from "@tabler/icons-react";
-import clsx from "clsx";
 import { Fragment, useState } from "react";
 
 function Form() {
@@ -48,7 +48,7 @@ function Form() {
         <div className="flex flex-row items-center gap-x-2 text-neutral-500">
           <Menu as="div" className="relative">
             <Menu.Button
-              className={clsx(
+              className={cn(
                 "flex items-center gap-x-2 rounded p-1 hover:bg-neutral-200",
                 date && "border bg-white"
               )}

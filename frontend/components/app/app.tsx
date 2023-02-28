@@ -5,6 +5,7 @@ import Task from "./task";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { sortMethods, sortMethodsNames, SortingOptions } from "@lib/sort";
 import { useStore } from "@lib/store";
+import { cn } from "@lib/utils";
 import {
   IconArrowsSort,
   IconCalendarPlus,
@@ -14,7 +15,6 @@ import {
   IconStar,
   IconX,
 } from "@tabler/icons-react";
-import clsx from "clsx";
 import { Fragment, useState } from "react";
 
 function App() {
@@ -146,7 +146,7 @@ function App() {
         >
           <IconChevronUp
             size={24}
-            className={clsx(
+            className={cn(
               "stroke-1 transition-transform",
               sorting.order === "asc" ? "rotate-0" : "rotate-180"
             )}

@@ -23,7 +23,8 @@
     "paths": {
       "@api/*": ["api/*"],
       "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@ui/*": ["ui/*"]
     },
     "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,

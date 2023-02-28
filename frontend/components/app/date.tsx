@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@lib/utils";
 import type { ReactNode } from "react";
 
 interface Props {
@@ -13,8 +13,8 @@ function DateComponent({ date, withTime, icon, textCss }: Props) {
   const dateString = getDateString(date, withTime);
 
   return (
-    <div className={clsx("flex items-center gap-x-1", textColor)}>
-      <p className={clsx(textCss, "text-inherit")}>{dateString}</p>
+    <div className={cn("flex items-center gap-x-1", textColor)}>
+      <p className={cn(textCss, "text-inherit")}>{dateString}</p>
       {icon}
     </div>
   );

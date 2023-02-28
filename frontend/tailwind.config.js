@@ -2,7 +2,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/**/*.tsx", "./components/**/*.tsx"],
+  content: ["./app/**/*.tsx", "./components/**/*.tsx", "./ui/**/*.tsx"],
   theme: {
     extend: {
       boxShadow: {

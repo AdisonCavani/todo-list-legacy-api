@@ -9,7 +9,7 @@
   "plugins": ["tailwindcss"],
   "settings": {
     "tailwindcss": {
-      "callees": ["clsx"]
+      "callees": ["cn"]
     }
   }
 }

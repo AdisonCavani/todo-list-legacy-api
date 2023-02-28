@@ -23,6 +23,7 @@
     "paths": {
       "@api/*": ["api/*"],
       "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
       "@lib/*": ["lib/*"],
       "@ui/*": ["ui/*"]
     },
@@ -33,7 +34,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    "exactOptionalPropertyTypes": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false
   },

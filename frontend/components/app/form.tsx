@@ -1,17 +1,28 @@
 "use client";
 
 import DateComponent from "./date";
-import { Menu, Transition } from "@headlessui/react";
 import { useCreateTaskMutation } from "@lib/hooks";
 import { cn } from "@lib/utils";
 import {
   IconBell,
+  IconCalendar,
+  IconCalendarDue,
   IconCalendarEvent,
+  IconCalendarPlus,
+  IconCalendarStats,
   IconLoader2,
   IconRepeat,
   IconTrash,
 } from "@tabler/icons-react";
-import { Fragment, useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@ui/dropdown-menu";
+import { useState } from "react";
 
 function Form() {
   const [title, setTitle] = useState<string>("");
@@ -46,8 +57,8 @@ function Form() {
 
       <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-50 px-4">
         <div className="flex flex-row items-center gap-x-2 text-neutral-500">
-          <Menu as="div" className="relative">
-            <Menu.Button
+          <DropdownMenu>
+            <DropdownMenuTrigger
               className={cn(
                 "flex items-center gap-x-2 rounded p-1 hover:bg-neutral-200",
                 date && "border bg-white"
@@ -57,110 +68,71 @@ function Form() {
               {date && (
                 <DateComponent date={date} textCss="text-xs font-semibold" />
               )}
-            </Menu.Button>
+            </DropdownMenuTrigger>
 
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute top-0 left-0 z-10 mt-8 min-w-[200px] rounded bg-white py-2 text-sm text-black shadow-xl">
-                <p className="mb-2 border-b px-2 pt-2 pb-3 text-center font-semibold">
-                  Due
-                </p>
+            <DropdownMenuContent align="start" alignOffset={-30}>
+              <DropdownMenuLabel>Due Date</DropdownMenuLabel>
 
-                <ul>
-                  <Menu.Item as="li" className="min-h-[38px]">
-                    <button
-                      className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100"
-                      onClick={() => setDate(new Date())}
-                    >
-                      <IconCalendarEvent size={24} className="mx-2 stroke-1" />
-                      <div className="flex w-full justify-between">
-                        <p className="mx-1 px-1 text-sm text-neutral-700">
-                          Today
-                        </p>
-                        <p className="pl-5 text-right text-sm text-neutral-500">
-                          Wed
-                        </p>
-                      </div>
-                    </button>
-                  </Menu.Item>
-                  <Menu.Item as="li" className="min-h-[38px]">
-                    <button
-                      className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100"
-                      onClick={() => {
-                        const date = new Date();
-                        date.setDate(date.getDate() + 1);
-                        setDate(date);
-                      }}
-                    >
-                      <IconCalendarEvent size={24} className="mx-2 stroke-1" />
-                      <div className="flex w-full justify-between">
-                        <p className="mx-1 px-1 text-sm text-neutral-700">
-                          Tomorrow
-                        </p>
-                        <p className="pl-5 text-right text-sm text-neutral-500">
-                          Thu
-                        </p>
-                      </div>
-                    </button>
-                  </Menu.Item>
-                  <Menu.Item
-                    as="li"
-                    className="min-h-[38px]"
-                    onClick={() => {
-                      const date = new Date();
-                      date.setDate(date.getDate() + 7);
-                      setDate(date);
-                    }}
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem onClick={() => setDate(new Date())}>
+                <IconCalendar className="mr-2 h-5 w-5" />
+                <div className="flex w-full justify-between">
+                  <span>Today</span>
+                  <span className="pl-8 text-neutral-500">Wed</span>
+                </div>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                onClick={() => {
+                  const date = new Date();
+                  date.setDate(date.getDate() + 1);
+                  setDate(date);
+                }}
+              >
+                <IconCalendarDue className="mr-2 h-5 w-5" />
+                <div className="flex w-full justify-between">
+                  <span>Tomorrow</span>
+                  <span className="pl-8 text-neutral-500">Thu</span>
+                </div>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                onClick={() => {
+                  const date = new Date();
+                  date.setDate(date.getDate() + 7);
+                  setDate(date);
+                }}
+              >
+                <IconCalendarPlus className="mr-2 h-5 w-5" />
+                <div className="flex w-full justify-between">
+                  <span>Next week</span>
+                  <span className="pl-8 text-neutral-500">Mon</span>
+                </div>
+              </DropdownMenuItem>
+
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem>
+                <IconCalendarStats className="mr-2 h-4 w-4" />
+                <span className="text-neutral-700">Pick a date</span>
+              </DropdownMenuItem>
+
+              {date && (
+                <>
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem
+                    onClick={() => setDate(undefined)}
+                    className="text-red-600"
                   >
-                    <button className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100">
-                      <IconCalendarEvent size={24} className="mx-2 stroke-1" />
-                      <div className="flex w-full justify-between">
-                        <p className="mx-1 px-1 text-sm text-neutral-700">
-                          Next week
-                        </p>
-                        <p className="pl-5 text-right text-sm text-neutral-500">
-                          Mon
-                        </p>
-                      </div>
-                    </button>
-                  </Menu.Item>
-                  <li role="separator" className="my-2 border-b" />
-                  <Menu.Item as="li" className="min-h-[38px]">
-                    <button className="flex h-[36px] w-full items-center px-4 hover:bg-neutral-100">
-                      <IconCalendarEvent size={24} className="mx-2 stroke-1" />
-                      <div className="flex w-full justify-between">
-                        <p className="mx-1 px-1 text-sm text-neutral-700">
-                          Pick a date
-                        </p>
-                      </div>
-                    </button>
-                  </Menu.Item>
-
-                  {date && <li role="separator" className="my-2 border-b" />}
-                  {date && (
-                    <Menu.Item as="li" className="min-h-[38px]">
-                      <button
-                        className="flex h-[36px] w-full items-center px-4 text-red-600 hover:bg-neutral-100"
-                        onClick={() => setDate(undefined)}
-                      >
-                        <IconTrash size={24} className="mx-2 stroke-1" />
-                        <div className="flex w-full">
-                          <p className="mx-1 px-1 text-sm">Remove due date</p>
-                        </div>
-                      </button>
-                    </Menu.Item>
-                  )}
-                </ul>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+                    <IconTrash size={24} className="mr-2 h-4 w-4" />
+                    <span>Remove due date</span>
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <button className="flex items-center rounded p-1 hover:bg-neutral-200">
             <IconBell size={20} />

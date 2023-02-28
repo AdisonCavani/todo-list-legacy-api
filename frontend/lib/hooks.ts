@@ -3,26 +3,28 @@ import { httpDelete, httpPatch, httpPost } from "@api/client";
 import type { CreateTaskReq } from "@api/req/CreateTaskReq";
 import type { DeleteTaskReq } from "@api/req/DeleteTaskReq";
 import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
+import { useToast } from "@hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { toast } from "react-hot-toast";
 
 function useCreateTaskMutation() {
   const { addTaskReducer } = useStore();
   const session = useSession();
+  const { toast } = useToast();
 
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
       httpPost("/task/create", req, session.data?.user.accessToken!),
     onSuccess(data) {
-      toast.success("Task created successfully.", {
-        id: "taskCreated",
+      toast({
+        title: "Task created successfully.",
       });
       addTaskReducer(data);
     },
     onError() {
-      toast.error("Failed to create task.", {
-        id: "taskCreated",
+      toast({
+        variant: "destructive",
+        title: "Failed to create task.",
       });
     },
   });
@@ -31,19 +33,21 @@ function useCreateTaskMutation() {
 function useUpdateTaskMutation() {
   const { updateTaskReducer } = useStore();
   const session = useSession();
+  const { toast } = useToast();
 
   return useMutation({
     mutationFn: (req: UpdateTaskReq) =>
       httpPatch("/task/update", req, session.data?.user.accessToken!),
     onSuccess(data) {
-      toast.success("Task updated successfully.", {
-        id: "taskUpdated",
+      toast({
+        title: "Task updated successfully.",
       });
       updateTaskReducer(data);
     },
     onError() {
-      toast.error("Failed to update task.", {
-        id: "taskUpdated",
+      toast({
+        variant: "destructive",
+        title: "Failed to update task.",
       });
     },
   });
@@ -52,19 +56,21 @@ function useUpdateTaskMutation() {
 function useDeleteTaskMutation() {
   const { deleteTaskReducer } = useStore();
   const session = useSession();
+  const { toast } = useToast();
 
   return useMutation({
     mutationFn: (req: DeleteTaskReq) =>
       httpDelete("/task/delete", req, session.data?.user.accessToken!),
     onSuccess(_, context) {
-      toast.success("Task deleted successfully.", {
-        id: "taskDeleted",
+      toast({
+        title: "Task deleted successfully.",
       });
       deleteTaskReducer(context.id);
     },
     onError() {
-      toast.error("Failed to delete task.", {
-        id: "taskDeleted",
+      toast({
+        variant: "destructive",
+        title: "Failed to delete task.",
       });
     },
   });

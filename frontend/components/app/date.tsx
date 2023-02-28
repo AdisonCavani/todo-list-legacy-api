@@ -14,7 +14,7 @@ function DateComponent({ date, withTime, icon, textCss }: Props) {
 
   return (
     <div className={cn("flex items-center gap-x-1", textColor)}>
-      <p className={cn(textCss, "text-inherit")}>{dateString}</p>
+      <p className={cn(textCss, "select-none text-inherit")}>{dateString}</p>
       {icon}
     </div>
   );

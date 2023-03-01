@@ -193,7 +193,7 @@ function Task(task: TaskDto) {
             <input
               type="text"
               name="description"
-              placeholder="English p.84, ex.1-3"
+              placeholder="Student's book, p.84, ex.1-3"
               value={dialogDescription}
               onChange={(event) => setDialogDescription(event.target.value)}
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none"

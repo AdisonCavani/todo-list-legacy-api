@@ -1,5 +1,6 @@
 "use client";
 
+import { useToast } from "@hooks/use-toast";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
@@ -19,7 +20,15 @@ type Props = {
 };
 
 function ProfileMenu({ firstName, lastName }: Props) {
+  const { toast } = useToast();
   const initials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+
+  function handleNotSupportedFeature() {
+    toast({
+      title: "This feature is not available yet.",
+      description: "Work in progress. Sorry for the inconvenience.",
+    });
+  }
 
   return (
     <DropdownMenu>
@@ -36,7 +45,7 @@ function ProfileMenu({ firstName, lastName }: Props) {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleNotSupportedFeature}>
           <IconSettings className="mr-2 h-4 w-4" />
           <span>Settings</span>
         </DropdownMenuItem>

@@ -3,7 +3,6 @@
 import DateComponent from "./date";
 import { useToast } from "@hooks/use-toast";
 import { useCreateTaskMutation } from "@lib/hooks";
-import { cn } from "@lib/utils";
 import {
   IconBell,
   IconCalendar,
@@ -24,7 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@ui/dropdown-menu";
-import { useState } from "react";
+import { createRef, useState } from "react";
 
 function Form() {
   const [title, setTitle] = useState<string>("");
@@ -52,6 +51,8 @@ function Form() {
     });
   }
 
+  const dateRef = createRef<HTMLInputElement>();
+
   return (
     <div className="z-[2] mb-3 rounded-md border-neutral-200 bg-white shadow-ms">
       <div className="flex flex-row items-center gap-x-2 px-4">
@@ -65,7 +66,16 @@ function Form() {
       </div>
 
       <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-50 px-4">
-        <div className="flex flex-row items-center gap-x-2 text-neutral-500">
+        <div className="relative flex flex-row items-center gap-x-2 text-neutral-500">
+          <input
+            type="date"
+            min={new Date().toISOString().split("T")[0]}
+            ref={dateRef}
+            value={date?.toISOString().split("T")[0]}
+            onChange={(event) => setDate(event.target.valueAsDate ?? undefined)}
+            className="invisible absolute top-0 left-0 mt-9 -ml-1 h-0 w-0"
+          />
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant={date ? "outline" : "ghost"} size="xxs">
@@ -122,9 +132,9 @@ function Form() {
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => dateRef.current?.showPicker()}>
                 <IconCalendarStats className="mr-2 h-4 w-4" />
-                <span className="text-neutral-700">Pick a date</span>
+                <span>Pick a date</span>
               </DropdownMenuItem>
 
               {date && (

@@ -20,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@ui/accordion";
+import { Button } from "@ui/button";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -58,7 +59,9 @@ function App() {
         <h1 className="text-xl font-bold">Tasks</h1>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>Sort</DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild>
+            <Button variant="subtle">Sort</Button>
+          </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Sort by</DropdownMenuLabel>

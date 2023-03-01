@@ -14,6 +14,7 @@ import {
   IconRepeat,
   IconTrash,
 } from "@tabler/icons-react";
+import { Button } from "@ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,9 +45,7 @@ function Form() {
   return (
     <div className="z-[2] mb-3 rounded-md border-neutral-200 bg-white shadow-ms">
       <div className="flex flex-row items-center gap-x-2 px-4">
-        <button className="text-neutral-400">
-          <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400"></div>
-        </button>
+        <button className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />
         <input
           placeholder="Add a task"
           value={title}
@@ -58,16 +57,16 @@ function Form() {
       <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-50 px-4">
         <div className="flex flex-row items-center gap-x-2 text-neutral-500">
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className={cn(
-                "flex items-center gap-x-2 rounded p-1 hover:bg-neutral-200",
-                date && "border bg-white"
-              )}
-            >
-              <IconCalendarEvent size={20} />
-              {date && (
-                <DateComponent date={date} textCss="text-xs font-semibold" />
-              )}
+            <DropdownMenuTrigger asChild>
+              <Button variant={date ? "outline" : "ghost"} size="xxs">
+                <IconCalendarEvent size={20} />
+                {date && (
+                  <DateComponent
+                    date={date}
+                    textCss="text-xs font-semibold ml-2"
+                  />
+                )}
+              </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="start" alignOffset={-30}>
@@ -134,25 +133,23 @@ function Form() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <button className="flex items-center rounded p-1 hover:bg-neutral-200">
+          <Button variant="ghost" size="xxs">
             <IconBell size={20} />
-          </button>
+          </Button>
 
-          <button className="flex items-center rounded p-1 hover:bg-neutral-200">
+          <Button variant="ghost" size="xxs">
             <IconRepeat size={20} />
-          </button>
+          </Button>
         </div>
-        <button
+        <Button
           disabled={submitDisabled}
           onClick={handleOnSubmit}
-          className="border bg-white py-[6px] px-2 text-xs font-semibold disabled:cursor-not-allowed disabled:text-neutral-400"
+          size="xs"
+          variant="outline"
         >
-          {isLoading ? (
-            <IconLoader2 size={16} className="mx-1 animate-spin" />
-          ) : (
-            <p className="mx-[1px]">Add</p>
-          )}
-        </button>
+          {isLoading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Add
+        </Button>
       </div>
     </div>
   );

@@ -7,8 +7,8 @@ async function Header() {
   const session = await getServerSession(authOptions);
 
   return (
-    <header className="flex w-full items-center justify-between gap-x-1 bg-blue-600 px-4 py-2 text-white">
-      <Link href="/" prefetch={false} className="p-1 font-semibold">
+    <header className="flex w-full items-center justify-between bg-blue-600 px-4 py-2">
+      <Link href="/" prefetch={false} className="p-1 font-semibold text-white">
         To Do
       </Link>
       <ProfileMenu

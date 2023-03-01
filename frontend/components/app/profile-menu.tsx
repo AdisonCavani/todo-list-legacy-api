@@ -2,6 +2,8 @@
 
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
+import { Button } from "@ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,11 +24,11 @@ function ProfileMenu({ firstName, lastName }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-neutral-600 bg-white">
-          <span className="select-none text-sm font-semibold text-neutral-600">
-            {initials}
-          </span>
-        </button>
+        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+          <Avatar>
+            <AvatarFallback>{initials}</AvatarFallback>
+          </Avatar>
+        </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" sideOffset={8}>

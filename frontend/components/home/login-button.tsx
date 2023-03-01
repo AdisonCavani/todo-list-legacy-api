@@ -1,11 +1,11 @@
 "use client";
 
+import { Button } from "@ui/button";
 import { ClientSafeProvider, signIn } from "next-auth/react";
 
 function LoginButton({ id, callbackUrl }: ClientSafeProvider) {
   return (
-    <button
-      className="rounded-lg bg-red-600 px-4 py-2 font-semibold text-white"
+    <Button
       onClick={() =>
         signIn(id, {
           callbackUrl: callbackUrl,
@@ -13,7 +13,7 @@ function LoginButton({ id, callbackUrl }: ClientSafeProvider) {
       }
     >
       Login
-    </button>
+    </Button>
   );
 }
 

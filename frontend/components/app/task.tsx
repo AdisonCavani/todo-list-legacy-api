@@ -94,6 +94,7 @@ function Task(task: TaskDto) {
       <DialogTrigger asChild>
         <li className="group relative flex cursor-pointer flex-row items-center gap-x-2 rounded-md border-neutral-200 bg-white px-4 shadow-ms hover:bg-neutral-100">
           <button
+            aria-label="Toggle task completion"
             onClick={handleOnClick}
             className={cn(
               "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400",
@@ -135,7 +136,10 @@ function Task(task: TaskDto) {
             </div>
           </div>
 
-          <button onClick={onImportantChange}>
+          <button
+            aria-label="Toggle task importance"
+            onClick={onImportantChange}
+          >
             {isImportant ? (
               <IconStarFilled size={18} className="text-yellow-400" />
             ) : (

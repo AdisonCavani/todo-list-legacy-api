@@ -23,6 +23,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@ui/tooltip";
 import { createRef, useState } from "react";
 
 function Form() {
@@ -56,7 +62,7 @@ function Form() {
   return (
     <div className="z-[2] mb-3 rounded-md border-neutral-200 bg-white shadow-ms">
       <div className="flex flex-row items-center gap-x-2 px-4">
-        <button className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />
+        <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />
         <input
           placeholder="Add a task"
           value={title}
@@ -78,7 +84,11 @@ function Form() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant={date ? "outline" : "ghost"} size="xxs">
+              <Button
+                aria-label="Due Date"
+                variant={date ? "outline" : "ghost"}
+                size="xxs"
+              >
                 <IconCalendarEvent size={20} />
                 {date && (
                   <DateComponent
@@ -153,21 +163,41 @@ function Form() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button
-            variant="ghost"
-            size="xxs"
-            onClick={handleNotSupportedFeature}
-          >
-            <IconBell size={20} />
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  aria-label="Remind me"
+                  variant="ghost"
+                  size="xxs"
+                  onClick={handleNotSupportedFeature}
+                >
+                  <IconBell size={20} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" sideOffset={10}>
+                <p>Remind me</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
-          <Button
-            variant="ghost"
-            size="xxs"
-            onClick={handleNotSupportedFeature}
-          >
-            <IconRepeat size={20} />
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  aria-label="Repeat"
+                  variant="ghost"
+                  size="xxs"
+                  onClick={handleNotSupportedFeature}
+                >
+                  <IconRepeat size={20} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" sideOffset={10}>
+                <p>Repeat</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <Button
           disabled={submitDisabled}

@@ -124,6 +124,7 @@ function App() {
 
       <div className="mb-2 flex items-center justify-end gap-x-3">
         <button
+          aria-label="Reverse sort order"
           onClick={() =>
             setSorting((prev) => ({
               ...prev,
@@ -142,7 +143,10 @@ function App() {
         <p className="text-xs font-semibold">
           Sorted {sortMethodsNames[sorting.fn]}
         </p>
-        <button onClick={() => setSorting(defaultSorting)}>
+        <button
+          aria-label="Remove sort order option"
+          onClick={() => setSorting(defaultSorting)}
+        >
           <IconX size={20} className="stroke-1" />
         </button>
       </div>
@@ -162,7 +166,7 @@ function App() {
           <AccordionItem value="finished-tasks">
             <AccordionTrigger className="hover:no-underline">
               <div className="flex items-center gap-x-4 text-sm">
-                <h3>Completed</h3>
+                <p>Completed</p>
                 <span className="font-normal text-neutral-600">
                   {finishedTasks.length}
                 </span>

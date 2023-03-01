@@ -60,7 +60,10 @@ function App() {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="subtle">Sort</Button>
+            <Button variant="ghost" size="sm">
+              <IconArrowsSort className="mr-2 h-4 w-4" />
+              <span>Sort</span>
+            </Button>
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end">

@@ -33,7 +33,7 @@ function ProfileMenu({ firstName, lastName }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar>
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>

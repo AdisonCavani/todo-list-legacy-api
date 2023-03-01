@@ -1,6 +1,7 @@
 "use client";
 
 import DateComponent from "./date";
+import { useToast } from "@hooks/use-toast";
 import { useCreateTaskMutation } from "@lib/hooks";
 import { cn } from "@lib/utils";
 import {
@@ -32,6 +33,8 @@ function Form() {
   const { mutate, isLoading } = useCreateTaskMutation();
   const submitDisabled = title.trim().length === 0 || isLoading;
 
+  const { toast } = useToast();
+
   async function handleOnSubmit() {
     mutate({
       title: title,
@@ -40,6 +43,13 @@ function Form() {
 
     setTitle("");
     setDate(undefined);
+  }
+
+  function handleNotSupportedFeature() {
+    toast({
+      title: "This feature is not available yet.",
+      description: "Work in progress. Sorry for the inconvenience.",
+    });
   }
 
   return (
@@ -133,11 +143,19 @@ function Form() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button variant="ghost" size="xxs">
+          <Button
+            variant="ghost"
+            size="xxs"
+            onClick={handleNotSupportedFeature}
+          >
             <IconBell size={20} />
           </Button>
 
-          <Button variant="ghost" size="xxs">
+          <Button
+            variant="ghost"
+            size="xxs"
+            onClick={handleNotSupportedFeature}
+          >
             <IconRepeat size={20} />
           </Button>
         </div>

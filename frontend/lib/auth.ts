@@ -4,10 +4,6 @@ import CognitoProvider from "next-auth/providers/cognito";
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
-  pages: {
-    signIn: "/",
-  },
-
   providers: [
     CognitoProvider({
       clientId: process.env.COGNITO_CLIENT_ID,

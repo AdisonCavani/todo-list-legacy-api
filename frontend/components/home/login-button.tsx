@@ -1,14 +1,14 @@
 "use client";
 
 import { Button } from "@ui/button";
-import { ClientSafeProvider, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
-function LoginButton({ id, callbackUrl }: ClientSafeProvider) {
+function LoginButton() {
   return (
     <Button
       onClick={() =>
-        signIn(id, {
-          callbackUrl: callbackUrl,
+        signIn("cognito", {
+          callbackUrl: "/app",
         })
       }
     >

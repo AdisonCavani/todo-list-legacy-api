@@ -2,13 +2,10 @@ import LoginButton from "./login-button";
 import Logo from "@components/logo";
 import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
-import { getProviders } from "next-auth/react";
 import Link from "next/link";
 
 async function Header() {
   const session = await getServerSession(authOptions);
-  const providers = await getProviders();
-  const provider = Object.values(providers!).at(0)!;
 
   return (
     <nav className="flex items-center justify-between py-3 px-6">
@@ -47,7 +44,7 @@ async function Header() {
             Open app
           </Link>
         ) : (
-          <LoginButton {...provider} />
+          <LoginButton />
         )}
       </div>
     </nav>

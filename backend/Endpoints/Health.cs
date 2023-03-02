@@ -13,21 +13,17 @@ public class Health : EndpointBaseAsync
     .WithActionResult<HealthCheckRes>
 {
     private readonly HealthCheckService _healthCheckService;
-    private readonly ILogger<Health> _logger;
 
-    public Health(HealthCheckService healthCheckService, ILogger<Health> logger)
+    public Health(HealthCheckService healthCheckService)
     {
         _healthCheckService = healthCheckService;
-        _logger = logger;
     }
-    
+
     [HttpGet(ApiRoutes.Health)]
-    [SwaggerOperation(Tags = new[] { "Health Endpoint" })]
+    [SwaggerOperation(Tags = new[] {"Health Endpoint"})]
     public override async Task<ActionResult<HealthCheckRes>> HandleAsync(
         CancellationToken ct = default)
     {
-        _logger.LogInformation("Health hit");
-        
         var report = await _healthCheckService.CheckHealthAsync(ct);
         var response = new HealthCheckRes
         {

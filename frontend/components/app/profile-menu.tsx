@@ -3,7 +3,7 @@
 import { useToast } from "@hooks/use-toast";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
+import { Avatar, AvatarFallback } from "@ui/avatar";
 import { Button } from "@ui/button";
 import {
   DropdownMenu,

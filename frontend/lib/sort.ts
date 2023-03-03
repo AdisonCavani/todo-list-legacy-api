@@ -31,7 +31,7 @@ function sortTasksByImportance(a: TaskDto, b: TaskDto): number {
 
   if (!a.isImportant && b.isImportant) return -1;
 
-  return sortTasksByDueDate(a, b);
+  return sortTasksByDueDate(b, a);
 }
 
 function sortTasksByCreationDate(a: TaskDto, b: TaskDto): number {

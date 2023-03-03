@@ -3,13 +3,18 @@ import type { TaskDto } from "@api/dtos/TaskDto";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@lib/hooks";
 import { cn } from "@lib/utils";
 import {
+  IconCalendar,
+  IconCalendarDue,
   IconCalendarEvent,
+  IconCalendarPlus,
+  IconCalendarStats,
   IconLoader2,
   IconNote,
   IconStar,
   IconStarFilled,
   IconTrash,
 } from "@tabler/icons-react";
+import { Button } from "@ui/button";
 import {
   Dialog,
   DialogContent,
@@ -19,7 +24,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@ui/dialog";
-import { MouseEventHandler, useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@ui/dropdown-menu";
+import { createRef, MouseEventHandler, useState } from "react";
 
 function Task(task: TaskDto) {
   const { title, description, dueDate, dueTime, isCompleted, isImportant } =
@@ -57,6 +70,11 @@ function Task(task: TaskDto) {
   const [dialogDescription, setDialogDescription] = useState<string>(
     description ?? ""
   );
+  const [dialogDate, setDialogDate] = useState<Date | null>(
+    dueDate ? new Date(dueDate) : null
+  );
+
+  const dialogDateRef = createRef<HTMLInputElement>();
 
   const isSubmitDisabled = dialogTitle.trim().length <= 0;
 
@@ -66,6 +84,7 @@ function Task(task: TaskDto) {
       title: dialogTitle,
       description:
         dialogDescription.trim().length === 0 ? null : dialogDescription.trim(),
+      dueDate: dialogDate?.toISOString().split("T")[0],
     });
 
     setOpen(false);
@@ -86,6 +105,7 @@ function Task(task: TaskDto) {
         if (event) {
           setDialogTitle(title);
           setDialogDescription(description ?? "");
+          setDialogDate(dueDate ? new Date(dueDate) : null);
         }
 
         setOpen(event);
@@ -202,6 +222,99 @@ function Task(task: TaskDto) {
               onChange={(event) => setDialogDescription(event.target.value)}
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none"
             />
+          </div>
+
+          <div className="relative">
+            <input
+              type="date"
+              min={new Date().toISOString().split("T")[0]}
+              ref={dialogDateRef}
+              value={dialogDate?.toISOString().split("T")[0] ?? ""}
+              onChange={(event) => setDialogDate(event.target.valueAsDate)}
+              className="invisible absolute top-0 left-0 mt-9 -ml-1 h-0 w-0"
+            />
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  aria-label="Due Date"
+                  variant="outline"
+                  className="w-full"
+                >
+                  <IconCalendarEvent className="mr-2 h-4 w-4" />
+                  {dialogDate ? (
+                    <DateComponent date={dialogDate} textCss="font-semibold" />
+                  ) : (
+                    "Add due date"
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Due Date</DropdownMenuLabel>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem onClick={() => setDialogDate(new Date())}>
+                  <IconCalendar className="mr-2 h-5 w-5" />
+                  <div className="flex w-full justify-between">
+                    <span>Today</span>
+                    <span className="pl-8 text-neutral-500">Wed</span>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => {
+                    const date = new Date();
+                    date.setDate(date.getDate() + 1);
+                    setDialogDate(date);
+                  }}
+                >
+                  <IconCalendarDue className="mr-2 h-5 w-5" />
+                  <div className="flex w-full justify-between">
+                    <span>Tomorrow</span>
+                    <span className="pl-8 text-neutral-500">Thu</span>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => {
+                    const date = new Date();
+                    date.setDate(date.getDate() + 7);
+                    setDialogDate(date);
+                  }}
+                >
+                  <IconCalendarPlus className="mr-2 h-5 w-5" />
+                  <div className="flex w-full justify-between">
+                    <span>Next week</span>
+                    <span className="pl-8 text-neutral-500">Mon</span>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem
+                  onClick={() => dialogDateRef.current?.showPicker()}
+                >
+                  <IconCalendarStats className="mr-2 h-4 w-4" />
+                  <span>Pick a date</span>
+                </DropdownMenuItem>
+
+                {dialogDate && (
+                  <>
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem
+                      onClick={() => setDialogDate(null)}
+                      className="text-red-600"
+                    >
+                      <IconTrash size={24} className="mr-2 h-4 w-4" />
+                      <span>Remove due date</span>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 

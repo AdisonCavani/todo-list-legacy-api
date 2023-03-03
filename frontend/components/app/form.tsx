@@ -33,7 +33,7 @@ import { createRef, useState } from "react";
 
 function Form() {
   const [title, setTitle] = useState<string>("");
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date | null>(null);
 
   const { mutate, isLoading } = useCreateTaskMutation();
   const submitDisabled = title.trim().length === 0 || isLoading;
@@ -47,7 +47,7 @@ function Form() {
     });
 
     setTitle("");
-    setDate(undefined);
+    setDate(null);
   }
 
   function handleNotSupportedFeature() {
@@ -77,8 +77,8 @@ function Form() {
             type="date"
             min={new Date().toISOString().split("T")[0]}
             ref={dateRef}
-            value={date?.toISOString().split("T")[0]}
-            onChange={(event) => setDate(event.target.valueAsDate ?? undefined)}
+            value={date?.toISOString().split("T")[0] ?? ""}
+            onChange={(event) => setDate(event.target.valueAsDate)}
             className="invisible absolute top-0 left-0 mt-9 -ml-1 h-0 w-0"
           />
 
@@ -152,7 +152,7 @@ function Form() {
                   <DropdownMenuSeparator />
 
                   <DropdownMenuItem
-                    onClick={() => setDate(undefined)}
+                    onClick={() => setDate(null)}
                     className="text-red-600"
                   >
                     <IconTrash size={24} className="mr-2 h-4 w-4" />

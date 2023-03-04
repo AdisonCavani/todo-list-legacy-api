@@ -1,11 +1,25 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Server.Database;
+using Server.Options;
 using Server.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Settings configuration.
+builder.Services
+    .AddOptions<AppOptions>()
+    .Bind(builder.Configuration.GetRequiredSection(AppOptions.SectionName))
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
+var appOptions = builder.Configuration
+    .GetRequiredSection(AppOptions.SectionName)
+    .Get<AppOptions>()!;
+
+appOptions.Validate();
+
 // Add services to the container.
-builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureDbContext(appOptions);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddValidators();
@@ -17,7 +31,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.Authority = builder.Configuration["CognitoIssuer"];
+    options.Authority = appOptions.CognitoIssuer;
     options.TokenValidationParameters = new()
     {
         ValidateIssuerSigningKey = true,

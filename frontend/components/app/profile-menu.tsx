@@ -9,17 +9,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@ui/dropdown-menu";
+import type { User } from "next-auth";
 import { signOut } from "next-auth/react";
 
-type Props = {
-  firstName: string;
-  lastName: string;
-};
-
-function ProfileMenu({ firstName, lastName }: Props) {
+function ProfileMenu({ firstName, lastName, email }: User) {
   const { toast } = useToast();
   const initials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
 
@@ -41,7 +36,14 @@ function ProfileMenu({ firstName, lastName }: Props) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" sideOffset={8}>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <div className="flex items-center justify-start gap-2 p-2">
+          <div className="flex flex-col space-y-1 leading-none">
+            <p className="font-medium">
+              {firstName} {lastName}
+            </p>
+            <p className="w-[200px] truncate text-sm text-slate-600">{email}</p>
+          </div>
+        </div>
 
         <DropdownMenuSeparator />
 
@@ -49,13 +51,7 @@ function ProfileMenu({ firstName, lastName }: Props) {
           <IconSettings className="mr-2 h-4 w-4" />
           <span>Settings</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() =>
-            signOut({
-              callbackUrl: "/",
-            })
-          }
-        >
+        <DropdownMenuItem onClick={() => signOut()}>
           <IconLogout className="mr-2 h-4 w-4" />
           <span>Logout</span>
         </DropdownMenuItem>

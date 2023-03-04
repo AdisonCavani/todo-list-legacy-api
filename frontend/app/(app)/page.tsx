@@ -7,7 +7,7 @@ import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
 
 export const metadata = {
-  title: "Tasks",
+  title: "App",
 };
 
 async function Page() {

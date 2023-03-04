@@ -8,6 +8,31 @@ const fontInter = Inter({
   variable: "--font-inter",
 });
 
+export const metadata = {
+  title: {
+    default: "To-do list",
+    template: "%s | To-do list",
+  },
+  description: "Managing your tasks has never been simpler before.",
+
+  manifest: "/static/manifest.json",
+
+  icons: {
+    icon: [
+      {
+        url: "/static/favicons/favicon.ico",
+      },
+    ],
+    apple: [
+      {
+        url: "/static/favicons/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+};
+
 function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={cn("font-sans antialiased", fontInter.variable)}>

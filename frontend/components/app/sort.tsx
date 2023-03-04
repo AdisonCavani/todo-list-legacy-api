@@ -29,7 +29,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
   return (
     <>
       <div className="mb-3 flex items-center justify-between">
-        <h1 className="text-xl font-bold">Tasks</h1>
+        <h2 className="text-xl font-bold">Tasks</h2>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

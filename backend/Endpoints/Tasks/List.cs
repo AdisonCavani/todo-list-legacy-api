@@ -11,7 +11,7 @@ using Server.Contracts.Responses;
 using Server.Database;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Server.Endpoints.Task;
+namespace Server.Endpoints.Tasks;
 
 public class List : EndpointBaseAsync
     .WithRequest<PaginatedReq>
@@ -27,7 +27,7 @@ public class List : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpGet(ApiRoutes.Task)]
+    [HttpGet(ApiRoutes.Tasks)]
     [SwaggerOperation(
         Summary = "Get a list of Tasks",
         Description = "Returns a paginated list of Tasks",

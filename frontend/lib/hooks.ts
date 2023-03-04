@@ -13,7 +13,7 @@ function useCreateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
-      httpPost("/task", req, session.data?.user.accessToken!),
+      httpPost("/tasks", req, session.data?.user.accessToken!),
     onSuccess(data) {
       toast({
         title: "Task created successfully.",
@@ -36,7 +36,7 @@ function useUpdateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: UpdateTaskReq) =>
-      httpPatch("/task", req, session.data?.user.accessToken!),
+      httpPatch("/tasks", req, session.data?.user.accessToken!),
     onSuccess(data) {
       toast({
         title: "Task updated successfully.",
@@ -59,7 +59,7 @@ function useDeleteTaskMutation() {
 
   return useMutation({
     mutationFn: (req: Parameters<typeof httpDelete>["1"]) =>
-      httpDelete("/task/{id}", req, session.data?.user.accessToken!),
+      httpDelete("/tasks/{id}", req, session.data?.user.accessToken!),
     onSuccess(_, context) {
       toast({
         title: "Task deleted successfully.",

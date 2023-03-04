@@ -10,7 +10,7 @@ using Server.Database;
 using Server.Database.Entities;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Server.Endpoints.Task;
+namespace Server.Endpoints.Tasks;
 
 public class Create : EndpointBaseAsync
     .WithRequest<CreateTaskReq>
@@ -26,7 +26,7 @@ public class Create : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpPost(ApiRoutes.Task)]
+    [HttpPost(ApiRoutes.Tasks)]
     [SwaggerOperation(
         Summary = "Create new Task",
         Description = "",

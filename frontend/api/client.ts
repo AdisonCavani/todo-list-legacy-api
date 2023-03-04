@@ -14,12 +14,12 @@ const getEndpoint = {
     request: z.undefined(),
     response: HealthCheckResSchema,
   },
-  "/task/{id}": {
+  "/tasks/{id}": {
     auth: true,
     request: z.string(),
     response: TaskDtoSchema,
   },
-  "/task": {
+  "/tasks": {
     auth: true,
     request: PaginatedReqSchema,
     response: PaginatedResTaskDtoSchema,
@@ -27,7 +27,7 @@ const getEndpoint = {
 };
 
 const postEndpoint = {
-  "/task": {
+  "/tasks": {
     auth: true,
     request: CreateTaskReqSchema,
     response: TaskDtoSchema,
@@ -35,7 +35,7 @@ const postEndpoint = {
 };
 
 const patchEndpoint = {
-  "/task": {
+  "/tasks": {
     auth: true,
     request: UpdateTaskReqSchema,
     response: TaskDtoSchema,
@@ -43,7 +43,7 @@ const patchEndpoint = {
 };
 
 const deleteEndpoint = {
-  "/task/{id}": {
+  "/tasks/{id}": {
     auth: true,
     request: z.string(),
     response: undefined,

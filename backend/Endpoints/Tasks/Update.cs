@@ -10,7 +10,7 @@ using Server.Contracts.Requests;
 using Server.Database;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Server.Endpoints.Task;
+namespace Server.Endpoints.Tasks;
 
 public class Update : EndpointBaseAsync
     .WithRequest<UpdateTaskReq>
@@ -26,7 +26,7 @@ public class Update : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpPatch(ApiRoutes.Task)]
+    [HttpPatch(ApiRoutes.Tasks)]
     [SwaggerOperation(
         Summary = "Update a Task",
         Description = "",

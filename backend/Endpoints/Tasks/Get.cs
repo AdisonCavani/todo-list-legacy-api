@@ -1,32 +1,36 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Contracts;
+using Server.Contracts.Dtos;
 using Server.Database;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Server.Endpoints.Task;
+namespace Server.Endpoints.Tasks;
 
-public class Delete : EndpointBaseAsync
+public class Get : EndpointBaseAsync
     .WithRequest<Guid>
-    .WithActionResult
+    .WithActionResult<TaskDto>
 {
     private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
 
-    public Delete(AppDbContext context)
+    public Get(AppDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     [Authorize]
-    [HttpDelete(ApiRoutes.Task + "/{id}")]
+    [HttpGet(ApiRoutes.Tasks + "/{id}")]
     [SwaggerOperation(
-        Summary = "Remove Task by id",
+        Summary = "Get Task by id",
         Description = "",
         Tags = new[] {"Task Endpoint"})]
-    public override async Task<ActionResult> HandleAsync(
+    public override async Task<ActionResult<TaskDto>> HandleAsync(
         Guid id,
         CancellationToken ct = default)
     {
@@ -43,9 +47,6 @@ public class Delete : EndpointBaseAsync
         if (entity is null)
             return NotFound();
 
-        _context.Tasks.Remove(entity);
-        await _context.SaveChangesAsync(ct);
-
-        return NoContent();
+        return Ok(_mapper.Map<TaskDto>(entity));
     }
 }

@@ -6,14 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Contracts;
 using Server.Contracts.Dtos;
-using Server.Contracts.Requests;
 using Server.Database;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Task;
 
 public class Get : EndpointBaseAsync
-    .WithRequest<GetTaskReq>
+    .WithRequest<Guid>
     .WithActionResult<TaskDto>
 {
     private readonly AppDbContext _context;
@@ -26,13 +25,13 @@ public class Get : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpGet(ApiRoutes.Task.Get)]
+    [HttpGet(ApiRoutes.Task + "/{id}")]
     [SwaggerOperation(
         Summary = "Get Task by id",
         Description = "",
         Tags = new[] {"Task Endpoint"})]
     public override async Task<ActionResult<TaskDto>> HandleAsync(
-        [FromQuery] GetTaskReq req,
+        Guid id,
         CancellationToken ct = default)
     {
         // TODO: check for null during unit test
@@ -43,7 +42,7 @@ public class Get : EndpointBaseAsync
 
         var entity = await _context.Tasks
             .Where(x => x.UserId == userId)
-            .FirstOrDefaultAsync(x => x.Id == req.Id, ct);
+            .FirstOrDefaultAsync(x => x.Id == id, ct);
 
         if (entity is null)
             return NotFound();

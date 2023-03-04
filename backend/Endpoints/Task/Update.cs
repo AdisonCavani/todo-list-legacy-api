@@ -26,7 +26,7 @@ public class Update : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpPatch(ApiRoutes.Task.Update)]
+    [HttpPatch(ApiRoutes.Task)]
     [SwaggerOperation(
         Summary = "Update a Task",
         Description = "",

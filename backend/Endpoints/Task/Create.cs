@@ -26,7 +26,7 @@ public class Create : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpPost(ApiRoutes.Task.Create)]
+    [HttpPost(ApiRoutes.Task)]
     [SwaggerOperation(
         Summary = "Create new Task",
         Description = "",

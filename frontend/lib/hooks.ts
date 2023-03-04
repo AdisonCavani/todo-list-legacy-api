@@ -1,7 +1,6 @@
 import { useStore } from "./store";
 import { httpDelete, httpPatch, httpPost } from "@api/client";
 import type { CreateTaskReq } from "@api/req/CreateTaskReq";
-import type { DeleteTaskReq } from "@api/req/DeleteTaskReq";
 import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
 import { useToast } from "@hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -14,7 +13,7 @@ function useCreateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
-      httpPost("/task/create", req, session.data?.user.accessToken!),
+      httpPost("/task", req, session.data?.user.accessToken!),
     onSuccess(data) {
       toast({
         title: "Task created successfully.",
@@ -37,7 +36,7 @@ function useUpdateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: UpdateTaskReq) =>
-      httpPatch("/task/update", req, session.data?.user.accessToken!),
+      httpPatch("/task", req, session.data?.user.accessToken!),
     onSuccess(data) {
       toast({
         title: "Task updated successfully.",
@@ -59,13 +58,13 @@ function useDeleteTaskMutation() {
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: (req: DeleteTaskReq) =>
-      httpDelete("/task/delete", req, session.data?.user.accessToken!),
+    mutationFn: (req: Parameters<typeof httpDelete>["1"]) =>
+      httpDelete("/task/{id}", req, session.data?.user.accessToken!),
     onSuccess(_, context) {
       toast({
         title: "Task deleted successfully.",
       });
-      deleteTaskReducer(context.id);
+      deleteTaskReducer(context);
     },
     onError() {
       toast({

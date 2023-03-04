@@ -4,14 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Contracts;
-using Server.Contracts.Requests;
 using Server.Database;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Task;
 
 public class Delete : EndpointBaseAsync
-    .WithRequest<DeleteTaskReq>
+    .WithRequest<Guid>
     .WithActionResult
 {
     private readonly AppDbContext _context;
@@ -22,13 +21,13 @@ public class Delete : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpDelete(ApiRoutes.Task.Delete)]
+    [HttpDelete(ApiRoutes.Task + "/{id}")]
     [SwaggerOperation(
         Summary = "Remove Task by id",
         Description = "",
         Tags = new[] {"Task Endpoint"})]
     public override async Task<ActionResult> HandleAsync(
-        [FromQuery] DeleteTaskReq req,
+        Guid id,
         CancellationToken ct = default)
     {
         // TODO: check for null during unit test
@@ -39,7 +38,7 @@ public class Delete : EndpointBaseAsync
 
         var entity = await _context.Tasks
             .Where(x => x.UserId == userId)
-            .FirstOrDefaultAsync(x => x.Id == req.Id, ct);
+            .FirstOrDefaultAsync(x => x.Id == id, ct);
 
         if (entity is null)
             return NotFound();

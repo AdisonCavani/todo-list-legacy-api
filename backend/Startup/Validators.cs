@@ -11,7 +11,6 @@ public static class Validators
     {
         services.AddFluentValidationAutoValidation();
         services.AddScoped<IValidator<CreateTaskReq>, CreateTaskReqValidator>();
-        services.AddScoped<IValidator<GetTaskReq>, GetTaskReqValidator>();
         services.AddScoped<IValidator<UpdateTaskReq>, UpdateTaskReqValidator>();
         services.AddScoped<IValidator<PaginatedReq>, PaginatedReqValidator>();
     }

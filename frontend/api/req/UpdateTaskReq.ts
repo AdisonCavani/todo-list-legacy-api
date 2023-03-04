@@ -5,7 +5,6 @@ const UpdateTaskReqSchema = z.object({
   title: z.string(),
   description: z.optional(z.string().nullable()),
   dueDate: z.optional(z.string().nullable()),
-  dueTime: z.optional(z.string().nullable()),
   isCompleted: z.optional(z.boolean()),
   isImportant: z.optional(z.boolean()),
 });

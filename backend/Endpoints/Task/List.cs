@@ -27,7 +27,7 @@ public class List : EndpointBaseAsync
     }
 
     [Authorize]
-    [HttpGet(ApiRoutes.Task.List)]
+    [HttpGet(ApiRoutes.Task)]
     [SwaggerOperation(
         Summary = "Get a list of Tasks",
         Description = "Returns a paginated list of Tasks",

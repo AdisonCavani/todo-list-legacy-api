@@ -16,12 +16,8 @@ function sortTasksByDueDate(a: TaskDto, b: TaskDto): number {
   if (!a.dueDate && b.dueDate) return 1;
 
   // Both have due date
-  const aDate = Date.parse(
-    a.dueTime ? `${a.dueDate} ${a.dueTime}` : a.dueDate!
-  );
-  const bDate = Date.parse(
-    b.dueTime ? `${b.dueDate} ${b.dueTime}` : b.dueDate!
-  );
+  const aDate = Date.parse(a.dueDate!);
+  const bDate = Date.parse(b.dueDate!);
 
   return aDate - bDate;
 }

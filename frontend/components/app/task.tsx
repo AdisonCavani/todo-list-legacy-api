@@ -35,8 +35,7 @@ import {
 import { createRef, MouseEventHandler, useState } from "react";
 
 function Task(task: TaskDto) {
-  const { title, description, dueDate, dueTime, isCompleted, isImportant } =
-    task;
+  const { title, description, dueDate, isCompleted, isImportant } = task;
   const { mutate } = useUpdateTaskMutation();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -91,9 +90,7 @@ function Task(task: TaskDto) {
   }
 
   function handleOnDelete() {
-    deleteTask({
-      id: task.id,
-    });
+    deleteTask(task.id);
 
     setOpen(false);
   }
@@ -134,15 +131,7 @@ function Task(task: TaskDto) {
             </p>
 
             <div className="flex items-center gap-x-3">
-              {dueDate && dueTime && (
-                <DateComponent
-                  date={new Date(`${dueDate} ${dueTime}`)}
-                  icon={<IconCalendarEvent size={13} />}
-                  textCss="text-xs"
-                  withTime={true}
-                />
-              )}
-              {dueDate && !dueTime && (
+              {dueDate && (
                 <DateComponent
                   date={new Date(dueDate)}
                   icon={<IconCalendarEvent size={13} />}

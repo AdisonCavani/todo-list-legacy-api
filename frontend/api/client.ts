@@ -1,7 +1,5 @@
 import { TaskDtoSchema } from "./dtos/TaskDto";
 import { CreateTaskReqSchema } from "./req/CreateTaskReq";
-import { DeleteTaskReqSchema } from "./req/DeleteTaskReq";
-import { GetTaskReqSchema } from "./req/GetTaskReq";
 import { PaginatedReqSchema } from "./req/PaginatedReq";
 import { UpdateTaskReqSchema } from "./req/UpdateTaskReq";
 import { HealthCheckResSchema } from "./res/HealthCheckRes";
@@ -16,12 +14,12 @@ const getEndpoint = {
     request: z.undefined(),
     response: HealthCheckResSchema,
   },
-  "/task/get": {
+  "/task/{id}": {
     auth: true,
-    request: GetTaskReqSchema,
+    request: z.string(),
     response: TaskDtoSchema,
   },
-  "/task/list": {
+  "/task": {
     auth: true,
     request: PaginatedReqSchema,
     response: PaginatedResTaskDtoSchema,
@@ -29,7 +27,7 @@ const getEndpoint = {
 };
 
 const postEndpoint = {
-  "/task/create": {
+  "/task": {
     auth: true,
     request: CreateTaskReqSchema,
     response: TaskDtoSchema,
@@ -37,7 +35,7 @@ const postEndpoint = {
 };
 
 const patchEndpoint = {
-  "/task/update": {
+  "/task": {
     auth: true,
     request: UpdateTaskReqSchema,
     response: TaskDtoSchema,
@@ -45,9 +43,9 @@ const patchEndpoint = {
 };
 
 const deleteEndpoint = {
-  "/task/delete": {
+  "/task/{id}": {
     auth: true,
-    request: DeleteTaskReqSchema,
+    request: z.string(),
     response: undefined,
   },
 };
@@ -57,9 +55,16 @@ export async function httpGet<Endpoint extends keyof typeof getEndpoint>(
   request?: z.infer<(typeof getEndpoint)[Endpoint]["request"]>,
   jwtToken?: string
 ): Promise<z.infer<(typeof getEndpoint)[Endpoint]["response"]> | undefined> {
-  const queryUrl = request
-    ? `${baseUrl + endpoint}?${appendParams(request)}`
-    : baseUrl + endpoint;
+  let queryUrl = "";
+
+  // Path params
+  if (isPrimitive(request))
+    queryUrl = baseUrl + endpoint.substring(0, endpoint.indexOf("{")) + request;
+  // Query params
+  else
+    queryUrl = request
+      ? `${baseUrl + endpoint}?${appendParams(request)}`
+      : baseUrl + endpoint;
 
   const res = await fetchApi(
     "GET",
@@ -113,12 +118,19 @@ export async function httpPatch<Endpoint extends keyof typeof patchEndpoint>(
 
 export async function httpDelete<Endpoint extends keyof typeof deleteEndpoint>(
   endpoint: Endpoint,
-  request?: z.infer<(typeof deleteEndpoint)[Endpoint]["request"]>,
+  request: z.infer<(typeof deleteEndpoint)[Endpoint]["request"]>,
   jwtToken?: string
 ): Promise<undefined> {
-  const queryUrl = request
-    ? `${baseUrl + endpoint}?${appendParams(request)}`
-    : baseUrl + endpoint;
+  let queryUrl = "";
+
+  // Path params
+  if (isPrimitive(request))
+    queryUrl = baseUrl + endpoint.substring(0, endpoint.indexOf("{")) + request;
+  // Query params
+  else
+    queryUrl = request
+      ? `${baseUrl + endpoint}?${appendParams(request)}`
+      : baseUrl + endpoint;
 
   const res = await fetchApi(
     "DELETE",
@@ -164,7 +176,11 @@ async function fetchApi(
     body: body,
   });
 
-  if (!res.ok) throw new Error("Failed to fetch data");
+  if (!res.ok) {
+    if (process.env.NODE_ENV !== "production") console.error(res);
+
+    throw new Error("Failed to fetch data");
+  }
 
   if (res.status === 204) return;
 
@@ -185,4 +201,10 @@ function appendParams(obj: any): URLSearchParams {
   }
 
   return params;
+}
+
+function isPrimitive(object: any) {
+  if (object === Object(object)) return false;
+
+  return true;
 }

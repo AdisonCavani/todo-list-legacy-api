@@ -14,7 +14,7 @@ async function Page() {
   const session = await getServerSession(authOptions);
 
   const res = await httpGet(
-    "/task/list",
+    "/task",
     {
       page: 1,
       pageSize: 100,

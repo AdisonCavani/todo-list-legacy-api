@@ -24,12 +24,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = false
     };
 });
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.EnableAnnotations();
-    options.DescribeAllParametersInCamelCase();
-});
+builder.Services.AddSwagger();
 builder.Services.AddCors(opt =>
 {
     opt.AddDefaultPolicy(policy =>

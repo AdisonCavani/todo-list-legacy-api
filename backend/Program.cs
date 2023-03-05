@@ -24,7 +24,9 @@ appOptions.Validate();
 // Add services to the container.
 builder.Services.ConfigureDbContext(appOptions);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter()));
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
 builder.Services.AddCognitoIdentity();

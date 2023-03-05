@@ -21,7 +21,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["api/*"],
+      "@api/*": ["lib/api/*"],
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@lib/*": ["lib/*"],

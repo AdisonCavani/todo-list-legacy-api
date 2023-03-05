@@ -6,6 +6,6 @@ declare namespace NodeJS {
 
     NEXTAUTH_SECRET: string;
 
-    API_URL: string;
+    NEXT_PUBLIC_API_URL: string;
   }
 }

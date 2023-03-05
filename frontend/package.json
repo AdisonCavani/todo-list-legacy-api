@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
     "build": "next build",
-    "start": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 next start",
+    "start": "next start",
+    "devStart": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 next start",
     "lint": "next lint",
     "prettier": "prettier --write ."
   },

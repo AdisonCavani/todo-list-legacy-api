@@ -48,7 +48,9 @@ builder.Services.AddCors(opt =>
 {
     opt.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins(appOptions.CorsOrigin);
+        policy
+            .AllowAnyMethod()
+            .WithOrigins(appOptions.CorsOrigin);
     });
 });
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);

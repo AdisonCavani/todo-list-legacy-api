@@ -37,7 +37,8 @@ builder.Services.AddAuthentication(options =>
     options.Authority = appOptions.CognitoIssuer;
     options.TokenValidationParameters = new()
     {
-        ValidateIssuerSigningKey = true
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = false
     };
 });
 builder.Services.AddSwagger();

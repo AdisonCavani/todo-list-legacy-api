@@ -50,6 +50,7 @@ builder.Services.AddCors(opt =>
     {
         policy
             .AllowAnyMethod()
+            .AllowAnyHeader()
             .WithOrigins(appOptions.CorsOrigin);
     });
 });

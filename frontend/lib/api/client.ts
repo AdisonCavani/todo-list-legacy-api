@@ -6,7 +6,7 @@ import { HealthCheckResSchema } from "./res/HealthCheckRes";
 import { PaginatedResTaskDtoSchema } from "./res/PaginatedRes";
 import { z, ZodObject } from "zod";
 
-const baseUrl = "https://localhost:7087/api";
+const baseUrl = process.env.API_URL;
 
 const getEndpoint = {
   "/health": {

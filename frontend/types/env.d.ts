@@ -5,5 +5,7 @@ declare namespace NodeJS {
     COGNITO_ISSUER: string;
 
     NEXTAUTH_SECRET: string;
+
+    API_URL: string;
   }
 }

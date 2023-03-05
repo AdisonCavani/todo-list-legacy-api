@@ -10,5 +10,8 @@ public class AppOptions : IBaseOptions
     public required string CognitoIssuer { get; init; }
     
     [Required]
+    public required string CorsOrigin { get; init; }
+    
+    [Required]
     public required string SqlConnectionString { get; init; }
 }

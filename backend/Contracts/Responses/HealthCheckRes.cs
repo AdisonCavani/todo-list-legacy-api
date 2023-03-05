@@ -4,7 +4,7 @@ namespace Server.Contracts.Responses;
 
 public class HealthCheckRes
 {
-    public required string Status { get; set; }
+    public string Status { get; set; } = default!;
 
     public IEnumerable<HealthCheckDto> Checks { get; set; } = Enumerable.Empty<HealthCheckDto>();
 

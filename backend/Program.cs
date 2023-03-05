@@ -49,6 +49,7 @@ builder.Services.AddCors(opt =>
         policy.WithOrigins(appOptions.CorsOrigin);
     });
 });
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
 var app = builder.Build();
 

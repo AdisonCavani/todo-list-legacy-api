@@ -5,7 +5,7 @@ namespace Server.Database;
 
 public class AppDbContext : DbContext
 {
-    public required DbSet<TaskEntity> Tasks { get; set; }
+    public DbSet<TaskEntity> Tasks { get; set; } = default!;
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {

@@ -2,9 +2,9 @@
 
 public class HealthCheckDto
 {
-    public required string Status { get; set; }
+    public string Status { get; set; } = default!;
 
-    public required string Component { get; set; }
+    public string Component { get; set; } = default!;
 
     public string? Description { get; set; }
 }

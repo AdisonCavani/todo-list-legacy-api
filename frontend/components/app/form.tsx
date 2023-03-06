@@ -60,7 +60,7 @@ function Form() {
   const dateRef = createRef<HTMLInputElement>();
 
   return (
-    <div className="z-[2] mb-3 rounded-md border-neutral-200 bg-white shadow-ms">
+    <div className="mb-3 rounded-md border-neutral-200 bg-white shadow-ms">
       <div className="flex flex-row items-center gap-x-2 px-4">
         <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />
         <input

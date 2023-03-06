@@ -45,13 +45,14 @@ public class List : EndpointBaseAsync
         if (!await _context.Tasks.Where(x => x.UserId == userId).AnyAsync(ct))
             return NoContent();
 
-        var postsCount = await _context.Tasks.CountAsync(ct);
+        var postsCount = await _context.Tasks.Where(x => x.UserId == userId).CountAsync(ct);
         var pageCount = Math.Ceiling(postsCount / (float) req.PageSize);
 
         if (req.Page > pageCount)
             return NotFound();
 
         var posts = await _context.Tasks
+            .Where(x => x.UserId == userId)
             .OrderByDescending(x => x.CreatedAt)
             .Skip((req.Page - 1) * req.PageSize)
             .Take(req.PageSize)

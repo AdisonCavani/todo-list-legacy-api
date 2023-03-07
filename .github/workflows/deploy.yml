@@ -22,11 +22,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-region: ${{ secrets.AWS_REGION }}
-          role-session-name: ${{ secrets.AWS_SESSION_NAME }}
           role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3

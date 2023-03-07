@@ -24,9 +24,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: ${{ env.AWS_REGION }}
-          role-session-name: ${{ env.AWS_SESSION_NAME }}
-          role-to-assume: ${{ env.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-session-name: ${{ secrets.AWS_SESSION_NAME }}
+          role-to-assume: ${{ secrets.AWS_ROLE }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3

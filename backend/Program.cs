@@ -7,7 +7,7 @@ using Server.Startup;
 var builder = WebApplication.CreateBuilder(args);
 
 var environment = builder.Environment.EnvironmentName.ToLower();
-builder.Configuration.AddSystemsManager($"/todo-list/{environment}", TimeSpan.FromMinutes(3));
+builder.Configuration.AddSystemsManager($"/todo-list/{environment}", TimeSpan.FromMinutes(5));
 
 // Settings configuration.
 builder.Services

@@ -24,8 +24,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::418300535646:role/TodoListGithubActionsDeployLambdaRole
-          aws-region: eu-central-1
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -47,7 +47,7 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Install AWS CLI
-        run: dotnet tool install Amazon.Lambda.Tools
+        run: dotnet tool install -g Amazon.Lambda.Tools
 
       - name: Deploy fn to AWS Lambda
         run: dotnet lambda deploy-function

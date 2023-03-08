@@ -177,9 +177,18 @@ async function fetchApi(
   });
 
   if (!res.ok) {
-    if (process.env.NODE_ENV !== "production") console.error(res);
+    const text = await res.text();
 
-    throw new Error("Failed to fetch data");
+    const errorObj = {
+      message: "Fetch failed",
+      queryUrl: queryUrl,
+      method: method,
+      statusCode: res.status,
+      statusText: res.statusText,
+      ...(text.length > 0 && { reason: text }),
+    };
+
+    throw new Error(JSON.stringify(errorObj, null, 2));
   }
 
   if (res.status === 204) return;

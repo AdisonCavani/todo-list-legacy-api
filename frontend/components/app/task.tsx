@@ -1,6 +1,6 @@
 import DateComponent from "./date";
 import type { TaskDto } from "@api/dtos/TaskDto";
-import { useDeleteTaskMutation, useUpdateTaskMutation } from "@lib/hooks";
+import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/redux";
 import { cn } from "@lib/utils";
 import {
   IconCalendar,

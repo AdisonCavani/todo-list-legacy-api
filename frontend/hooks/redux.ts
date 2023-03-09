@@ -1,4 +1,4 @@
-import { useStore } from "./store";
+import { useStore } from "../lib/store";
 import { httpDelete, httpPatch, httpPost } from "@api/client";
 import type { CreateTaskReq } from "@api/req/CreateTaskReq";
 import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";

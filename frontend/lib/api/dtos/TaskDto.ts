@@ -4,7 +4,6 @@ const TaskDtoSchema = z.object({
   id: z.string(),
   userId: z.string(),
   createdAt: z.string(),
-  updatedAt: z.string(),
   title: z.string(),
   description: z.optional(z.string().nullable()),
   dueDate: z.optional(z.string().nullable()),

@@ -5,6 +5,10 @@ type State = {
   tasks: TaskDto[];
   addTaskReducer: (payloadTask: TaskDto) => void;
   updateTaskReducer: (payloadTask: TaskDto) => void;
+  replaceTaskReducer: (payload: {
+    taskId: string;
+    payloadTask: TaskDto;
+  }) => void;
   deleteTaskReducer: (id: string) => void;
 };
 
@@ -25,6 +29,12 @@ export const useStore = create<State>((set) => ({
       ...state,
       tasks: deleteTask(state.tasks, id),
     })),
+  replaceTaskReducer({ taskId, payloadTask }) {
+    set((state) => ({
+      ...state,
+      tasks: replaceTask(state.tasks, taskId, payloadTask),
+    }));
+  },
 }));
 
 function addTask(tasks: TaskDto[], payloadTask: TaskDto) {
@@ -61,6 +71,13 @@ function deleteTask(tasks: TaskDto[], id: string) {
     console.warn(
       `Cannot remove task (id: ${id}), because it's not in the slice`
     );
+
+  return tasks;
+}
+
+function replaceTask(tasks: TaskDto[], taskId: string, task: TaskDto) {
+  const index = tasks.findIndex((task) => task.id === taskId);
+  tasks[index] = task;
 
   return tasks;
 }

@@ -17,7 +17,7 @@ function Card({ title, description, icon, imageSrc, imageAlt }: Props) {
       // eslint-disable-next-line tailwindcss/no-custom-classname
       className={cn(
         "card",
-        "relative flex h-[260px] w-full cursor-pointer flex-col rounded-xl bg-[rgba(255,255,255,0.15)]",
+        "relative flex h-[280px] w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-[rgba(255,255,255,0.15)]",
         "group-hover:after:opacity-100",
         "hover:before:opacity-100",
         "after:gradient-radial-after after:z-[1]",
@@ -26,22 +26,22 @@ function Card({ title, description, icon, imageSrc, imageAlt }: Props) {
         "before:absolute before:top-0 before:left-0 before:h-full before:w-full before:rounded-[inherit] before:opacity-0 before:transition-opacity before:duration-500"
       )}
     >
-      <div className="absolute inset-[1px] z-[2] flex grow flex-col rounded-[inherit] bg-neutral-900 p-3">
-        <div className="flex h-36 items-center justify-center overflow-hidden">
-          {/* <Image
-            src={imageSrc}
-            alt={imageAlt}
-            width={200}
-            height={100}
-            className=""
-          /> */}
-        </div>
-        <div className="flex grow items-center justify-start px-5">
-          <div className="flex items-start gap-3">
+      <div className="absolute inset-[1px] z-[2] flex grow flex-col rounded-[inherit] bg-neutral-900 py-6">
+        <div className="relative z-[1] flex h-full w-full flex-col justify-end px-6">
+          <div className="absolute left-1/2 top-[-10%] h-[172px] w-[323px] -translate-x-1/2">
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              width={323}
+              height={200}
+              className="h-auto w-[323px]"
+            />
+          </div>
+          <div className="flex flex-initial flex-row items-start gap-x-3">
             {icon}
             <div>
               <h3 className="font-semibold">{title}</h3>
-              <h4 className="mt-2 text-sm font-medium text-gray-400">
+              <h4 className="mt-2 min-h-[48px] text-sm font-medium text-gray-400">
                 {description}
               </h4>
             </div>

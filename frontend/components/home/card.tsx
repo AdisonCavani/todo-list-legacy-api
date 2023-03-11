@@ -3,7 +3,7 @@ import styles from "@styles/card.module.css";
 import Image from "next/image";
 import type { ComponentProps, ReactNode } from "react";
 
-type Props = {
+export type CardProps = {
   title: string;
   description: string;
   icon: ReactNode;
@@ -11,7 +11,7 @@ type Props = {
   imageAlt: string;
 };
 
-function Card({ title, description, icon, imageSrc, imageAlt }: Props) {
+function Card({ title, description, icon, imageSrc, imageAlt }: CardProps) {
   return (
     <li className={cn(styles.card, "group-hover:after:opacity-100")}>
       <div className={styles.container}>

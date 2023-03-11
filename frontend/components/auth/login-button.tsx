@@ -9,7 +9,7 @@ function LoginButton() {
     <Button
       onClick={() =>
         signIn("cognito", {
-          callbackUrl: "/",
+          callbackUrl: "/app",
         })
       }
       className="bg-yellow-300 text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 active:bg-yellow-400 hover:active:bg-yellow-500"

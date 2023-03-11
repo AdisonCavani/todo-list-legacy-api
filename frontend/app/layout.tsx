@@ -1,4 +1,5 @@
 import "./globals.css";
+import NextThemeProvider from "@components/theme-provider";
 import { cn } from "@lib/utils";
 import { Inter } from "next/font/google";
 import type { PropsWithChildren } from "react";
@@ -36,9 +37,15 @@ export const metadata = {
 
 function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={cn("font-sans antialiased", fontInter.variable)}>
+    <html
+      lang="en"
+      className={cn("font-sans antialiased", fontInter.variable)}
+      suppressHydrationWarning
+    >
       <head />
-      <body className="bg-neutral-50">{children}</body>
+      <body className="bg-neutral-50 dark:bg-black">
+        <NextThemeProvider>{children}</NextThemeProvider>
+      </body>
     </html>
   );
 }

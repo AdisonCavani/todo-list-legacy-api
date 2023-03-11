@@ -11,7 +11,7 @@ export const metadata = {
 async function Page() {
   const session = await getServerSession(authOptions);
 
-  if (session) redirect("/");
+  if (session) redirect("/app");
 
   return (
     <div className="mx-auto flex h-screen w-screen flex-col items-center justify-center px-6">

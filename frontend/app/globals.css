@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .gradient-radial-after {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.4),
+      transparent 40%
+    );
+  }
+  .gradient-radial-before {
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
+  }
+  .gradient-radial-overlay {
+    background: radial-gradient(
+        400px circle at calc(100% - calc((100vw - 1200px) / 2) - 10%) 45%,
+        #59e5ae,
+        70%,
+        transparent
+      ),
+      radial-gradient(400px circle at 50% 55%, #97ed8d, 60%, transparent),
+      radial-gradient(
+        350px circle at calc(calc((100vw - 1200px) / 2) + 15%) 40%,
+        #f2f75d,
+        60%,
+        transparent
+      );
+  }
+}

@@ -14,9 +14,8 @@ import type { MouseEventHandler } from "react";
 
 function Cards() {
   const handleOnMouseMove: MouseEventHandler<HTMLUListElement> = (event) => {
-    const cards = document.getElementsByClassName(
-      "card"
-    ) as HTMLCollectionOf<HTMLDivElement>;
+    const cards = document.getElementById("cards")
+      ?.children as HTMLCollectionOf<HTMLLIElement>;
 
     for (const card of cards) {
       const rect = card.getBoundingClientRect(),
@@ -37,6 +36,7 @@ function Cards() {
         )}
       />
       <ul
+        id="cards"
         onMouseMove={handleOnMouseMove}
         className="group grid grid-cols-1 gap-2 rounded-xl sm:grid-cols-2 lg:grid-cols-3"
       >

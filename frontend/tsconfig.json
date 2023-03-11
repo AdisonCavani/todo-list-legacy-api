@@ -25,6 +25,7 @@
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@lib/*": ["lib/*"],
+      "@styles/*": ["styles/*"],
       "@ui/*": ["ui/*"]
     },
     "importsNotUsedAsValues": "error",

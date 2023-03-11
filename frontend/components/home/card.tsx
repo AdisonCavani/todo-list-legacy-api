@@ -1,13 +1,13 @@
 import { cn } from "@lib/utils";
 import styles from "@styles/card.module.css";
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 type Props = {
   title: string;
   description: string;
   icon: ReactNode;
-  imageSrc: string;
+  imageSrc: ComponentProps<typeof Image>["src"];
   imageAlt: string;
 };
 
@@ -23,6 +23,7 @@ function Card({ title, description, icon, imageSrc, imageAlt }: Props) {
               width={320}
               height={160}
               className={styles.image}
+              placeholder="blur"
             />
           </div>
 

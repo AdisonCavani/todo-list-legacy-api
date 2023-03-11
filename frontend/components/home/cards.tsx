@@ -1,6 +1,12 @@
 "use client";
 
 import Card from "./card";
+import Image1 from "@images/1.png";
+import Image2 from "@images/2.png";
+import Image3 from "@images/3.png";
+import Image4 from "@images/4.png";
+import Image5 from "@images/5.png";
+import Image6 from "@images/6.png";
 import { cn } from "@lib/utils";
 import {
   IconArrowsLeftRight,
@@ -44,42 +50,42 @@ function Cards() {
           title="Issues"
           description="Create new tasks and subtasks in seconds"
           icon={<IconPencil size={18} className="mt-[2px]" />}
-          imageSrc="/static/images/1.png"
+          imageSrc={Image1}
           imageAlt=""
         />
         <Card
           title="Real-time Sync"
           description="Synchronized instantly across all users"
           icon={<IconArrowsLeftRight size={18} className="mt-[2px]" />}
-          imageSrc="/static/images/2.png"
+          imageSrc={Image2}
           imageAlt=""
         />
         <Card
           title="Cycles"
           description="Don't sprint - build momentum with Cycles"
           icon={<IconPlayerRecordFilled size={18} className="mt-[2px]" />}
-          imageSrc="/static/images/3.png"
+          imageSrc={Image3}
           imageAlt=""
         />
         <Card
           title="Projects"
           description="Define larger initiatives and features"
           icon={<IconTableFilled size={18} className="mt-[2px]" />}
-          imageSrc="/static/images/4.png"
+          imageSrc={Image4}
           imageAlt=""
         />
         <Card
           title="Roadmaps"
           description="Plan visually with live predictions"
           icon={<IconMap size={18} className="mt-[2px]" />}
-          imageSrc="/static/images/5.png"
+          imageSrc={Image5}
           imageAlt=""
         />
         <Card
           title="Backlog"
           description="A place for new issues and ideas"
           icon={<IconCircleDashed size={18} className="mt-[2px]" />}
-          imageSrc="/static/images/6.png"
+          imageSrc={Image6}
           imageAlt=""
         />
       </ul>

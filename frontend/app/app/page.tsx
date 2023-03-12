@@ -4,11 +4,12 @@ import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
 import StoreInitializer from "@components/store-initializer";
 import { authOptions } from "@lib/auth";
+import { ColorRecordType, twindConfig } from "@lib/twind";
 import { getServerSession } from "next-auth";
 
 export const metadata = {
   title: "App",
-  themeColor: "#2563eb",
+  themeColor: twindConfig.colors.blue as ColorRecordType[600],
 };
 
 async function Page() {

@@ -18,7 +18,16 @@ export const metadata = {
   description: "Managing your tasks has never been simpler before.",
 
   manifest: "/static/manifest.json",
-  themeColor: twindConfig.colors.neutral as ColorRecordType[50],
+  themeColor: [
+    {
+      color: (twindConfig.colors.neutral as ColorRecordType)[50],
+      media: "(prefers-color-scheme: light)",
+    },
+    {
+      color: (twindConfig.colors.neutral as ColorRecordType)[900],
+      media: "(prefers-color-scheme: dark)",
+    },
+  ],
 
   icons: {
     icon: [

@@ -9,7 +9,16 @@ import { getServerSession } from "next-auth";
 
 export const metadata = {
   title: "App",
-  themeColor: twindConfig.colors.blue as ColorRecordType[600],
+  themeColor: [
+    {
+      color: (twindConfig.colors.blue as ColorRecordType)[600],
+      media: "(prefers-color-scheme: light)",
+    },
+    {
+      color: (twindConfig.colors.neutral as ColorRecordType)[800],
+      media: "(prefers-color-scheme: dark)",
+    },
+  ],
 };
 
 async function Page() {

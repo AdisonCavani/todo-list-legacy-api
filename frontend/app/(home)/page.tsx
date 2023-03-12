@@ -16,7 +16,6 @@ import {
 
 export const metadata = {
   title: "Home",
-  themeColor: "#000000",
 };
 
 const cards: CardsProps = {

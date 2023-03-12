@@ -10,7 +10,12 @@ function NextThemeProvider({ children }: PropsWithChildren) {
     segment === "(home)" ? "dark" : segment === "auth" ? "light" : undefined;
 
   return (
-    <ThemeProvider defaultTheme="light" forcedTheme={forcedTheme}>
+    <ThemeProvider
+      defaultTheme="system"
+      enableSystem
+      enableColorScheme
+      forcedTheme={forcedTheme}
+    >
       {children}
     </ThemeProvider>
   );

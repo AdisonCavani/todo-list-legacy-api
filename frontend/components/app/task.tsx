@@ -109,13 +109,13 @@ function Task(task: TaskDto) {
       }}
     >
       <DialogTrigger asChild>
-        <li className="flex cursor-pointer flex-row items-center gap-x-2 rounded-md bg-white px-4 shadow-ms hover:bg-neutral-100">
+        <li className="flex cursor-pointer flex-row items-center gap-x-2 rounded-md bg-white px-4 shadow-ms hover:bg-neutral-100 dark:bg-neutral-800">
           <button
             aria-label="Toggle task completion"
             onClick={handleOnClick}
             className={cn(
-              "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400",
-              isCompleted && "bg-neutral-400"
+              "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 dark:border-neutral-500",
+              isCompleted && "bg-neutral-400 dark:bg-neutral-500"
             )}
           />
 
@@ -124,7 +124,7 @@ function Task(task: TaskDto) {
               className={`text-sm ${
                 isCompleted
                   ? "text-neutral-500 line-through decoration-neutral-500"
-                  : "text-black no-underline"
+                  : "no-underline"
               }`}
             >
               {title}
@@ -152,19 +152,22 @@ function Task(task: TaskDto) {
             {isImportant ? (
               <IconStarFilled size={18} className="text-yellow-400" />
             ) : (
-              <IconStar size={18} className="text-neutral-400" />
+              <IconStar
+                size={18}
+                className="text-neutral-400 dark:text-neutral-500"
+              />
             )}
           </button>
         </li>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="dark:bg-neutral-800">
         <DialogHeader>
           <div className="flex justify-between">
             <DialogTitle>Update task</DialogTitle>
             <button
               onClick={handleOnDelete}
-              className="rounded-md bg-red-100 p-[6px] text-red-900 hover:bg-red-200"
+              className="rounded-md bg-red-100 p-[6px] text-red-900 hover:bg-red-200 dark:bg-red-300 dark:hover:bg-red-400"
             >
               {deleteTaskLoading ? (
                 <IconLoader2 size={18} className="animate-spin" />
@@ -180,10 +183,7 @@ function Task(task: TaskDto) {
 
         <div className="mt-2 flex flex-col gap-y-3">
           <div>
-            <label
-              htmlFor="title"
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
+            <label htmlFor="title" className="mb-2 block text-sm font-medium">
               Title
             </label>
             <input
@@ -192,14 +192,14 @@ function Task(task: TaskDto) {
               placeholder="Do a homework"
               value={dialogTitle}
               onChange={(event) => setDialogTitle(event.target.value)}
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm outline-none dark:border-neutral-600 dark:bg-neutral-700"
             />
           </div>
 
           <div>
             <label
               htmlFor="description"
-              className="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium"
             >
               Description
             </label>
@@ -209,7 +209,7 @@ function Task(task: TaskDto) {
               placeholder="Student's book, p.84, ex.1-3"
               value={dialogDescription}
               onChange={(event) => setDialogDescription(event.target.value)}
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm outline-none dark:border-neutral-600 dark:bg-neutral-700"
             />
           </div>
 
@@ -230,7 +230,7 @@ function Task(task: TaskDto) {
                   variant="outline"
                   className="w-full"
                 >
-                  <IconCalendarEvent className="mr-2 h-4 w-4" />
+                  <IconCalendarEvent className="h-4 w-4" />
                   {dialogDate ? (
                     <DateComponent date={dialogDate} textCss="font-semibold" />
                   ) : (
@@ -245,7 +245,7 @@ function Task(task: TaskDto) {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem onClick={() => setDialogDate(new Date())}>
-                  <IconCalendar className="mr-2 h-5 w-5" />
+                  <IconCalendar className="h-5 w-5" />
                   <div className="flex w-full justify-between">
                     <span>Today</span>
                     <span className="pl-8 text-neutral-500">Wed</span>
@@ -259,7 +259,7 @@ function Task(task: TaskDto) {
                     setDialogDate(date);
                   }}
                 >
-                  <IconCalendarDue className="mr-2 h-5 w-5" />
+                  <IconCalendarDue className="h-5 w-5" />
                   <div className="flex w-full justify-between">
                     <span>Tomorrow</span>
                     <span className="pl-8 text-neutral-500">Thu</span>
@@ -273,7 +273,7 @@ function Task(task: TaskDto) {
                     setDialogDate(date);
                   }}
                 >
-                  <IconCalendarPlus className="mr-2 h-5 w-5" />
+                  <IconCalendarPlus className="h-5 w-5" />
                   <div className="flex w-full justify-between">
                     <span>Next week</span>
                     <span className="pl-8 text-neutral-500">Mon</span>
@@ -285,7 +285,7 @@ function Task(task: TaskDto) {
                 <DropdownMenuItem
                   onClick={() => dialogDateRef.current?.showPicker()}
                 >
-                  <IconCalendarStats className="mr-2 h-4 w-4" />
+                  <IconCalendarStats className="h-4 w-4" />
                   <span>Pick a date</span>
                 </DropdownMenuItem>
 
@@ -295,9 +295,9 @@ function Task(task: TaskDto) {
 
                     <DropdownMenuItem
                       onClick={() => setDialogDate(null)}
-                      className="text-red-600"
+                      className="text-red-600 dark:text-red-400"
                     >
-                      <IconTrash size={24} className="mr-2 h-4 w-4" />
+                      <IconTrash size={24} className="h-4 w-4" />
                       <span>Remove due date</span>
                     </DropdownMenuItem>
                   </>
@@ -308,23 +308,25 @@ function Task(task: TaskDto) {
         </div>
 
         <DialogFooter>
-          <button
+          <Button
+            variant="blue"
             disabled={isSubmitDisabled}
             onClick={handleOnSubmit}
-            className="flex w-full items-center justify-center rounded-md bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 disabled:cursor-not-allowed"
+            className="w-full"
           >
             {updateTaskLoading ? (
               <IconLoader2 size={16} className="animate-spin" />
             ) : (
               <p>Save</p>
             )}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="subtle"
             onClick={() => setOpen(false)}
-            className="flex w-full items-center justify-center rounded-md bg-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-300"
+            className="w-full"
           >
             Cancel
-          </button>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

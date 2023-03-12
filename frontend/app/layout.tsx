@@ -44,7 +44,7 @@ function RootLayout({ children }: PropsWithChildren) {
       suppressHydrationWarning
     >
       <head />
-      <body className="bg-neutral-50 dark:bg-black">
+      <body className="bg-neutral-50 dark:bg-neutral-900">
         <NextThemeProvider>{children}</NextThemeProvider>
       </body>
     </html>

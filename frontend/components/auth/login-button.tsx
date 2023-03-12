@@ -14,7 +14,7 @@ function LoginButton() {
       }
       className="bg-yellow-300 text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 active:bg-yellow-400 hover:active:bg-yellow-500"
     >
-      <IconBrandAmazon className="mr-2 h-5 w-5" />
+      <IconBrandAmazon className="h-5 w-5" />
       AWS Cognito
     </Button>
   );

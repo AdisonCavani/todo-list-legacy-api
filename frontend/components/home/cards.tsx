@@ -25,7 +25,7 @@ function Cards({ id, items }: CardsProps) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <div
         className={cn(
           "pointer-events-none absolute inset-0 z-50 select-none overflow-visible",

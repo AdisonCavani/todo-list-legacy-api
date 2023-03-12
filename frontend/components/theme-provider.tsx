@@ -11,7 +11,6 @@ function NextThemeProvider({ children }: PropsWithChildren) {
 
   return (
     <ThemeProvider
-      attribute="class"
       defaultTheme="system"
       enableSystem
       enableColorScheme

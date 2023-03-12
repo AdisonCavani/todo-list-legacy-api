@@ -21,6 +21,7 @@ export const metadata = {
   themeColor: [
     {
       color: (twindConfig.colors.neutral as ColorRecordType)[50],
+      media: "(prefers-color-scheme: light)",
     },
     {
       color: (twindConfig.colors.neutral as ColorRecordType)[900],

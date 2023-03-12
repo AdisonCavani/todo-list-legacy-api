@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Sign in",
+  themeColor: "#fafafa",
 };
 
 async function Page() {

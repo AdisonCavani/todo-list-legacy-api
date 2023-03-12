@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 
 export const metadata = {
   title: "App",
+  themeColor: "#2563eb",
 };
 
 async function Page() {

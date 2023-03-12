@@ -14,6 +14,11 @@ import {
   IconTableFilled,
 } from "@tabler/icons-react";
 
+export const metadata = {
+  title: "Home",
+  themeColor: "#000000",
+};
+
 const cards: CardsProps = {
   id: "cards",
   items: [

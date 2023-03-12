@@ -6,7 +6,12 @@ import type { PropsWithChildren } from "react";
 
 function NextThemeProvider({ children }: PropsWithChildren) {
   const segment = useSelectedLayoutSegment();
-  const forcedTheme = segment === "(home)" ? "dark" : undefined; // Home page is dark-mode only
+  const forcedTheme =
+    segment === "(home)"
+      ? "dark"
+      : segment === "app" || "auth"
+      ? "light"
+      : undefined;
 
   return <ThemeProvider forcedTheme={forcedTheme}>{children}</ThemeProvider>;
 }

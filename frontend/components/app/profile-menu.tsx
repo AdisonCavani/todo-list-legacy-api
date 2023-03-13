@@ -48,15 +48,13 @@ function ProfileMenu({ firstName, lastName, email }: User) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" sideOffset={8}>
-        <div className="flex items-center justify-start gap-2 p-2">
-          <div className="flex flex-col space-y-1 leading-none">
-            <p className="font-medium">
-              {firstName} {lastName}
-            </p>
-            <p className="w-[200px] truncate text-sm text-slate-600 dark:text-neutral-400">
-              {email}
-            </p>
-          </div>
+        <div className="flex max-w-[256px] flex-col gap-y-1 p-2 leading-none">
+          <p className="truncate font-medium">
+            {firstName} {lastName}
+          </p>
+          <p className="truncate text-sm text-slate-600 dark:text-neutral-400">
+            {email}
+          </p>
         </div>
 
         <DropdownMenuSeparator />

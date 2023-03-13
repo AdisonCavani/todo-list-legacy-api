@@ -6,11 +6,13 @@
     "All the command line options for the Lambda command can be specified in this file."
   ],
   "profile": "",
-  "region": "",
+  "role": "TodoListLambdaFnRole",
+  "region": "eu-central-1",
   "configuration": "Release",
   "function-runtime": "dotnet6",
   "function-memory-size": 256,
-  "function-timeout": 30,
+  "function-timeout": 15,
   "function-handler": "Server",
-  "function-url-enable": true
+  "function-url-enable": true,
+  "function-name": "TodoListLambdaFn"
 }

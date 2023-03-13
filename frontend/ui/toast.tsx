@@ -1,5 +1,6 @@
 import { cn } from "@lib/utils";
 import * as ToastPrimitives from "@radix-ui/react-toast";
+import { IconX } from "@tabler/icons-react";
 import { VariantProps, cva } from "cva";
 import * as React from "react";
 
@@ -80,7 +81,7 @@ const ToastClose = React.forwardRef<
     toast-close=""
     {...props}
   >
-    {/* <X className="h-4 w-4" /> */}
+    <IconX className="h-4 w-4" />
   </ToastPrimitives.Close>
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;

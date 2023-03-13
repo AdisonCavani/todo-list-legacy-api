@@ -47,7 +47,7 @@ function App() {
       <Form />
 
       {notFinishedTasks.length > 0 && (
-        <ul className="z-[1] flex flex-col gap-y-2">
+        <ul className="flex flex-col gap-y-2">
           {notFinishedTasks.map((task) => (
             <Task key={task.id} {...task} />
           ))}

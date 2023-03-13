@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Server.Database;
 using Server.Options;
 using Server.Startup;
@@ -37,7 +38,7 @@ builder.Services.AddAuthentication(options =>
 }).AddJwtBearer(options =>
 {
     options.Authority = appOptions.CognitoIssuer;
-    options.TokenValidationParameters = new()
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
         ValidateAudience = false
@@ -63,6 +64,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseMiddleware(
+        typeof(SimulatedLatencyMiddleware),
+        TimeSpan.FromMilliseconds(250),
+        TimeSpan.FromMilliseconds(1250));
 }
 
 await app.SeedDataAsync();

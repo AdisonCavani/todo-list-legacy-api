@@ -16,6 +16,7 @@ export const metadata = {
   description: "Managing your tasks has never been simpler before.",
 
   manifest: "/static/manifest.json",
+  themeColor: "#ffffff",
 
   icons: {
     icon: [

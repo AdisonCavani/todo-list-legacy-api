@@ -27,15 +27,15 @@ function getColor(date: Date) {
   const diff = Math.floor((date.getTime() - today) / (1000 * 60 * 60 * 24)) + 1;
 
   // In the past
-  if (diff < 0) return "text-red-700";
+  if (diff < 0) return "text-red-700 dark:text-red-400";
   // Today
-  if (diff === 0) return "text-green-700";
+  if (diff === 0) return "text-green-700 dark:text-green-400";
   // Tomorrow
-  if (diff === 1) return "text-blue-700";
+  if (diff === 1) return "text-blue-700 dark:text-blue-400";
   // This week
-  if (diff > 1 && diff <= 7) return "text-purple-700";
+  if (diff > 1 && diff <= 7) return "text-purple-700 dark:text-purple-400";
   // Other
-  return "text-neutral-500";
+  return "text-neutral-500 dark:text-neutral-400";
 }
 
 function getDateString(date: Date, withTime?: boolean) {

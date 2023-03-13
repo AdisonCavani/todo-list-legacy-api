@@ -96,7 +96,9 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
       </div>
 
       <div className="mb-2 flex items-center justify-end gap-x-3">
-        <button
+        <Button
+          size="xxs"
+          variant="ghost"
           aria-label="Reverse sort order"
           onClick={() =>
             setSorting((prev) => ({
@@ -112,16 +114,18 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
               sorting.order === "asc" ? "rotate-0" : "rotate-180"
             )}
           />
-        </button>
+        </Button>
         <p className="text-xs font-semibold">
           Sorted {sortMethodsNames[sorting.fn]}
         </p>
-        <button
+        <Button
+          size="xxs"
+          variant="ghost"
           aria-label="Remove sort order option"
           onClick={() => setSorting(defaultSorting)}
         >
           <IconX size={20} className="stroke-1" />
-        </button>
+        </Button>
       </div>
     </>
   );

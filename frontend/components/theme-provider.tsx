@@ -6,8 +6,7 @@ import type { PropsWithChildren } from "react";
 
 function NextThemeProvider({ children }: PropsWithChildren) {
   const segment = useSelectedLayoutSegment();
-  const forcedTheme =
-    segment === "(home)" ? "dark" : segment === "auth" ? "light" : undefined;
+  const forcedTheme = segment === "(home)" ? "dark" : undefined;
 
   return (
     <ThemeProvider

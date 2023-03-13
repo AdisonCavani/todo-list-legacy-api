@@ -17,7 +17,7 @@ async function Page() {
   if (session) redirect("/app");
 
   return (
-    <div className="mx-auto flex h-screen w-screen flex-col items-center justify-center px-6">
+    <main className="mx-auto flex h-screen w-screen flex-col items-center justify-center px-6">
       <Link
         href="/"
         className={cn(
@@ -37,16 +37,16 @@ async function Page() {
           <h1 className="text-2xl font-semibold tracking-tight">
             Welcome back
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-500 dark:text-slate-300">
             Sign in to your account using OAuth2 providers
           </p>
         </div>
 
-        <hr className="w-full border-slate-300" />
+        <hr className="w-full border-slate-300 dark:border-slate-500" />
 
         <LoginButton />
       </div>
-    </div>
+    </main>
   );
 }
 

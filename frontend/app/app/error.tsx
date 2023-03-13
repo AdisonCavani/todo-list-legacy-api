@@ -11,8 +11,9 @@ type Props = {
 // @ts-expect-error
 function ErrorComponent({ error, reset }: Props) {
   return (
-    <div>
-      <p>An error occured :(</p>
+    <div className="-mx-6 -my-8 flex h-full grow flex-col items-center justify-center bg-red-200 text-red-700">
+      <p className="font-semibold">Oops!</p>
+      <p>Something went wrong...</p>
     </div>
   );
 }

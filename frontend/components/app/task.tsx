@@ -130,9 +130,13 @@ function Task(task: TaskDto) {
               {title}
             </p>
 
-            <div className="flex items-center gap-x-3">
+            <div className="flex items-center">
               {dueDate && (
                 <DateComponent
+                  className={cn(
+                    description &&
+                      "after:mx-1 after:text-xs after:leading-none after:text-neutral-500 after:content-['•'] after:dark:text-neutral-400"
+                  )}
                   date={new Date(dueDate)}
                   icon={<IconCalendarEvent size={13} />}
                   textCss="text-xs"
@@ -140,7 +144,10 @@ function Task(task: TaskDto) {
               )}
 
               {description && (
-                <IconNote size={13} className="text-neutral-600" />
+                <IconNote
+                  size={13}
+                  className={cn("text-neutral-600 dark:text-neutral-300")}
+                />
               )}
             </div>
           </div>

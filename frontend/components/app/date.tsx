@@ -6,15 +6,18 @@ interface Props {
   withTime?: boolean;
   icon?: ReactNode;
   textCss?: string;
+  className?: string;
 }
 
-function DateComponent({ date, withTime, icon, textCss }: Props) {
+function DateComponent({ date, withTime, icon, textCss, className }: Props) {
   const textColor = getColor(date);
   const dateString = getDateString(date, withTime);
 
   return (
-    <div className={cn("flex items-center gap-x-1", textColor)}>
-      <p className={cn(textCss, "select-none text-inherit")}>{dateString}</p>
+    <div className={cn("flex items-center", textColor, className)}>
+      <p className={cn(textCss, "mr-1 select-none text-inherit")}>
+        {dateString}
+      </p>
       {icon}
     </div>
   );

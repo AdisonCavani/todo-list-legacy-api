@@ -91,6 +91,7 @@ function Form() {
                       aria-label="Due Date"
                       variant={date ? "outline" : "ghost"}
                       size="xxs"
+                      className="h-7"
                     >
                       <IconCalendarEvent size={20} />
                       {date && (
@@ -180,6 +181,7 @@ function Form() {
                   aria-label="Remind me"
                   variant="ghost"
                   size="xxs"
+                  className="h-7"
                   onClick={handleNotSupportedFeature}
                 >
                   <IconBell size={20} />
@@ -198,6 +200,7 @@ function Form() {
                   aria-label="Repeat"
                   variant="ghost"
                   size="xxs"
+                  className="h-7"
                   onClick={handleNotSupportedFeature}
                 >
                   <IconRepeat size={20} />

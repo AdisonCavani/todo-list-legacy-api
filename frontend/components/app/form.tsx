@@ -83,21 +83,31 @@ function Form() {
           />
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                aria-label="Due Date"
-                variant={date ? "outline" : "ghost"}
-                size="xxs"
-              >
-                <IconCalendarEvent size={20} />
-                {date && (
-                  <DateComponent
-                    date={date}
-                    textCss="text-xs font-semibold ml-2"
-                  />
-                )}
-              </Button>
-            </DropdownMenuTrigger>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      aria-label="Due Date"
+                      variant={date ? "outline" : "ghost"}
+                      size="xxs"
+                    >
+                      <IconCalendarEvent size={20} />
+                      {date && (
+                        <DateComponent
+                          date={date}
+                          textCss="text-xs font-semibold"
+                        />
+                      )}
+                    </Button>
+                  </DropdownMenuTrigger>
+                </TooltipTrigger>
+
+                <TooltipContent side="bottom" sideOffset={10}>
+                  <p>Add due date</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
             <DropdownMenuContent align="start" alignOffset={-30}>
               <DropdownMenuLabel>Due Date</DropdownMenuLabel>

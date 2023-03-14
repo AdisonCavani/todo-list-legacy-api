@@ -15,7 +15,7 @@ function useCreateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
-      httpPost("/tasks", req, session.data?.user.accessToken!),
+      httpPost("/tasks", req, session.data?.user.access_token!),
     onMutate(data) {
       const taskId = v4();
 
@@ -60,7 +60,7 @@ function useUpdateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: UpdateTaskReq) =>
-      httpPatch("/tasks", req, session.data?.user.accessToken!),
+      httpPatch("/tasks", req, session.data?.user.access_token!),
     onMutate(data) {
       const prevTask = tasks.find((x) => x.id === data.id)!;
       const newTask: TaskDto = {
@@ -101,7 +101,7 @@ function useDeleteTaskMutation() {
 
   return useMutation({
     mutationFn: (req: string) =>
-      httpDelete("/tasks/{id}", req, session.data?.user.accessToken!),
+      httpDelete("/tasks/{id}", req, session.data?.user.access_token!),
     onMutate(taskId) {
       const task = tasks.find((x) => x.id === taskId);
       deleteTaskReducer(taskId);

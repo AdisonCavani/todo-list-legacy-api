@@ -8,7 +8,10 @@ declare module "next-auth/jwt" {
     lastName: string;
     email: string;
 
-    accessToken?: string | undefined;
+    access_token: string;
+    expires_at: number;
+    refresh_token: string;
+    error?: "RefreshAccessTokenError";
   }
 }
 
@@ -19,10 +22,11 @@ declare module "next-auth" {
     lastName: string;
     email: string;
 
-    accessToken?: string | undefined;
+    access_token: string;
   }
 
   interface Session {
     user: User;
+    error?: "RefreshAccessTokenError";
   }
 }

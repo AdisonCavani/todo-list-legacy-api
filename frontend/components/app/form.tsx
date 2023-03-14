@@ -3,6 +3,7 @@
 import DateComponent from "./date";
 import { useCreateTaskMutation } from "@hooks/redux";
 import { useToast } from "@hooks/use-toast";
+import { addDays, getShortDayName } from "@lib/date";
 import {
   IconBell,
   IconCalendar,
@@ -119,7 +120,9 @@ function Form() {
                 <IconCalendar className="h-5 w-5" />
                 <div className="flex w-full justify-between">
                   <span>Today</span>
-                  <span className="pl-8 text-neutral-500">Wed</span>
+                  <span className="pl-8 text-neutral-500">
+                    {getShortDayName(new Date())}
+                  </span>
                 </div>
               </DropdownMenuItem>
 
@@ -133,7 +136,9 @@ function Form() {
                 <IconCalendarDue className="h-5 w-5" />
                 <div className="flex w-full justify-between">
                   <span>Tomorrow</span>
-                  <span className="pl-8 text-neutral-500">Thu</span>
+                  <span className="pl-8 text-neutral-500">
+                    {getShortDayName(addDays(new Date(), 1))}
+                  </span>
                 </div>
               </DropdownMenuItem>
 
@@ -147,7 +152,9 @@ function Form() {
                 <IconCalendarPlus className="h-5 w-5" />
                 <div className="flex w-full justify-between">
                   <span>Next week</span>
-                  <span className="pl-8 text-neutral-500">Mon</span>
+                  <span className="pl-8 text-neutral-500">
+                    {getShortDayName(addDays(new Date(), 7))}
+                  </span>
                 </div>
               </DropdownMenuItem>
 

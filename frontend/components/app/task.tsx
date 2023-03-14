@@ -210,8 +210,7 @@ function Task(task: TaskDto) {
             >
               Description
             </label>
-            <input
-              type="text"
+            <textarea
               name="description"
               placeholder="Student's book, p.84, ex.1-3"
               value={dialogDescription}

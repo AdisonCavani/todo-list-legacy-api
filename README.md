@@ -1,4 +1,7 @@
 # To-Do List App
+[![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=todo-list)](https://todo.k1ng.dev)
+[![.NET](https://github.com/AdisonCavani/todo-list/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/AdisonCavani/todo-list/actions/workflows/dotnet.yml)
+[![Deploy AWS Lambda](https://github.com/AdisonCavani/todo-list/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/AdisonCavani/todo-list/actions/workflows/deploy.yml)
 
 This app is still WIP. Expect bugs!  
 If you found any - open new issue.

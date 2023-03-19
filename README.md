@@ -1,7 +1,17 @@
 # To-Do List App
 
+This app is still WIP. Expect bugs!  
+If you found any - open new issue.
+
 ## Overview
-- to-do
+- ✅ 100 Lighthouse score
+- 💨 Optimistic updates
+- 🛠️ Next.js 13 app directory
+- 🔑 Serverless REST API
+- 🌗 Light & dark theme
+- 📱 Progressive Web App
+- 🔒 AWS Secrets Manager
+- 🙍‍♂️ AWS Cognito Identity Provider
 
 ## Architecture
 

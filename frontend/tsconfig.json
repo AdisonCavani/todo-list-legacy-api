@@ -27,7 +27,6 @@
       "@lib/*": ["lib/*"],
       "@ui/*": ["ui/*"]
     },
-    "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,

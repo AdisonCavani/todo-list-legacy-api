@@ -6,7 +6,7 @@
 This app is still WIP. Expect bugs!  
 If you found any - open new issue.
 
-## Overview
+## Features
 - ✅ 100 Lighthouse score
 - 💨 Optimistic updates
 - 🛠️ Next.js 13 app directory

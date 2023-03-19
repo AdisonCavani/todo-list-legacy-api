@@ -29,7 +29,6 @@
       "@styles/*": ["styles/*"],
       "@ui/*": ["ui/*"]
     },
-    "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,

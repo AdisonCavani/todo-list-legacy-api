@@ -39,4 +39,5 @@ If you found any - open new issue.
 
 ## Pictures
 
-![App flow](./docs/app.webp)
+![App flow](./docs/app-light.webp#gh-light-mode-only)
+![App flow](./docs/app-dark.webp#gh-dark-mode-only)

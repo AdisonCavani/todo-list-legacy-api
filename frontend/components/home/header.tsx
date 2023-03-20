@@ -1,20 +1,27 @@
-import { authOptions } from "@lib/auth";
+"use client";
+
+import MobileMenu from "./mobile-menu";
 import { cn } from "@lib/utils";
 import styles from "@styles/header.module.css";
-import { IconChecklist } from "@tabler/icons-react";
-import { getServerSession } from "next-auth";
+import { IconChecklist, IconMenu } from "@tabler/icons-react";
+import type { Session } from "next-auth";
 import Link from "next/link";
+import { useState } from "react";
 
-async function Header() {
-  const session = await getServerSession(authOptions);
+type Props = {
+  session: Session | null;
+};
+
+function Header({ session }: Props) {
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <header className="fixed inset-0 z-10 flex h-12">
       <div className={styles.overlay} />
-      <nav className="z-50 mx-auto w-full max-w-7xl px-8">
+      <nav className="relative z-50 mx-auto w-full max-w-7xl">
         <ul
           className={cn(
-            "relative flex h-full items-center gap-x-6 text-sm font-semibold",
+            "relative flex h-full items-center gap-x-6 px-8 text-sm  font-semibold",
             "after:absolute after:inset-x-0 after:bottom-0 after:h-[1px] after:bg-white/10"
           )}
         >
@@ -24,16 +31,16 @@ async function Header() {
               <span className="select-none">To Do</span>
             </Link>
           </li>
-          <li>
+          <li className="hidden sm:block">
             <div>Features</div>
           </li>
-          <li>
+          <li className="hidden sm:block">
             <div>Method</div>
           </li>
-          <li>
+          <li className="hidden sm:block">
             <div>Pricing</div>
           </li>
-          <li>
+          <li className="hidden sm:block">
             <div>Company</div>
           </li>
           <li className="ml-auto">
@@ -53,7 +60,14 @@ async function Header() {
               </Link>
             )}
           </li>
+          <li className="block sm:hidden">
+            <button onClick={() => setOpen((prev) => !prev)}>
+              <IconMenu />
+            </button>
+          </li>
         </ul>
+
+        {open && <MobileMenu />}
       </nav>
     </header>
   );

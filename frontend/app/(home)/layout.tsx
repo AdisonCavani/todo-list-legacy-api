@@ -1,11 +1,14 @@
 import Header from "@components/home/header";
+import { authOptions } from "@lib/auth";
+import { getServerSession } from "next-auth";
 import type { PropsWithChildren } from "react";
 
-function Layout({ children }: PropsWithChildren) {
+async function Layout({ children }: PropsWithChildren) {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
-      {/* @ts-expect-error */}
-      <Header />
+      <Header session={session} />
       <main className="pt-12">{children}</main>
     </>
   );

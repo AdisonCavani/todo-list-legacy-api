@@ -31,7 +31,7 @@ function Card({ title, description, icon, imageSrc, imageAlt }: CardProps) {
             {icon}
             <div>
               <h3 className="font-semibold">{title}</h3>
-              <h4 className="mt-2 min-h-[48px] text-sm font-medium text-gray-400">
+              <h4 className="mt-2 text-sm font-medium text-gray-400">
                 {description}
               </h4>
             </div>

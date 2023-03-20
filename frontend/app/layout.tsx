@@ -3,6 +3,7 @@ import NextThemeProvider from "@components/theme-provider";
 import { ColorRecordType, twindConfig } from "@lib/twind";
 import { cn } from "@lib/utils";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import type { PropsWithChildren } from "react";
 
 const fontInter = Inter({
@@ -52,7 +53,20 @@ function RootLayout({ children }: PropsWithChildren) {
       className={cn("font-sans antialiased", fontInter.variable)}
       suppressHydrationWarning
     >
-      <head />
+      <head>
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Script
+              strategy="lazyOnload"
+              data-domain="todo.k1ng.dev"
+              src="https://insights.k1ng.dev/js/script.js"
+            />
+            <Script strategy="lazyOnload" id="plausible-script">
+              {`window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`}
+            </Script>
+          </>
+        )}
+      </head>
       <body className="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-900">
         <NextThemeProvider>{children}</NextThemeProvider>
       </body>

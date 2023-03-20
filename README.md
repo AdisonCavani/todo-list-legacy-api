@@ -15,6 +15,7 @@ If you found any - open new issue.
 - 📱 Progressive Web App
 - 🔒 AWS Secrets Manager
 - 🙍‍♂️ AWS Cognito Identity Provider
+- 📈 Self-hosted Plausible Analytics
 
 ## Architecture
 

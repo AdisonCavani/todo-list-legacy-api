@@ -28,7 +28,6 @@
       "@images/*": ["public/static/images/*"],
       "@ui/*": ["ui/*"]
     },
-    "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,

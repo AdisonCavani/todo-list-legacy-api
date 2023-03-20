@@ -26,7 +26,6 @@
       "@hooks/*": ["hooks/*"],
       "@lib/*": ["lib/*"],
       "@images/*": ["public/static/images/*"],
-      "@styles/*": ["styles/*"],
       "@ui/*": ["ui/*"]
     },
     "importsNotUsedAsValues": "error",

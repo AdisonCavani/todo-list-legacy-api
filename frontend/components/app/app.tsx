@@ -60,7 +60,7 @@ function App() {
             <AccordionTrigger className="hover:no-underline">
               <div className="flex items-center gap-x-4 text-sm">
                 <p>Completed</p>
-                <span className="font-normal text-neutral-600">
+                <span className="font-normal text-neutral-600 dark:text-neutral-400">
                   {finishedTasks.length}
                 </span>
               </div>

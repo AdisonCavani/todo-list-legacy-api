@@ -46,7 +46,7 @@ const DialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-50 grid gap-4 rounded-lg bg-white p-6 animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:max-w-lg sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0",
-        "dark:bg-slate-900",
+        "dark:bg-neutral-900",
         className
       )}
       {...props}
@@ -92,8 +92,8 @@ const DialogTitle = React.forwardRef<
   <DialogPrimitive.Title
     ref={ref}
     className={cn(
-      "text-lg font-semibold text-slate-900",
-      "dark:text-slate-50",
+      "text-lg font-semibold text-neutral-900",
+      "dark:text-neutral-50",
       className
     )}
     {...props}
@@ -108,8 +108,8 @@ const DialogDescription = React.forwardRef<
   <DialogPrimitive.Description
     ref={ref}
     className={cn(
-      "text-sm text-slate-500",
-      "text-left dark:text-slate-400",
+      "text-sm text-neutral-400",
+      "text-left dark:text-neutral-300",
       className
     )}
     {...props}

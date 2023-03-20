@@ -1,7 +1,20 @@
 # To-Do List App
+[![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=todo-list)](https://todo.k1ng.dev)
+[![.NET](https://github.com/AdisonCavani/todo-list/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/AdisonCavani/todo-list/actions/workflows/dotnet.yml)
+[![Deploy AWS Lambda](https://github.com/AdisonCavani/todo-list/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/AdisonCavani/todo-list/actions/workflows/deploy.yml)
 
-## Overview
-- to-do
+This app is still WIP. Expect bugs!  
+If you found any - open new issue.
+
+## Features
+- ✅ 100 Lighthouse score
+- 💨 Optimistic updates
+- 🛠️ Next.js 13 app directory
+- 🔑 Serverless REST API
+- 🌗 Light & dark theme
+- 📱 Progressive Web App
+- 🔒 AWS Secrets Manager
+- 🙍‍♂️ AWS Cognito Identity Provider
 
 ## Architecture
 
@@ -26,4 +39,5 @@
 
 ## Pictures
 
-![App flow](./docs/app.webp)
+![App flow](./docs/app-light.webp#gh-light-mode-only)
+![App flow](./docs/app-dark.webp#gh-dark-mode-only)

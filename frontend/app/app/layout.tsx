@@ -9,7 +9,9 @@ function Layout({ children }: PropsWithChildren) {
     <>
       {/* @ts-expect-error */}
       <Header />
-      <main className="w-full px-6 py-8">{children}</main>
+      <main className="flex h-full w-full grow flex-col px-6 py-8">
+        {children}
+      </main>
       <Toaster />
     </>
   );

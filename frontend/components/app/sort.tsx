@@ -34,7 +34,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm">
-              <IconArrowsSort className="mr-2 h-4 w-4" />
+              <IconArrowsSort className="h-4 w-4" />
               <span>Sort</span>
             </Button>
           </DropdownMenuTrigger>
@@ -52,7 +52,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
                 })
               }
             >
-              <IconStar className="mr-2 h-4 w-4" />
+              <IconStar className="h-4 w-4" />
               <span>Importance</span>
             </DropdownMenuItem>
 
@@ -64,7 +64,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
                 })
               }
             >
-              <IconCalendarTime className="mr-2 h-4 w-4" />
+              <IconCalendarTime className="h-4 w-4" />
               <span>Due date</span>
             </DropdownMenuItem>
 
@@ -76,7 +76,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
                 })
               }
             >
-              <IconArrowsSort className="mr-2 h-4 w-4" />
+              <IconArrowsSort className="h-4 w-4" />
               <span>Alphabetically</span>
             </DropdownMenuItem>
 
@@ -88,7 +88,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
                 })
               }
             >
-              <IconCalendarPlus className="mr-2 h-4 w-4" />
+              <IconCalendarPlus className="h-4 w-4" />
               <span>Creation date</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -96,7 +96,9 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
       </div>
 
       <div className="mb-2 flex items-center justify-end gap-x-3">
-        <button
+        <Button
+          size="xxs"
+          variant="ghost"
           aria-label="Reverse sort order"
           onClick={() =>
             setSorting((prev) => ({
@@ -112,16 +114,18 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
               sorting.order === "asc" ? "rotate-0" : "rotate-180"
             )}
           />
-        </button>
+        </Button>
         <p className="text-xs font-semibold">
           Sorted {sortMethodsNames[sorting.fn]}
         </p>
-        <button
+        <Button
+          size="xxs"
+          variant="ghost"
           aria-label="Remove sort order option"
           onClick={() => setSorting(defaultSorting)}
         >
           <IconX size={20} className="stroke-1" />
-        </button>
+        </Button>
       </div>
     </>
   );

@@ -10,6 +10,16 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/app",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = withPWA(nextConfig);

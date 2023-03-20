@@ -2,20 +2,32 @@
 
 import { useToast } from "@hooks/use-toast";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { IconLogout, IconSettings } from "@tabler/icons-react";
+import {
+  IconDeviceLaptop,
+  IconLogout,
+  IconMoon,
+  IconSettings,
+  IconSun,
+} from "@tabler/icons-react";
 import { Avatar, AvatarFallback } from "@ui/avatar";
 import { Button } from "@ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from "@ui/dropdown-menu";
 import type { User } from "next-auth";
 import { signOut } from "next-auth/react";
+import { useTheme } from "next-themes";
 
 function ProfileMenu({ firstName, lastName, email }: User) {
   const { toast } = useToast();
+  const { setTheme } = useTheme();
   const initials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
 
   function handleNotSupportedFeature() {
@@ -36,24 +48,48 @@ function ProfileMenu({ firstName, lastName, email }: User) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" sideOffset={8}>
-        <div className="flex items-center justify-start gap-2 p-2">
-          <div className="flex flex-col space-y-1 leading-none">
-            <p className="font-medium">
-              {firstName} {lastName}
-            </p>
-            <p className="w-[200px] truncate text-sm text-slate-600">{email}</p>
-          </div>
+        <div className="flex max-w-[256px] flex-col gap-y-1 p-2 leading-none">
+          <p className="truncate font-medium">
+            {firstName} {lastName}
+          </p>
+          <p className="truncate text-sm text-slate-600 dark:text-neutral-400">
+            {email}
+          </p>
         </div>
 
         <DropdownMenuSeparator />
 
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <IconSun size={16} />
+            Theme
+          </DropdownMenuSubTrigger>
+
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                <IconSun size={16} />
+                Light
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                <IconMoon size={16} />
+                Dark
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                <IconDeviceLaptop size={16} />
+                System
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+
         <DropdownMenuItem onClick={handleNotSupportedFeature}>
-          <IconSettings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
+          <IconSettings size={16} />
+          Settings
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => signOut()}>
-          <IconLogout className="mr-2 h-4 w-4" />
-          <span>Logout</span>
+          <IconLogout size={16} />
+          Logout
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

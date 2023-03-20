@@ -1,4 +1,6 @@
 import "./globals.css";
+import NextThemeProvider from "@components/theme-provider";
+import { ColorRecordType, twindConfig } from "@lib/twind";
 import { cn } from "@lib/utils";
 import { Inter } from "next/font/google";
 import type { PropsWithChildren } from "react";
@@ -16,7 +18,16 @@ export const metadata = {
   description: "Managing your tasks has never been simpler before.",
 
   manifest: "/static/manifest.json",
-  themeColor: "#ffffff",
+  themeColor: [
+    {
+      color: (twindConfig.colors.neutral as ColorRecordType)[50],
+      media: "(prefers-color-scheme: light)",
+    },
+    {
+      color: (twindConfig.colors.neutral as ColorRecordType)[900],
+      media: "(prefers-color-scheme: dark)",
+    },
+  ],
 
   icons: {
     icon: [
@@ -36,9 +47,15 @@ export const metadata = {
 
 function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={cn("font-sans antialiased", fontInter.variable)}>
+    <html
+      lang="en"
+      className={cn("font-sans antialiased", fontInter.variable)}
+      suppressHydrationWarning
+    >
       <head />
-      <body className="bg-neutral-50">{children}</body>
+      <body className="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-900">
+        <NextThemeProvider>{children}</NextThemeProvider>
+      </body>
     </html>
   );
 }

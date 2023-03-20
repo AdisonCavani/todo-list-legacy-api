@@ -3,6 +3,7 @@
 import DateComponent from "./date";
 import { useCreateTaskMutation } from "@hooks/redux";
 import { useToast } from "@hooks/use-toast";
+import { addDays, getShortDayName } from "@lib/date";
 import {
   IconBell,
   IconCalendar,
@@ -60,18 +61,18 @@ function Form() {
   const dateRef = createRef<HTMLInputElement>();
 
   return (
-    <div className="mb-3 rounded-md border-neutral-200 bg-white shadow-ms">
+    <div className="mb-3 rounded-md bg-white shadow-ms dark:bg-neutral-800">
       <div className="flex flex-row items-center gap-x-2 px-4">
         <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />
         <input
           placeholder="Add a task"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="block min-h-[52px] w-full px-4 py-2 text-sm outline-none placeholder:text-neutral-600"
+          className="block min-h-[52px] w-full px-4 py-2 text-sm outline-none placeholder:text-neutral-600 dark:bg-neutral-800 dark:placeholder:text-neutral-400"
         />
       </div>
 
-      <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-50 px-4">
+      <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-50 px-4 dark:border-neutral-700 dark:bg-neutral-900/30">
         <div className="relative flex flex-row items-center gap-x-2 text-neutral-500">
           <input
             type="date"
@@ -83,21 +84,32 @@ function Form() {
           />
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                aria-label="Due Date"
-                variant={date ? "outline" : "ghost"}
-                size="xxs"
-              >
-                <IconCalendarEvent size={20} />
-                {date && (
-                  <DateComponent
-                    date={date}
-                    textCss="text-xs font-semibold ml-2"
-                  />
-                )}
-              </Button>
-            </DropdownMenuTrigger>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      aria-label="Due Date"
+                      variant={date ? "outline" : "ghost"}
+                      size="xxs"
+                      className="h-7"
+                    >
+                      <IconCalendarEvent size={20} />
+                      {date && (
+                        <DateComponent
+                          date={date}
+                          textCss="text-xs font-semibold"
+                        />
+                      )}
+                    </Button>
+                  </DropdownMenuTrigger>
+                </TooltipTrigger>
+
+                <TooltipContent side="bottom" sideOffset={10}>
+                  <p>Add due date</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
             <DropdownMenuContent align="start" alignOffset={-30}>
               <DropdownMenuLabel>Due Date</DropdownMenuLabel>
@@ -105,10 +117,12 @@ function Form() {
               <DropdownMenuSeparator />
 
               <DropdownMenuItem onClick={() => setDate(new Date())}>
-                <IconCalendar className="mr-2 h-5 w-5" />
+                <IconCalendar className="h-5 w-5" />
                 <div className="flex w-full justify-between">
                   <span>Today</span>
-                  <span className="pl-8 text-neutral-500">Wed</span>
+                  <span className="pl-8 text-neutral-500">
+                    {getShortDayName(new Date())}
+                  </span>
                 </div>
               </DropdownMenuItem>
 
@@ -119,10 +133,12 @@ function Form() {
                   setDate(date);
                 }}
               >
-                <IconCalendarDue className="mr-2 h-5 w-5" />
+                <IconCalendarDue className="h-5 w-5" />
                 <div className="flex w-full justify-between">
                   <span>Tomorrow</span>
-                  <span className="pl-8 text-neutral-500">Thu</span>
+                  <span className="pl-8 text-neutral-500">
+                    {getShortDayName(addDays(new Date(), 1))}
+                  </span>
                 </div>
               </DropdownMenuItem>
 
@@ -133,17 +149,19 @@ function Form() {
                   setDate(date);
                 }}
               >
-                <IconCalendarPlus className="mr-2 h-5 w-5" />
+                <IconCalendarPlus className="h-5 w-5" />
                 <div className="flex w-full justify-between">
                   <span>Next week</span>
-                  <span className="pl-8 text-neutral-500">Mon</span>
+                  <span className="pl-8 text-neutral-500">
+                    {getShortDayName(addDays(new Date(), 7))}
+                  </span>
                 </div>
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
 
               <DropdownMenuItem onClick={() => dateRef.current?.showPicker()}>
-                <IconCalendarStats className="mr-2 h-4 w-4" />
+                <IconCalendarStats className="h-4 w-4" />
                 <span>Pick a date</span>
               </DropdownMenuItem>
 
@@ -153,9 +171,9 @@ function Form() {
 
                   <DropdownMenuItem
                     onClick={() => setDate(null)}
-                    className="text-red-600"
+                    className="text-red-600 dark:text-red-400"
                   >
-                    <IconTrash size={24} className="mr-2 h-4 w-4" />
+                    <IconTrash size={24} className="h-4 w-4" />
                     <span>Remove due date</span>
                   </DropdownMenuItem>
                 </>
@@ -170,6 +188,7 @@ function Form() {
                   aria-label="Remind me"
                   variant="ghost"
                   size="xxs"
+                  className="h-7"
                   onClick={handleNotSupportedFeature}
                 >
                   <IconBell size={20} />
@@ -188,6 +207,7 @@ function Form() {
                   aria-label="Repeat"
                   variant="ghost"
                   size="xxs"
+                  className="h-7"
                   onClick={handleNotSupportedFeature}
                 >
                   <IconRepeat size={20} />
@@ -205,7 +225,7 @@ function Form() {
           size="xs"
           variant="outline"
         >
-          {isLoading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {isLoading && <IconLoader2 className="h-4 w-4 animate-spin" />}
           Add
         </Button>
       </div>

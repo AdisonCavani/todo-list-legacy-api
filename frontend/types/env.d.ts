@@ -3,6 +3,7 @@ declare namespace NodeJS {
     COGNITO_CLIENT_ID: string;
     COGNITO_CLIENT_SECRET: string;
     COGNITO_ISSUER: string;
+    COGNITO_URL: string;
 
     NEXTAUTH_SECRET: string;
 

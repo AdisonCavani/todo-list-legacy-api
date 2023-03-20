@@ -4,10 +4,21 @@ import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
 import StoreInitializer from "@components/store-initializer";
 import { authOptions } from "@lib/auth";
+import { ColorRecordType, twindConfig } from "@lib/twind";
 import { getServerSession } from "next-auth";
 
 export const metadata = {
   title: "App",
+  themeColor: [
+    {
+      color: (twindConfig.colors.blue as ColorRecordType)[600],
+      media: "(prefers-color-scheme: light)",
+    },
+    {
+      color: (twindConfig.colors.neutral as ColorRecordType)[800],
+      media: "(prefers-color-scheme: dark)",
+    },
+  ],
 };
 
 async function Page() {
@@ -19,7 +30,7 @@ async function Page() {
       page: 1,
       pageSize: 100,
     },
-    session?.user.accessToken!
+    session?.user.access_token!
   );
 
   return (

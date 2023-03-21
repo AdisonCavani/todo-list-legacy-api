@@ -25,6 +25,7 @@ If you found any - open new issue.
 - **Library**: [React.js](https://reactjs.org)
 - **CSS**: [Tailwind CSS](https://tailwindcss.com)
 - **UI Library**: [Radix UI](https://www.radix-ui.com)
+- **UI Components** [shadcn/ui](https://ui.shadcn.com)
 - **Fetching**: [React Query](https://tanstack.com/query/latest)
 - **State management**: [Zustand](https://github.com/pmndrs/zustand)
 - **Auth**: [Auth.js (NextAuth.js)](https://next-auth.js.org)

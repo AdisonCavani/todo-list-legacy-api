@@ -1,17 +1,12 @@
-import { z } from "zod";
+type TaskDto = {
+  id: string;
+  userId: string;
+  createdAt: string;
+  title: string;
+  isCompleted: boolean;
+  isImportant: boolean;
+  description?: string | null | undefined;
+  dueDate?: string | null | undefined;
+};
 
-const TaskDtoSchema = z.object({
-  id: z.string(),
-  userId: z.string(),
-  createdAt: z.string(),
-  title: z.string(),
-  description: z.optional(z.string().nullable()),
-  dueDate: z.optional(z.string().nullable()),
-  isCompleted: z.boolean(),
-  isImportant: z.boolean(),
-});
-
-type TaskDto = z.infer<typeof TaskDtoSchema>;
-
-export { TaskDtoSchema };
 export type { TaskDto };

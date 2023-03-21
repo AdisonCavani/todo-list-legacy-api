@@ -1,60 +1,59 @@
-import { TaskDtoSchema } from "./dtos/TaskDto";
-import { CreateTaskReqSchema } from "./req/CreateTaskReq";
-import { PaginatedReqSchema } from "./req/PaginatedReq";
-import { UpdateTaskReqSchema } from "./req/UpdateTaskReq";
-import { HealthCheckResSchema } from "./res/HealthCheckRes";
-import { PaginatedResTaskDtoSchema } from "./res/PaginatedRes";
-import { z, ZodObject } from "zod";
+import type { TaskDto } from "./dtos/TaskDto";
+import type { CreateTaskReq } from "./req/CreateTaskReq";
+import type { PaginatedReq } from "./req/PaginatedReq";
+import type { UpdateTaskReq } from "./req/UpdateTaskReq";
+import type { HealthCheckRes } from "./res/HealthCheckRes";
+import type { PaginatedRes } from "./res/PaginatedRes";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const getEndpoint = {
   "/health": {
     auth: false,
-    request: z.undefined(),
-    response: HealthCheckResSchema,
+    request: undefined,
+    response: {} as HealthCheckRes,
   },
   "/tasks/{id}": {
     auth: true,
-    request: z.string(),
-    response: TaskDtoSchema,
+    request: {} as string,
+    response: {} as TaskDto,
   },
   "/tasks": {
     auth: true,
-    request: PaginatedReqSchema,
-    response: PaginatedResTaskDtoSchema,
+    request: {} as PaginatedReq,
+    response: {} as PaginatedRes<TaskDto>,
   },
 };
 
 const postEndpoint = {
   "/tasks": {
     auth: true,
-    request: CreateTaskReqSchema,
-    response: TaskDtoSchema,
+    request: {} as CreateTaskReq,
+    response: {} as TaskDto,
   },
 };
 
 const patchEndpoint = {
   "/tasks": {
     auth: true,
-    request: UpdateTaskReqSchema,
-    response: TaskDtoSchema,
+    request: {} as UpdateTaskReq,
+    response: {} as TaskDto,
   },
 };
 
 const deleteEndpoint = {
   "/tasks/{id}": {
     auth: true,
-    request: z.string(),
+    request: {} as string,
     response: undefined,
   },
 };
 
 export async function httpGet<Endpoint extends keyof typeof getEndpoint>(
   endpoint: Endpoint,
-  request?: z.infer<(typeof getEndpoint)[Endpoint]["request"]>,
+  request?: (typeof getEndpoint)[Endpoint]["request"],
   jwtToken?: string
-): Promise<z.infer<(typeof getEndpoint)[Endpoint]["response"]> | undefined> {
+): Promise<(typeof getEndpoint)[Endpoint]["response"] | undefined> {
   let queryUrl = "";
 
   // Path params
@@ -71,8 +70,7 @@ export async function httpGet<Endpoint extends keyof typeof getEndpoint>(
     queryUrl,
     undefined,
     getEndpoint[endpoint],
-    jwtToken,
-    getEndpoint[endpoint].response
+    jwtToken
   );
 
   return res;
@@ -80,9 +78,9 @@ export async function httpGet<Endpoint extends keyof typeof getEndpoint>(
 
 export async function httpPost<Endpoint extends keyof typeof postEndpoint>(
   endpoint: Endpoint,
-  request: z.infer<(typeof postEndpoint)[Endpoint]["request"]>,
+  request: (typeof postEndpoint)[Endpoint]["request"],
   jwtToken?: string
-): Promise<z.infer<(typeof postEndpoint)[Endpoint]["response"]>> {
+): Promise<(typeof postEndpoint)[Endpoint]["response"]> {
   const queryUrl = baseUrl + endpoint;
 
   const res = await fetchApi(
@@ -90,8 +88,7 @@ export async function httpPost<Endpoint extends keyof typeof postEndpoint>(
     queryUrl,
     request,
     postEndpoint[endpoint],
-    jwtToken,
-    postEndpoint[endpoint].response
+    jwtToken
   );
 
   return res;
@@ -99,9 +96,9 @@ export async function httpPost<Endpoint extends keyof typeof postEndpoint>(
 
 export async function httpPatch<Endpoint extends keyof typeof patchEndpoint>(
   endpoint: Endpoint,
-  request: z.infer<(typeof patchEndpoint)[Endpoint]["request"]>,
+  request: (typeof patchEndpoint)[Endpoint]["request"],
   jwtToken?: string
-): Promise<z.infer<(typeof patchEndpoint)[Endpoint]["response"]>> {
+): Promise<(typeof patchEndpoint)[Endpoint]["response"]> {
   const queryUrl = baseUrl + endpoint;
 
   const res = await fetchApi(
@@ -109,8 +106,7 @@ export async function httpPatch<Endpoint extends keyof typeof patchEndpoint>(
     queryUrl,
     request,
     patchEndpoint[endpoint],
-    jwtToken,
-    patchEndpoint[endpoint].response
+    jwtToken
   );
 
   return res;
@@ -118,7 +114,7 @@ export async function httpPatch<Endpoint extends keyof typeof patchEndpoint>(
 
 export async function httpDelete<Endpoint extends keyof typeof deleteEndpoint>(
   endpoint: Endpoint,
-  request: z.infer<(typeof deleteEndpoint)[Endpoint]["request"]>,
+  request: (typeof deleteEndpoint)[Endpoint]["request"],
   jwtToken?: string
 ): Promise<undefined> {
   let queryUrl = "";
@@ -137,8 +133,7 @@ export async function httpDelete<Endpoint extends keyof typeof deleteEndpoint>(
     queryUrl,
     undefined,
     deleteEndpoint[endpoint],
-    jwtToken,
-    deleteEndpoint[endpoint].response
+    jwtToken
   );
 
   return res;
@@ -151,8 +146,7 @@ async function fetchApi(
   queryUrl: string,
   request: any,
   object: any,
-  jwtToken: string | undefined,
-  schema: ZodObject<any> | undefined
+  jwtToken: string | undefined
 ) {
   if (object.auth && !jwtToken) throw new Error("You need to pass jwt token");
 
@@ -193,11 +187,7 @@ async function fetchApi(
 
   if (res.status === 204) return;
 
-  const json = await res.json();
-
-  if (schema) schema.parse(json);
-
-  return json;
+  return await res.json();
 }
 
 function appendParams(obj: any): URLSearchParams {

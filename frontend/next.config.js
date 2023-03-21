@@ -4,7 +4,7 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+let nextConfig = {
   reactStrictMode: true,
 
   experimental: {
@@ -21,5 +21,13 @@ const nextConfig = {
     ];
   },
 };
+
+if (process.env.ANALYZE === "true") {
+  const withBundleAnalyzer = require("@next/bundle-analyzer")({
+    openAnalyzer: true,
+    enabled: true,
+  });
+  nextConfig = withBundleAnalyzer(nextConfig);
+}
 
 module.exports = withPWA(nextConfig);

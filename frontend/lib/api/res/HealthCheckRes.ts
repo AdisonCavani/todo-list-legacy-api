@@ -1,13 +1,9 @@
-import { HealthCheckDtoSchema } from "@api/dtos/HealthCheckDto";
-import { z } from "zod";
+import type { HealthCheckDto } from "@api/dtos/HealthCheckDto";
 
-const HealthCheckResSchema = z.object({
-  status: z.string(),
-  checks: z.array(HealthCheckDtoSchema),
-  duration: z.string(),
-});
+type HealthCheckRes = {
+  status: string;
+  checks: HealthCheckDto[];
+  duration: string;
+};
 
-type HealthCheckRes = z.infer<typeof HealthCheckResSchema>;
-
-export { HealthCheckResSchema };
 export type { HealthCheckRes };

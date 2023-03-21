@@ -1,11 +1,6 @@
-import { z } from "zod";
+type PaginatedReq = {
+  pageSize: number;
+  page: number;
+};
 
-const PaginatedReqSchema = z.object({
-  pageSize: z.number(),
-  page: z.number(),
-});
-
-type PaginatedReq = z.infer<typeof PaginatedReqSchema>;
-
-export { PaginatedReqSchema };
 export type { PaginatedReq };

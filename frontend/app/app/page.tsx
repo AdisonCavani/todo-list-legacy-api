@@ -2,7 +2,6 @@ import { httpGet } from "@api/client";
 import App from "@components/app/app";
 import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
-import StoreInitializer from "@components/store-initializer";
 import { authOptions } from "@lib/auth";
 import { ColorRecordType, twindConfig } from "@lib/twind";
 import { getServerSession } from "next-auth";
@@ -34,15 +33,11 @@ async function Page() {
   );
 
   return (
-    <>
-      <StoreInitializer tasks={res?.data ?? []} />
-
-      <AuthWrapper>
-        <ReactQueryWrapper>
-          <App />
-        </ReactQueryWrapper>
-      </AuthWrapper>
-    </>
+    <AuthWrapper>
+      <ReactQueryWrapper>
+        <App initialData={res?.data ?? []} />
+      </ReactQueryWrapper>
+    </AuthWrapper>
   );
 }
 

@@ -3,8 +3,9 @@
 import Form from "./form";
 import Sort from "./sort";
 import Task from "./task";
+import { TaskDto } from "@api/dtos/TaskDto";
 import { sortMethods, SortingOptions } from "@lib/sort";
-import { useStore } from "@lib/store";
+import { useQuery } from "@tanstack/react-query";
 import {
   Accordion,
   AccordionContent,
@@ -13,8 +14,16 @@ import {
 } from "@ui/accordion";
 import { useState } from "react";
 
-function App() {
-  const { tasks } = useStore();
+type Props = {
+  initialData: TaskDto[];
+};
+
+function App({ initialData }: Props) {
+  const { data: tasks } = useQuery({
+    queryKey: ["tasks"],
+    initialData: initialData,
+    enabled: false,
+  });
 
   const defaultSorting: SortingOptions = {
     fn: "sortTasksByImportance",

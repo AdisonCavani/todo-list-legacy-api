@@ -27,7 +27,6 @@ If you found any - open new issue.
 - **UI Library**: [Radix UI](https://www.radix-ui.com)
 - **UI Components** [shadcn/ui](https://ui.shadcn.com)
 - **Fetching**: [React Query](https://tanstack.com/query/latest)
-- **State management**: [Zustand](https://github.com/pmndrs/zustand)
 - **Auth**: [Auth.js (NextAuth.js)](https://next-auth.js.org)
 - **Auth provider**: [AWS Cognito](https://aws.amazon.com/cognito)
 

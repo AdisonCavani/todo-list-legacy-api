@@ -168,6 +168,7 @@ async function fetchApi(
     method: method,
     headers: headers,
     body: body,
+    cache: "no-store",
   });
 
   if (!res.ok) {

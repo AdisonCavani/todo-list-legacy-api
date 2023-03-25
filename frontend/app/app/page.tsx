@@ -35,7 +35,7 @@ async function Page() {
   return (
     <AuthWrapper>
       <ReactQueryWrapper>
-        <App initialData={res?.data ?? []} />
+        <App initialData={res?.data ?? []} token={session?.user.access_token!} />
       </ReactQueryWrapper>
     </AuthWrapper>
   );

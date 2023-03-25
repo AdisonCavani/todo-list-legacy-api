@@ -150,7 +150,7 @@ function useDeleteTaskMutation() {
 export { useCreateTaskMutation, useUpdateTaskMutation, useDeleteTaskMutation };
 
 const queryKeys = {
-  tasks: "tasks",
+  tasks: "tasks" as const,
 };
 
 export { queryKeys };

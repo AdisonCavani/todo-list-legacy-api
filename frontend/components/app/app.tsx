@@ -18,16 +18,21 @@ import { useState } from "react";
 
 type Props = {
   initialData: TaskDto[];
+  token: string;
 };
 
-function App({ initialData }: Props) {
+function App({ initialData, token }: Props) {
   const { data: tasks } = useQuery({
     queryKey: [queryKeys.tasks],
     queryFn: () =>
-      httpGet("/tasks", {
-        page: 1,
-        pageSize: 100,
-      }).then((res) => (res ? res.data : [])),
+      httpGet(
+        "/tasks",
+        {
+          page: 1,
+          pageSize: 100,
+        },
+        token
+      ).then((res) => (res ? res.data : [])),
     initialData: initialData,
   });
 

@@ -15,7 +15,9 @@ function useCreateTaskMutation() {
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
       httpPost("/tasks", req, session.data?.user.access_token!),
-    onMutate(data) {
+    async onMutate(data) {
+      await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
+
       const taskId = v4();
 
       const newTask: TaskDto = {
@@ -28,9 +30,9 @@ function useCreateTaskMutation() {
       };
 
       const previousTasks =
-        queryClient.getQueryData<TaskDto[]>(["tasks"]) ?? [];
+        queryClient.getQueryData<TaskDto[]>([queryKeys.tasks]) ?? [];
 
-      queryClient.setQueryData<TaskDto[]>(["tasks"], (old) => [
+      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => [
         ...(old ?? []),
         newTask,
       ]);
@@ -38,7 +40,7 @@ function useCreateTaskMutation() {
       return { previousTasks, taskId };
     },
     onError(_, __, context) {
-      queryClient.setQueryData(["tasks"], context?.previousTasks);
+      queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
 
       toast({
         variant: "destructive",
@@ -46,7 +48,7 @@ function useCreateTaskMutation() {
       });
     },
     onSuccess(data, _, context) {
-      queryClient.setQueryData<TaskDto[]>(["tasks"], (old) => [
+      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => [
         ...(old?.filter((task) => task.id !== context?.taskId) ?? []),
         data,
       ]);
@@ -54,6 +56,9 @@ function useCreateTaskMutation() {
       toast({
         title: "Task created successfully.",
       });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
     },
   });
 }
@@ -66,10 +71,14 @@ function useUpdateTaskMutation() {
   return useMutation({
     mutationFn: (req: UpdateTaskReq) =>
       httpPatch("/tasks", req, session.data?.user.access_token!),
-    onMutate(newTask: TaskDto) {
-      const previousTasks = queryClient.getQueryData<TaskDto[]>(["tasks"]);
+    async onMutate(newTask: TaskDto) {
+      await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
 
-      queryClient.setQueryData<TaskDto[]>(["tasks"], (old) => [
+      const previousTasks = queryClient.getQueryData<TaskDto[]>([
+        queryKeys.tasks,
+      ]);
+
+      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => [
         ...old!.filter((task) => task.id !== newTask.id),
         newTask,
       ]);
@@ -77,7 +86,7 @@ function useUpdateTaskMutation() {
       return { previousTasks };
     },
     onError(_, __, context) {
-      queryClient.setQueryData(["tasks"], context?.previousTasks);
+      queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
 
       toast({
         variant: "destructive",
@@ -88,6 +97,9 @@ function useUpdateTaskMutation() {
       toast({
         title: "Task updated successfully.",
       });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
     },
   });
 }
@@ -100,17 +112,24 @@ function useDeleteTaskMutation() {
   return useMutation({
     mutationFn: (req: string) =>
       httpDelete("/tasks/{id}", req, session.data?.user.access_token!),
-    onMutate(taskId) {
-      const previousTasks = queryClient.getQueryData<TaskDto[]>(["tasks"]);
+    async onMutate(taskId) {
+      await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
 
-      queryClient.setQueryData<TaskDto[]>(["tasks"], (tasks) =>
+      const previousTasks = queryClient.getQueryData<TaskDto[]>([
+        queryKeys.tasks,
+      ]);
+
+      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (tasks) =>
         tasks!.filter((task) => task.id !== taskId)
       );
 
       return { previousTasks };
     },
     onError(_, __, context) {
-      queryClient.setQueryData<TaskDto[]>(["tasks"], context?.previousTasks);
+      queryClient.setQueryData<TaskDto[]>(
+        [queryKeys.tasks],
+        context?.previousTasks
+      );
 
       toast({
         variant: "destructive",
@@ -122,7 +141,16 @@ function useDeleteTaskMutation() {
         title: "Task deleted successfully.",
       });
     },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
+    },
   });
 }
 
 export { useCreateTaskMutation, useUpdateTaskMutation, useDeleteTaskMutation };
+
+const queryKeys = {
+  tasks: "tasks",
+};
+
+export { queryKeys };

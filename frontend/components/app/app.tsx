@@ -3,7 +3,9 @@
 import Form from "./form";
 import Sort from "./sort";
 import Task from "./task";
+import { httpGet } from "@api/client";
 import { TaskDto } from "@api/dtos/TaskDto";
+import { queryKeys } from "@hooks/redux";
 import { sortMethods, SortingOptions } from "@lib/sort";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -20,9 +22,13 @@ type Props = {
 
 function App({ initialData }: Props) {
   const { data: tasks } = useQuery({
-    queryKey: ["tasks"],
+    queryKey: [queryKeys.tasks],
+    queryFn: () =>
+      httpGet("/tasks", {
+        page: 1,
+        pageSize: 100,
+      }).then((res) => (res ? res.data : [])),
     initialData: initialData,
-    enabled: false,
   });
 
   const defaultSorting: SortingOptions = {

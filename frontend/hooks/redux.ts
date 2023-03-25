@@ -57,9 +57,6 @@ function useCreateTaskMutation() {
         title: "Task created successfully.",
       });
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
-    },
   });
 }
 
@@ -97,9 +94,6 @@ function useUpdateTaskMutation() {
       toast({
         title: "Task updated successfully.",
       });
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
     },
   });
 }
@@ -140,9 +134,6 @@ function useDeleteTaskMutation() {
       toast({
         title: "Task deleted successfully.",
       });
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.tasks] });
     },
   });
 }

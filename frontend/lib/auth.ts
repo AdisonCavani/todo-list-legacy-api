@@ -48,8 +48,10 @@ export const authOptions: NextAuthOptions = {
       // Not yet expired
       if (Date.now() < token.expires_at * 1000) return token;
 
+      return token; // See: https://github.com/nextauthjs/next-auth/issues/7025
+
       // Expired, try to update
-      return await refreshAccessToken(token);
+      // return await refreshAccessToken(token);
     },
     session({ session, token }) {
       session.error = token.error;

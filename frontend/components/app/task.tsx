@@ -119,7 +119,7 @@ function Task(task: TaskDto) {
             )}
           />
 
-          <div className="flex min-h-[52px] w-full flex-col justify-center py-2 px-4">
+          <div className="flex min-h-[52px] w-full flex-col justify-center px-4 py-2">
             <p
               className={`text-sm ${
                 isCompleted
@@ -226,7 +226,7 @@ function Task(task: TaskDto) {
               ref={dialogDateRef}
               value={dialogDate?.toISOString().split("T")[0] ?? ""}
               onChange={(event) => setDialogDate(event.target.valueAsDate)}
-              className="invisible absolute top-0 left-0 mt-9 -ml-1 h-0 w-0"
+              className="invisible absolute left-0 top-0 -ml-1 mt-9 h-0 w-0"
             />
 
             <DropdownMenu>

@@ -46,7 +46,7 @@ function Loading() {
           >
             <div className="ml-[6px] min-h-[18px] min-w-[18px] animate-pulse cursor-pointer appearance-none rounded-full bg-neutral-200 dark:bg-neutral-600" />
 
-            <div className="flex min-h-[52px] w-full flex-col justify-center py-2 px-4">
+            <div className="flex min-h-[52px] w-full flex-col justify-center px-4 py-2">
               <div className="h-4 w-48 animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-600" />
             </div>
 

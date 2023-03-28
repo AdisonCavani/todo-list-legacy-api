@@ -80,7 +80,7 @@ function Form() {
             ref={dateRef}
             value={date?.toISOString().split("T")[0] ?? ""}
             onChange={(event) => setDate(event.target.valueAsDate)}
-            className="invisible absolute top-0 left-0 mt-9 -ml-1 h-0 w-0"
+            className="invisible absolute left-0 top-0 -ml-1 mt-9 h-0 w-0"
           />
 
           <DropdownMenu>

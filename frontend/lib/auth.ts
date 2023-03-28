@@ -69,6 +69,7 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
+// @ts-expect-error
 async function refreshAccessToken(token: JWT): Promise<JWT> {
   try {
     const response = await fetch(`${process.env.COGNITO_URL}/oauth2/token`, {

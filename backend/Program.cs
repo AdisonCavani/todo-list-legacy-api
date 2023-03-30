@@ -1,5 +1,7 @@
+using Amazon.Lambda.Serialization.SystemTextJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Server;
 using Server.Database;
 using Server.Options;
 using Server.Startup;
@@ -26,7 +28,11 @@ appOptions.Validate();
 builder.Services.ConfigureDbContext(appOptions);
 builder.Services
     .AddControllers()
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter()));
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+        options.JsonSerializerOptions.AddContext<SerializationContext>();
+    });
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
 builder.Services.AddCognitoIdentity();
@@ -54,7 +60,8 @@ builder.Services.AddCors(opt =>
             .WithOrigins(appOptions.CorsOrigin);
     });
 });
-builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi,
+    options => { options.Serializer = new SourceGeneratorLambdaJsonSerializer<SerializationContext>(); });
 
 var app = builder.Build();
 

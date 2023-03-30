@@ -12,6 +12,7 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 256,
   "function-timeout": 15,
+  "function-architecture": "x86_64",
   "function-handler": "Server",
   "function-url-enable": true,
   "function-name": "TodoListLambdaFn"

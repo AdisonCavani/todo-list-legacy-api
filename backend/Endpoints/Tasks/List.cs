@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,7 @@ using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Contracts.Responses;
 using Server.Database;
+using Server.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
@@ -18,12 +18,10 @@ public class List : EndpointBaseAsync
     .WithActionResult<PaginatedRes<TaskDto>>
 {
     private readonly AppDbContext _context;
-    private readonly IMapper _mapper;
 
-    public List(AppDbContext context, IMapper mapper)
+    public List(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     [Authorize]
@@ -60,7 +58,7 @@ public class List : EndpointBaseAsync
 
         var res = new PaginatedRes<TaskDto>
         {
-            Data = _mapper.Map<List<TaskDto>>(posts),
+            Data = posts.Select(x => x.ToTaskDto()),
             CurrentPage = req.Page,
             PageSize = req.PageSize,
             TotalPages = (int) pageCount,

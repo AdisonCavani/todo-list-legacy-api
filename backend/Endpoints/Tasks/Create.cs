@@ -1,13 +1,12 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Database;
-using Server.Database.Entities;
+using Server.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
@@ -17,12 +16,10 @@ public class Create : EndpointBaseAsync
     .WithActionResult<TaskDto>
 {
     private readonly AppDbContext _context;
-    private readonly IMapper _mapper;
 
-    public Create(AppDbContext context, IMapper mapper)
+    public Create(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     [Authorize]
@@ -41,13 +38,13 @@ public class Create : EndpointBaseAsync
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
 
-        var entity = _mapper.Map<TaskEntity>(req);
+        var entity = req.ToTaskEntity();
         entity.UserId = userId;
 
         _context.Tasks.Add(entity);
         await _context.SaveChangesAsync(ct);
 
-        return new ObjectResult(_mapper.Map<TaskDto>(entity))
+        return new ObjectResult(entity.ToTaskDto())
         {
             StatusCode = StatusCodes.Status201Created
         };

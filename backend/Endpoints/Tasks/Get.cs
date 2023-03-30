@@ -1,12 +1,12 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Database;
+using Server.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
@@ -16,12 +16,10 @@ public class Get : EndpointBaseAsync
     .WithActionResult<TaskDto>
 {
     private readonly AppDbContext _context;
-    private readonly IMapper _mapper;
 
-    public Get(AppDbContext context, IMapper mapper)
+    public Get(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     [Authorize]
@@ -47,6 +45,6 @@ public class Get : EndpointBaseAsync
         if (entity is null)
             return NotFound();
 
-        return Ok(_mapper.Map<TaskDto>(entity));
+        return Ok(entity.ToTaskDto());
     }
 }

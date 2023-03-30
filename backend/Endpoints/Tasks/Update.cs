@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +7,7 @@ using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Database;
+using Server.Mappers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
@@ -17,12 +17,10 @@ public class Update : EndpointBaseAsync
     .WithActionResult<TaskDto>
 {
     private readonly AppDbContext _context;
-    private readonly IMapper _mapper;
 
-    public Update(AppDbContext context, IMapper mapper)
+    public Update(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     [Authorize]
@@ -48,8 +46,8 @@ public class Update : EndpointBaseAsync
         if (entity is null)
             return NotFound();
 
-        _mapper.Map(req, entity);
+        req.ToTaskEntity();
         await _context.SaveChangesAsync(ct);
-        return Ok(_mapper.Map<TaskDto>(entity));
+        return Ok(entity.ToTaskDto());
     }
 }

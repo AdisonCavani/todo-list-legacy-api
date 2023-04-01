@@ -1,15 +1,10 @@
 import "./globals.css";
 import NextThemeProvider from "@components/theme-provider";
+import { fontInter } from "@lib/font";
 import { ColorRecordType, twindConfig } from "@lib/twind";
 import { cn } from "@lib/utils";
-import { Inter } from "next/font/google";
 import Script from "next/script";
 import type { PropsWithChildren } from "react";
-
-const fontInter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 export const metadata = {
   title: {

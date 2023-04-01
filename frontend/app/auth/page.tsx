@@ -1,8 +1,6 @@
 import LoginButton from "@components/auth/login-button";
 import { authOptions } from "@lib/auth";
-import { cn } from "@lib/utils";
 import { IconChecklist, IconChevronLeft } from "@tabler/icons-react";
-import { buttonVariants } from "@ui/button";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -18,15 +16,8 @@ async function Page() {
 
   return (
     <main className="mx-auto flex h-screen w-screen flex-col items-center justify-center px-6">
-      <Link
-        href="/"
-        className={cn(
-          buttonVariants({
-            variant: "ghost",
-          }),
-          "absolute left-4 top-4 md:left-8 md:top-8"
-        )}
-      >
+      {/* TODO: fix */}
+      <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8">
         <IconChevronLeft size={18} />
         Back
       </Link>

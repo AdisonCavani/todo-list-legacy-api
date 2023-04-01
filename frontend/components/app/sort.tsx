@@ -33,7 +33,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm">
+            <Button color="ghost" size="sm">
               <IconArrowsSort className="h-4 w-4" />
               <span>Sort</span>
             </Button>
@@ -98,7 +98,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
       <div className="mb-2 flex items-center justify-end gap-x-3">
         <Button
           size="xxs"
-          variant="ghost"
+          color="ghost"
           aria-label="Reverse sort order"
           onClick={() =>
             setSorting((prev) => ({
@@ -120,7 +120,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
         </p>
         <Button
           size="xxs"
-          variant="ghost"
+          color="ghost"
           aria-label="Remove sort order option"
           onClick={() => setSorting(defaultSorting)}
         >

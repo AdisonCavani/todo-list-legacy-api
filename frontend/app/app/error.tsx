@@ -17,7 +17,7 @@ function ErrorComponent({ error, reset }: Props) {
       <p className="font-semibold">Oops!</p>
       <p>Something went wrong...</p>
       <Button
-        variant="destructive"
+        color="destructive"
         size="xs"
         className="mt-5"
         onClick={() => signOut()}

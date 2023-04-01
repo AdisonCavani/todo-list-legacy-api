@@ -16,6 +16,7 @@ If you found any - open new issue.
 - 🔒 AWS Secrets Manager
 - 🙍‍♂️ AWS Cognito Identity Provider
 - 📈 Self-hosted Plausible Analytics
+- 📕 Storybook - on [storybook.todo.k1ng.dev](https://storybook.todo.k1ng.dev)
 
 ## Architecture
 
@@ -35,8 +36,8 @@ If you found any - open new issue.
 - **Framework**: [ASP.NET](https://www.asp.net)
 - **ORM**: [Entity Framework](https://learn.microsoft.com/ef)
 - **Database**: [PostgreSQL](https://www.postgresql.org)
-- **Mapper**: [Automapper](https://automapper.org)
 - **Validation**: [FluentValidation](https://fluentvalidation.net)
+- **Mapper**: Manual mapping
 
 ## Pictures
 

@@ -4,27 +4,10 @@ using Amazon.Lambda.Serialization.SystemTextJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Server;
-using Server.Options;
 using Server.Repositories;
 using Server.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var environment = builder.Environment.EnvironmentName.ToLower();
-builder.Configuration.AddSystemsManager($"/todo-list/{environment}", TimeSpan.FromMinutes(5));
-
-// Settings configuration.
-builder.Services
-    .AddOptions<AppOptions>()
-    .Bind(builder.Configuration.GetRequiredSection(AppOptions.SectionName))
-    .ValidateDataAnnotations()
-    .ValidateOnStart();
-
-var appOptions = builder.Configuration
-    .GetRequiredSection(AppOptions.SectionName)
-    .Get<AppOptions>()!;
-
-appOptions.Validate();
 
 // Add services to the container.
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
@@ -37,7 +20,6 @@ builder.Services
         options.JsonSerializerOptions.AddContext<SerializationContext>();
     });
 builder.Services.AddValidators();
-builder.Services.AddHealthChecks();
 builder.Services.AddCognitoIdentity();
 builder.Services.AddAuthentication(options =>
 {
@@ -45,7 +27,9 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.Authority = appOptions.CognitoIssuer;
+    options.Authority = Environment.GetEnvironmentVariable(EnvVariables.CognitoAuthority) ??
+                        throw new Exception(
+                            $"${nameof(EnvVariables.CognitoAuthority)} env variable cannot be null");
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
@@ -60,7 +44,9 @@ builder.Services.AddCors(opt =>
         policy
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .WithOrigins(appOptions.CorsOrigin);
+            .WithOrigins(Environment.GetEnvironmentVariable(EnvVariables.CorsOrigin) ??
+                         throw new Exception(
+                             $"${nameof(EnvVariables.CognitoAuthority)} env variable cannot be null"));
     });
 });
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi,

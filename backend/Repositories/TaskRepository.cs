@@ -3,25 +3,27 @@ using System.Text.Json;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
-using Microsoft.Extensions.Options;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Contracts.Responses;
 using Server.Database.Entities;
 using Server.Mappers;
-using Server.Options;
+using Server.Startup;
 
 namespace Server.Repositories;
 
 public class TaskRepository : ITaskRepository
 {
     private readonly IAmazonDynamoDB _client;
-    private readonly IOptions<AppOptions> _options;
 
-    public TaskRepository(IAmazonDynamoDB client, IOptions<AppOptions> options)
+    private static readonly string TasksTableName =
+        Environment.GetEnvironmentVariable(EnvVariables.CognitoAuthority) ??
+        throw new Exception(
+            $"{nameof(EnvVariables.TableName)} env variable cannot be null");
+
+    public TaskRepository(IAmazonDynamoDB client)
     {
         _client = client;
-        _options = options;
     }
 
     public async Task<TaskDto?> CreateAsync(CreateTaskReq req, string userId, CancellationToken ct = default)
@@ -35,7 +37,7 @@ public class TaskRepository : ITaskRepository
 
         var createItemReq = new PutItemRequest
         {
-            TableName = _options.Value.TableName,
+            TableName = TasksTableName,
             Item = itemAsAttrib
         };
 
@@ -51,7 +53,7 @@ public class TaskRepository : ITaskRepository
     {
         var request = new GetItemRequest
         {
-            TableName = _options.Value.TableName,
+            TableName = TasksTableName,
             Key = new()
             {
                 {"pk", new AttributeValue {S = id.ToString()}},
@@ -77,12 +79,12 @@ public class TaskRepository : ITaskRepository
 
         var updateItemReq = new PutItemRequest
         {
-            TableName = _options.Value.TableName,
+            TableName = TasksTableName,
             Item = itemAsAttrib
         };
 
         var response = await _client.PutItemAsync(updateItemReq, ct);
-        
+
         if (response.HttpStatusCode != HttpStatusCode.OK)
             return null;
 
@@ -93,7 +95,7 @@ public class TaskRepository : ITaskRepository
     {
         var deleteItemReq = new DeleteItemRequest
         {
-            TableName = _options.Value.TableName,
+            TableName = TasksTableName,
             Key = new()
             {
                 {"pk", new AttributeValue {S = id.ToString()}},
@@ -109,7 +111,7 @@ public class TaskRepository : ITaskRepository
     {
         var scanReq = new ScanRequest
         {
-            TableName = _options.Value.TableName,
+            TableName = TasksTableName,
             Limit = req.PageSize
         };
 
@@ -125,7 +127,7 @@ public class TaskRepository : ITaskRepository
             if (taskEntity is not null)
                 tasks.Add(taskEntity.ToTaskDto());
         }
-        
+
         // TODO: improve pagination
         return new()
         {

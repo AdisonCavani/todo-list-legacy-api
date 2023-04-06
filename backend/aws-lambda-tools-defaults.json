@@ -9,11 +9,12 @@
   "role": "TodoListLambdaFnRole",
   "region": "eu-central-1",
   "configuration": "Release",
-  "function-runtime": "dotnet6",
+  "function-runtime": "provided.al2",
   "function-memory-size": 256,
   "function-timeout": 15,
   "function-architecture": "x86_64",
-  "function-handler": "Server",
+  "function-handler": "bootstrap",
   "function-url-enable": true,
-  "function-name": "TodoListLambdaFn"
+  "function-name": "TodoListLambdaFn",
+  "msbuild-parameters": "--self-contained true"
 }

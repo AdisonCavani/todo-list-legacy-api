@@ -1,8 +1,14 @@
-﻿namespace Server.Database.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Server.Database.Entities;
 
 public class TaskEntity
 {
-    public Guid Id { get; set; }
+    [JsonPropertyName("pk")]
+    public string Pk => Id;
+    [JsonPropertyName("sk")]
+    public string Sk => Pk;
+    public string Id { get; set; } = default!;
     public string UserId { get; set; } = default!;
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }

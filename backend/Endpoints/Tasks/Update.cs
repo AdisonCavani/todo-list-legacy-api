@@ -2,12 +2,10 @@
 using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
-using Server.Database;
-using Server.Mappers;
+using Server.Repositories;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
@@ -16,18 +14,17 @@ public class Update : EndpointBaseAsync
     .WithRequest<UpdateTaskReq>
     .WithActionResult<TaskDto>
 {
-    private readonly AppDbContext _context;
+    private readonly ITaskRepository _repo;
 
-    public Update(AppDbContext context)
+    public Update(ITaskRepository repo)
     {
-        _context = context;
+        _repo = repo;
     }
 
     [Authorize]
     [HttpPatch(ApiRoutes.Tasks)]
     [SwaggerOperation(
         Summary = "Update a Task",
-        Description = "",
         Tags = new[] {"Task Endpoint"})]
     public override async Task<ActionResult<TaskDto>> HandleAsync(
         [FromBody] UpdateTaskReq req,
@@ -39,15 +36,11 @@ public class Update : EndpointBaseAsync
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
 
-        var entity = await _context.Tasks
-            .Where(x => x.UserId == userId)
-            .FirstOrDefaultAsync(x => x.Id == req.Id, ct);
+        var response = await _repo.UpdateAsync(req, userId, ct);
 
-        if (entity is null)
+        if (response is null)
             return NotFound();
 
-        req.ToTaskEntity();
-        await _context.SaveChangesAsync(ct);
-        return Ok(entity.ToTaskDto());
+        return Ok(response);
     }
 }

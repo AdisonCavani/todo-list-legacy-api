@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
-using Server.Database;
-using Server.Mappers;
+using Server.Repositories;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
@@ -15,18 +14,17 @@ public class Create : EndpointBaseAsync
     .WithRequest<CreateTaskReq>
     .WithActionResult<TaskDto>
 {
-    private readonly AppDbContext _context;
+    private readonly ITaskRepository _repo;
 
-    public Create(AppDbContext context)
+    public Create(ITaskRepository repo)
     {
-        _context = context;
+        _repo = repo;
     }
 
     [Authorize]
     [HttpPost(ApiRoutes.Tasks)]
     [SwaggerOperation(
         Summary = "Create new Task",
-        Description = "",
         Tags = new[] {"Task Endpoint"})]
     public override async Task<ActionResult<TaskDto>> HandleAsync(
         [FromBody] CreateTaskReq req,
@@ -38,13 +36,12 @@ public class Create : EndpointBaseAsync
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
 
-        var entity = req.ToTaskEntity();
-        entity.UserId = userId;
+        var response = await _repo.CreateAsync(req, userId, ct);
 
-        _context.Tasks.Add(entity);
-        await _context.SaveChangesAsync(ct);
+        if (response is null)
+            return StatusCode(StatusCodes.Status500InternalServerError);
 
-        return new ObjectResult(entity.ToTaskDto())
+        return new ObjectResult(response)
         {
             StatusCode = StatusCodes.Status201Created
         };

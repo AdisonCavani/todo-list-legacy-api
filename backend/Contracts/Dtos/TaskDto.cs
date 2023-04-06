@@ -2,7 +2,7 @@
 
 public class TaskDto
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; } = default!;
     public string UserId { get; set; } = default!;
     public DateTime CreatedAt { get; set; }
     public string Title { get; set; } = default!;

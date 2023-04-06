@@ -23,24 +23,30 @@ public static class TaskMapper
 
     public static TaskEntity ToTaskEntity(this CreateTaskReq req)
     {
+        var dateNow = DateTime.UtcNow;
+        
         return new()
         {
+            Id = Guid.NewGuid().ToString(),
             Title = req.Title,
             Description = req.Description,
             DueDate = req.DueDate,
+            CreatedAt = dateNow,
+            UpdatedAt = dateNow
         };
     }
-    
+
     public static TaskEntity ToTaskEntity(this UpdateTaskReq req)
     {
         return new()
         {
-            Id = req.Id,
+            Id = req.Id.ToString(),
             Title = req.Title,
             Description = req.Description,
             DueDate = req.DueDate,
             IsCompleted = req.IsCompleted ?? false,
-            IsImportant = req.IsImportant ?? false
+            IsImportant = req.IsImportant ?? false,
+            UpdatedAt = DateTime.UtcNow
         };
     }
 }

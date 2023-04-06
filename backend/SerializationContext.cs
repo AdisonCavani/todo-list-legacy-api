@@ -3,11 +3,14 @@ using Amazon.Lambda.APIGatewayEvents;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Contracts.Responses;
+using Server.Database.Entities;
 
 namespace Server;
 
+// Entities
+[JsonSerializable(typeof(TaskEntity))]
+
 // Dtos
-[JsonSerializable(typeof(HealthCheckDto))]
 [JsonSerializable(typeof(TaskDto))]
 
 // Requests
@@ -16,7 +19,6 @@ namespace Server;
 [JsonSerializable(typeof(UpdateTaskReq))]
 
 // Responses
-[JsonSerializable(typeof(HealthCheckRes))]
 [JsonSerializable(typeof(PaginatedRes<TaskDto>))]
 
 // AWS Lambda

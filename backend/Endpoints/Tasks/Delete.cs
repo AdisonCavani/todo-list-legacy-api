@@ -2,9 +2,8 @@
 using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Server.Contracts;
-using Server.Database;
+using Server.Repositories;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
@@ -13,18 +12,17 @@ public class Delete : EndpointBaseAsync
     .WithRequest<Guid>
     .WithActionResult
 {
-    private readonly AppDbContext _context;
+    private readonly ITaskRepository _repo;
 
-    public Delete(AppDbContext context)
+    public Delete(ITaskRepository repo)
     {
-        _context = context;
+        _repo = repo;
     }
 
     [Authorize]
     [HttpDelete(ApiRoutes.Tasks + "/{id}")]
     [SwaggerOperation(
         Summary = "Remove Task by id",
-        Description = "",
         Tags = new[] {"Task Endpoint"})]
     public override async Task<ActionResult> HandleAsync(
         Guid id,
@@ -36,16 +34,8 @@ public class Delete : EndpointBaseAsync
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
 
-        var entity = await _context.Tasks
-            .Where(x => x.UserId == userId)
-            .FirstOrDefaultAsync(x => x.Id == id, ct);
+        var deleted = await _repo.DeleteAsync(id, userId, ct);
 
-        if (entity is null)
-            return NotFound();
-
-        _context.Tasks.Remove(entity);
-        await _context.SaveChangesAsync(ct);
-
-        return NoContent();
+        return deleted ? NoContent() : NotFound();
     }
 }

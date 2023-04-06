@@ -1,9 +1,11 @@
+using Amazon;
+using Amazon.DynamoDBv2;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Server;
-using Server.Database;
 using Server.Options;
+using Server.Repositories;
 using Server.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +27,8 @@ var appOptions = builder.Configuration
 appOptions.Validate();
 
 // Add services to the container.
-builder.Services.ConfigureDbContext(appOptions);
+builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
+builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.EUCentral1));
 builder.Services
     .AddControllers()
     .AddJsonOptions(options =>
@@ -34,7 +37,7 @@ builder.Services
         options.JsonSerializerOptions.AddContext<SerializationContext>();
     });
 builder.Services.AddValidators();
-builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+builder.Services.AddHealthChecks();
 builder.Services.AddCognitoIdentity();
 builder.Services.AddAuthentication(options =>
 {
@@ -76,7 +79,6 @@ if (app.Environment.IsDevelopment())
         TimeSpan.FromMilliseconds(1250));
 }
 
-await app.SeedDataAsync();
 app.UseHsts();
 app.UseHttpsRedirection();
 app.UseCors();

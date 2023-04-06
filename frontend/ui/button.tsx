@@ -1,5 +1,6 @@
 import { cn } from "@lib/utils";
 import { IconLoader2 } from "@tabler/icons-react";
+import React from "react";
 
 const sizeClassnames = {
   default: "h-10 py-2 px-4",
@@ -33,34 +34,42 @@ export interface ButtonProps
   icon?: React.ReactNode;
 }
 
-function Button({
-  children,
-  size = "default",
-  color = "default",
-  disabled,
-  loading,
-  icon,
-  className,
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      aria-busy={loading}
-      disabled={disabled || loading}
-      className={cn(
-        "inline-flex items-center justify-center gap-x-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:bg-neutral-100 dark:hover:bg-neutral-800 dark:focus:ring-neutral-400 dark:focus:ring-offset-neutral-900 dark:data-[state=open]:bg-neutral-800",
-        sizeClassnames[size],
-        colorClassnames[color],
-        loading && "disabled:cursor-progress",
-        className
-      )}
-      {...props}
-    >
-      {loading && <IconLoader2 className="h-4 w-4 animate-spin" />}
-      {icon}
-      {children}
-    </button>
-  );
-}
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      size = "default",
+      color = "default",
+      disabled,
+      loading,
+      icon,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <button
+        ref={ref}
+        aria-busy={loading}
+        disabled={disabled || loading}
+        className={cn(
+          "inline-flex items-center justify-center gap-x-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:bg-neutral-100 dark:hover:bg-neutral-800 dark:focus:ring-neutral-400 dark:focus:ring-offset-neutral-900 dark:data-[state=open]:bg-neutral-800",
+          sizeClassnames[size],
+          colorClassnames[color],
+          loading && "disabled:cursor-progress",
+          className
+        )}
+        {...props}
+      >
+        {loading && <IconLoader2 className="h-4 w-4 animate-spin" />}
+        {icon}
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.displayName = "Button";
 
 export { Button };

@@ -20,17 +20,21 @@
         <PackageReference Include="Amazon.AspNetCore.Identity.Cognito" Version="3.0.1" />
         <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.6.0" />
         <PackageReference Include="Ardalis.ApiEndpoints" Version="4.0.1" />
-        <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.102.20" />
-        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+        <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.102.21" />
+        <PackageReference Include="FluentValidation" Version="11.5.1" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
+        <TrimmerRootAssembly Include="Amazon.AspNetCore.Identity.Cognito" />
         <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer.Hosting" />
         <TrimmerRootAssembly Include="Ardalis.ApiEndpoints" />
         <TrimmerRootAssembly Include="AWSSDK.DynamoDBv2" />
+        <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+        <TrimmerRootAssembly Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
+        <TrimmerRootAssembly Include="Microsoft.IdentityModel.Tokens" />
     </ItemGroup>
 
 </Project>

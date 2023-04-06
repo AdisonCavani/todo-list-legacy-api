@@ -17,7 +17,7 @@ public class TaskRepository : ITaskRepository
     private readonly IAmazonDynamoDB _client;
 
     private static readonly string TasksTableName =
-        Environment.GetEnvironmentVariable(EnvVariables.CognitoAuthority) ??
+        Environment.GetEnvironmentVariable(EnvVariables.TableName) ??
         throw new Exception(
             $"{nameof(EnvVariables.TableName)} env variable cannot be null");
 

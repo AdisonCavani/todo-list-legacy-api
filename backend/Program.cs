@@ -4,21 +4,21 @@ using Amazon.Lambda.Serialization.SystemTextJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Server;
+using Server.Contracts;
+using Server.Endpoints;
 using Server.Repositories;
 using Server.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    options.SerializerOptions.AddContext<SerializationContext>();
+});
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
 builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.EUCentral1));
-builder.Services
-    .AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-        options.JsonSerializerOptions.AddContext<SerializationContext>();
-    });
 builder.Services.AddValidators();
 builder.Services.AddCognitoIdentity();
 builder.Services.AddAuthentication(options =>
@@ -36,6 +36,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = false
     };
 });
+builder.Services.AddAuthorization();
 builder.Services.AddSwagger();
 builder.Services.AddCors(opt =>
 {
@@ -70,5 +71,7 @@ app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+
+app.MapGroup(ApiRoutes.Tasks).MapTasksApi();
+
 app.Run();

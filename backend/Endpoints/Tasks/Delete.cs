@@ -1,41 +1,25 @@
 ﻿using System.Security.Claims;
-using Ardalis.ApiEndpoints;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Server.Contracts;
 using Server.Repositories;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Endpoints.Tasks;
 
-public class Delete : EndpointBaseAsync
-    .WithRequest<Guid>
-    .WithActionResult
+public static class Delete
 {
-    private readonly ITaskRepository _repo;
-
-    public Delete(ITaskRepository repo)
-    {
-        _repo = repo;
-    }
-
-    [Authorize]
-    [HttpDelete(ApiRoutes.Tasks + "/{id}")]
-    [SwaggerOperation(
-        Summary = "Remove Task by id",
-        Tags = new[] {"Task Endpoint"})]
-    public override async Task<ActionResult> HandleAsync(
-        Guid id,
+    public static async Task<IResult> HandleAsync(
+        [FromRoute] Guid id,
+        HttpContext context,
+        [FromServices] ITaskRepository repo,
         CancellationToken ct = default)
     {
         // TODO: check for null during unit test
-        var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (userId is null)
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            return Results.StatusCode(StatusCodes.Status500InternalServerError);
 
-        var deleted = await _repo.DeleteAsync(id, userId, ct);
+        var deleted = await repo.DeleteAsync(id, userId, ct);
 
-        return deleted ? NoContent() : NotFound();
+        return deleted ? Results.NoContent() : Results.NotFound();
     }
 }

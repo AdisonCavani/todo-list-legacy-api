@@ -12,7 +12,6 @@ public static class Swagger
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
-            options.EnableAnnotations();
             options.DescribeAllParametersInCamelCase();
             options.OperationFilter<AuthOperationFilter>();
 

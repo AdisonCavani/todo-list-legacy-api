@@ -19,7 +19,7 @@ public static class TaskMapper
         {
             Id = taskEntity.Id,
             UserId = taskEntity.UserId,
-            CreatedAt = taskEntity.CreatedAt,
+            UpdatedAt = taskEntity.UpdatedAt,
             Title = taskEntity.Title,
             Description = taskEntity.Description,
             DueDate = taskEntity.DueDate,
@@ -30,16 +30,13 @@ public static class TaskMapper
 
     public static TaskEntity ToTaskEntity(this CreateTaskReq req, string userId)
     {
-        var dateNow = DateTime.UtcNow;
-
         return new()
         {
             Id = Guid.NewGuid().ToString(),
             Title = req.Title,
             Description = req.Description,
             DueDate = req.DueDate,
-            CreatedAt = dateNow,
-            UpdatedAt = dateNow,
+            UpdatedAt = DateTime.UtcNow,
             UserId = userId
         };
     }

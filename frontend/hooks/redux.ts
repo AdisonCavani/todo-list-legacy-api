@@ -23,7 +23,7 @@ function useCreateTaskMutation() {
       const newTask: TaskDto = {
         id: taskId,
         userId: "",
-        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         isCompleted: false,
         isImportant: false,
         ...data,

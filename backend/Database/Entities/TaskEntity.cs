@@ -8,7 +8,6 @@ public class TaskEntity
     [JsonPropertyName("sk")] public string Sk => $"TASK#{Id}";
     [JsonPropertyName("id")] public string Id { get; set; } = default!;
     [JsonPropertyName("user_id")] public string UserId { get; set; } = default!;
-    [JsonPropertyName("created_at")] public DateTime CreatedAt { get; set; }
     [JsonPropertyName("updated_at")] public DateTime UpdatedAt { get; set; }
     [JsonPropertyName("title")] public string Title { get; set; } = default!;
     [JsonPropertyName("description")] public string? Description { get; set; }

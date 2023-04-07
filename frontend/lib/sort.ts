@@ -5,9 +5,9 @@ function sortTasksByTitle(a: TaskDto, b: TaskDto): number {
 }
 
 function sortTasksByDueDate(a: TaskDto, b: TaskDto): number {
-  // No due date - sort by createdAt
+  // No due date - sort by updatedAt
   if (!a.dueDate && !b.dueDate)
-    return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+    return Date.parse(a.updatedAt) - Date.parse(b.updatedAt);
 
   // A has dueDate, but B does not
   if (a.dueDate && !b.dueDate) return -1;
@@ -31,7 +31,7 @@ function sortTasksByImportance(a: TaskDto, b: TaskDto): number {
 }
 
 function sortTasksByCreationDate(a: TaskDto, b: TaskDto): number {
-  return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+  return Date.parse(a.updatedAt) - Date.parse(b.updatedAt);
 }
 
 export const sortMethods = {

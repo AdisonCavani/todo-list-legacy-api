@@ -4,18 +4,15 @@ namespace Server.Database.Entities;
 
 public class TaskEntity
 {
-    [JsonPropertyName("pk")]
-    public string Pk => Id;
-    [JsonPropertyName("sk")]
-    public string Sk => Pk;
-    public string Id { get; set; } = default!;
-    public string UserId { get; set; } = default!;
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
-    public string Title { get; set; } = default!;
-    public string? Description { get; set; }
-    public DateOnly? DueDate { get; set; }
-    public bool IsCompleted { get; set; }
-    public bool IsImportant { get; set; }
-    
+    [JsonPropertyName("pk")] public string Pk => Id;
+    [JsonPropertyName("sk")] public string Sk => Pk;
+    [JsonPropertyName("id")] public string Id { get; set; } = default!;
+    [JsonPropertyName("user_id")] public string UserId { get; set; } = default!;
+    [JsonPropertyName("created_at")] public DateTime CreatedAt { get; set; }
+    [JsonPropertyName("updated_at")] public DateTime UpdatedAt { get; set; }
+    [JsonPropertyName("title")] public string Title { get; set; } = default!;
+    [JsonPropertyName("description")] public string? Description { get; set; }
+    [JsonPropertyName("due_date")] public DateOnly? DueDate { get; set; }
+    [JsonPropertyName("is_completed")] public bool IsCompleted { get; set; }
+    [JsonPropertyName("is_important")] public bool IsImportant { get; set; }
 }

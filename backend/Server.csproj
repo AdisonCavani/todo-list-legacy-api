@@ -5,15 +5,12 @@
         <TargetFramework>net7.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <PublishAot>true</PublishAot>
+        <PublishReadyToRun>true</PublishReadyToRun>
+        <AWSProjectType>Lambda</AWSProjectType>
         <AssemblyName>bootstrap</AssemblyName>
-        <TrimMode>full</TrimMode>
-        <PublishAot>true</PublishAot>
-        <AssemblyName>bootstrap</AssemblyName>
-        <TrimMode>full</TrimMode>
-        <StripSymbols>true</StripSymbols>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,16 +22,6 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <TrimmerRootAssembly Include="Amazon.AspNetCore.Identity.Cognito" />
-        <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer.Hosting" />
-        <TrimmerRootAssembly Include="Ardalis.ApiEndpoints" />
-        <TrimmerRootAssembly Include="AWSSDK.DynamoDBv2" />
-        <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-        <TrimmerRootAssembly Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
-        <TrimmerRootAssembly Include="Microsoft.IdentityModel.Tokens" />
     </ItemGroup>
 
 </Project>

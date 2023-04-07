@@ -27,8 +27,7 @@ public class TaskRepository : ITaskRepository
 
     public async Task<TaskDto?> CreateAsync(CreateTaskReq req, string userId, CancellationToken ct = default)
     {
-        var entity = req.ToTaskEntity();
-        entity.UserId = userId;
+        var entity = req.ToTaskEntity(userId);
 
         var taskAsJson = JsonSerializer.Serialize(entity, SerializationContext.Default.TaskEntity);
         var itemAsDoc = Document.FromJson(taskAsJson);
@@ -55,8 +54,8 @@ public class TaskRepository : ITaskRepository
             TableName = TasksTableName,
             Key = new()
             {
-                {"pk", new AttributeValue {S = id.ToString()}},
-                {"sk", new AttributeValue {S = id.ToString()}},
+                {TaskMapper.Pk, TaskMapper.GetPk(userId)},
+                {TaskMapper.Sk, TaskMapper.GetSk(id)}
             }
         };
 
@@ -71,7 +70,8 @@ public class TaskRepository : ITaskRepository
 
     public async Task<TaskDto?> UpdateAsync(UpdateTaskReq req, string userId, CancellationToken ct = default)
     {
-        var entity = req.ToTaskEntity();
+        var entity = req.ToTaskEntity(userId);
+
         var taskAsJson = JsonSerializer.Serialize(entity, SerializationContext.Default.TaskEntity);
         var itemAsDoc = Document.FromJson(taskAsJson);
         var itemAsAttrib = itemAsDoc.ToAttributeMap();
@@ -97,8 +97,8 @@ public class TaskRepository : ITaskRepository
             TableName = TasksTableName,
             Key = new()
             {
-                {"pk", new AttributeValue {S = id.ToString()}},
-                {"sk", new AttributeValue {S = id.ToString()}}
+                {TaskMapper.Pk, TaskMapper.GetPk(userId)},
+                {TaskMapper.Sk, TaskMapper.GetSk(id)}
             }
         };
 
@@ -108,13 +108,18 @@ public class TaskRepository : ITaskRepository
 
     public async Task<PaginatedRes<TaskDto>> ListAsync(PaginatedReq req, string userId, CancellationToken ct = default)
     {
-        var scanReq = new ScanRequest
+        var queryRequest = new QueryRequest
         {
             TableName = TasksTableName,
-            Limit = req.PageSize
+            Limit = req.PageSize,
+            KeyConditionExpression = $"{TaskMapper.Pk} = :v_pk",
+            ExpressionAttributeValues = new()
+            {
+                {":v_pk", TaskMapper.GetPk(userId)}
+            }
         };
 
-        var response = await _client.ScanAsync(scanReq, ct);
+        var response = await _client.QueryAsync(queryRequest, ct);
 
         var tasks = new List<TaskDto>();
 

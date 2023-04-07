@@ -1,4 +1,5 @@
-﻿using Server.Contracts.Dtos;
+﻿using Amazon.DynamoDBv2.Model;
+using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Database.Entities;
 
@@ -6,6 +7,12 @@ namespace Server.Mappers;
 
 public static class TaskMapper
 {
+    public const string Pk = "pk";
+    public const string Sk = "sk";
+
+    public static AttributeValue GetPk(string userId) => new() {S = $"USER#{userId}"};
+    public static AttributeValue GetSk(Guid taskId) => new() {S = $"TASK#{taskId.ToString()}"};
+
     public static TaskDto ToTaskDto(this TaskEntity taskEntity)
     {
         return new()
@@ -21,10 +28,10 @@ public static class TaskMapper
         };
     }
 
-    public static TaskEntity ToTaskEntity(this CreateTaskReq req)
+    public static TaskEntity ToTaskEntity(this CreateTaskReq req, string userId)
     {
         var dateNow = DateTime.UtcNow;
-        
+
         return new()
         {
             Id = Guid.NewGuid().ToString(),
@@ -32,11 +39,12 @@ public static class TaskMapper
             Description = req.Description,
             DueDate = req.DueDate,
             CreatedAt = dateNow,
-            UpdatedAt = dateNow
+            UpdatedAt = dateNow,
+            UserId = userId
         };
     }
 
-    public static TaskEntity ToTaskEntity(this UpdateTaskReq req)
+    public static TaskEntity ToTaskEntity(this UpdateTaskReq req, string userId)
     {
         return new()
         {
@@ -46,7 +54,8 @@ public static class TaskMapper
             DueDate = req.DueDate,
             IsCompleted = req.IsCompleted ?? false,
             IsImportant = req.IsImportant ?? false,
-            UpdatedAt = DateTime.UtcNow
+            UpdatedAt = DateTime.UtcNow,
+            UserId = userId
         };
     }
 }

@@ -14,15 +14,16 @@ public class ValidationFilter<T> : IEndpointFilter where T : class
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
         var validatable = context.GetArgument<T>(0);
+        var validator = context.HttpContext.RequestServices.GetService<IValidator<T>>();
 
-        if (validatable is null)
-            throw new Exception($"{nameof(T)} does not register a validator");
+        if (validator is not null)
+        {
+            var validationResult = await _validator.ValidateAsync(validatable);
 
-        var validationResult = await _validator.ValidateAsync(validatable);
+            if (!validationResult.IsValid)
+                return Results.ValidationProblem(validationResult.ToDictionary());
+        }
 
-        if (!validationResult.IsValid)
-            return Results.ValidationProblem(validationResult.ToDictionary());
-        
-        return await next(context);
+        return await next.Invoke(context);
     }
 }

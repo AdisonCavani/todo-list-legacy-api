@@ -24,7 +24,6 @@ public static class Map
 
         group.MapGet("/", Tasks.List.HandleAsync)
             .RequireAuthorization()
-            .AddEndpointFilter<ValidationFilter<PaginatedReq>>()
             .WithOpenApi(operation => new(operation)
             {
                 Summary = "Get a list of Tasks"

@@ -6,7 +6,6 @@ using Amazon.DynamoDBv2.Model;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Contracts.Responses;
-using Server.Database.Entities;
 using Server.Mappers;
 using Server.Startup;
 
@@ -31,7 +30,7 @@ public class TaskRepository : ITaskRepository
         var entity = req.ToTaskEntity();
         entity.UserId = userId;
 
-        var taskAsJson = JsonSerializer.Serialize(entity);
+        var taskAsJson = JsonSerializer.Serialize(entity, SerializationContext.Default.TaskEntity);
         var itemAsDoc = Document.FromJson(taskAsJson);
         var itemAsAttrib = itemAsDoc.ToAttributeMap();
 
@@ -67,13 +66,13 @@ public class TaskRepository : ITaskRepository
             return null;
 
         var itemAsDoc = Document.FromAttributeMap(response.Item);
-        return JsonSerializer.Deserialize<TaskEntity>(itemAsDoc.ToJson())?.ToTaskDto();
+        return JsonSerializer.Deserialize(itemAsDoc.ToJson(), SerializationContext.Default.TaskEntity)?.ToTaskDto();
     }
 
     public async Task<TaskDto?> UpdateAsync(UpdateTaskReq req, string userId, CancellationToken ct = default)
     {
         var entity = req.ToTaskEntity();
-        var taskAsJson = JsonSerializer.Serialize(entity);
+        var taskAsJson = JsonSerializer.Serialize(entity, SerializationContext.Default.TaskEntity);
         var itemAsDoc = Document.FromJson(taskAsJson);
         var itemAsAttrib = itemAsDoc.ToAttributeMap();
 
@@ -122,7 +121,7 @@ public class TaskRepository : ITaskRepository
         foreach (var item in response.Items)
         {
             var itemAsDoc = Document.FromAttributeMap(item);
-            var taskEntity = JsonSerializer.Deserialize<TaskEntity>(itemAsDoc.ToJson());
+            var taskEntity = JsonSerializer.Deserialize(itemAsDoc.ToJson(), SerializationContext.Default.TaskEntity);
 
             if (taskEntity is not null)
                 tasks.Add(taskEntity.ToTaskDto());

@@ -15,7 +15,6 @@ namespace Server;
 
 // Requests
 [JsonSerializable(typeof(CreateTaskReq))]
-[JsonSerializable(typeof(PaginatedReq))]
 [JsonSerializable(typeof(UpdateTaskReq))]
 
 // Responses

@@ -1,6 +1,7 @@
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Lambda.Serialization.SystemTextJson;
+using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Server;
@@ -12,6 +13,8 @@ using Server.Startup;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+AWSSDKHandler.RegisterXRayForAllServices();
+
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());

@@ -10,7 +10,7 @@
   "region": "eu-central-1",
   "configuration": "Release",
   "function-runtime": "provided.al2",
-  "function-memory-size": 256,
+  "function-memory-size": 1024,
   "function-timeout": 15,
   "function-architecture": "x86_64",
   "function-handler": "bootstrap",

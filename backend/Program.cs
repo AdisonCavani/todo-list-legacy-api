@@ -23,6 +23,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
 builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.EUCentral1));
 builder.Services.AddValidators();
+builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
 builder.Services.AddCognitoIdentity();
 builder.Services.AddAuthentication(options =>
 {
@@ -76,5 +77,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGroup(ApiRoutes.Tasks).MapTasksApi();
+app.MapGet(ApiRoutes.Health, Health.HandleAsync).WithTags("Health Endpoint").WithOpenApi(operation => new(operation)
+{
+    Summary = "Get health check report"
+});
 
 app.Run();

@@ -12,12 +12,14 @@ namespace Server;
 
 // Dtos
 [JsonSerializable(typeof(TaskDto))]
+[JsonSerializable(typeof(HealthCheckDto))]
 
 // Requests
 [JsonSerializable(typeof(CreateTaskReq))]
 [JsonSerializable(typeof(UpdateTaskReq))]
 
 // Responses
+[JsonSerializable(typeof(HealthCheckRes))]
 [JsonSerializable(typeof(PaginatedRes<TaskDto>))]
 
 // AWS Lambda

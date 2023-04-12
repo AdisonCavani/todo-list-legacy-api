@@ -47,7 +47,7 @@
     "clsx": "^1.2.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
-    "cva": "npm:class-variance-authority@^0.4.0",
+    "cva": "npm:class-variance-authority@^0.5.0",
     "eslint": "^8.37.0",
     "eslint-config-next": "^13.2.4",
     "eslint-config-prettier": "^8.8.0",

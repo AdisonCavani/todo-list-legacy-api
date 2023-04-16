@@ -1,5 +1,6 @@
 # To-Do List App
 [![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=todo-list)](https://todo.k1ng.dev)
+[![Storybook](https://api.netlify.com/api/v1/badges/56f0a50f-291d-4b20-a038-45890ebafbf6/deploy-status)](https://storybook.todo.k1ng.dev)
 [![.NET](https://github.com/AdisonCavani/todo-list/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/AdisonCavani/todo-list/actions/workflows/dotnet.yml)
 [![Deploy AWS Lambda](https://github.com/AdisonCavani/todo-list/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/AdisonCavani/todo-list/actions/workflows/deploy.yml)
 

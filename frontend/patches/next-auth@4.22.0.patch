@@ -1,0 +1,19 @@
+diff --git a/core/index.js b/core/index.js
+index fa252be729528754c800641883f0017aab7c50fc..7cabba046d47676a6540ba823355bc7956415403 100644
+--- a/core/index.js
++++ b/core/index.js
+@@ -55,6 +55,14 @@ async function toInternalRequest(req) {
+     };
+   }
+ 
++  if (!req.origin && req.headers) {
++    const {headers} = req
++    req.origin = detectOrigin(
++      headers["x-forwarded-host"] ?? headers.host,
++      headers["x-forwarded-proto"]
++    )
++  }
++
+   return req;
+ }
+ 

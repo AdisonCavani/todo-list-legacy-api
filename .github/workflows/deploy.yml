@@ -12,7 +12,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
-        working-directory: backend
+        working-directory: backend/Server
 
     permissions:
       id-token: write
@@ -45,9 +45,6 @@ jobs:
 
       - name: Build
         run: dotnet build --no-restore
-                
-      - name: Change directory
-        run: cd ./Server
 
       - name: Install AWS CLI
         run: dotnet tool install -g Amazon.Lambda.Tools

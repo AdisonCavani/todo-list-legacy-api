@@ -1,4 +1,3 @@
-using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
@@ -13,13 +12,14 @@ AWSSDKHandler.RegisterXRayForAllServices();
 
 builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.AddContext<SerializationContext>());
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
-builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.EUCentral1));
+builder.Services.AddSingleton<IAmazonDynamoDB>();
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
 builder.Services.AddAuth();
 builder.Services.AddAuthorization();
 builder.Services.AddSwagger();
 builder.Services.AddCorsPolicy();
+builder.Services.AddProblemDetails();
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi,
     options => { options.Serializer = new SourceGeneratorLambdaJsonSerializer<SerializationContext>(); });
 
@@ -31,6 +31,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 #endif
 
+app.UseExceptionHandler();
 app.UseHsts();
 app.UseHttpsRedirection();
 app.UseCors();

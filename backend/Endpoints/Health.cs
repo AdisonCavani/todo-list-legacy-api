@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Server.Contracts.Dtos;
 using Server.Contracts.Responses;
 
@@ -6,7 +7,9 @@ namespace Server.Endpoints;
 
 public static class Health
 {
-    public static async Task<IResult> HandleAsync(HealthCheckService service,CancellationToken ct = default)
+    public static async Task<Results<StatusCodeHttpResult, Ok<HealthCheckRes>>> HandleAsync(
+        HealthCheckService service,
+        CancellationToken ct = default)
     {
         var report = await service.CheckHealthAsync(ct);
         var response = new HealthCheckRes
@@ -22,7 +25,7 @@ public static class Health
         };
 
         return report.Status == HealthStatus.Healthy
-            ? Results.Ok(response)
-            : Results.StatusCode(StatusCodes.Status503ServiceUnavailable); // TODO: add response
+            ? TypedResults.Ok(response)
+            : TypedResults.StatusCode(StatusCodes.Status503ServiceUnavailable); // TODO: add response
     }
 }

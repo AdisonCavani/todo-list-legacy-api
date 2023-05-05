@@ -17,7 +17,7 @@ public class TaskRepositoryTests
     {
         Environment.SetEnvironmentVariable(Startup.EnvVariables.TableName, "tasks");
     }
-    
+
     [Fact]
     public async Task Create_WhenNotOk_ReturnsNull()
     {
@@ -40,7 +40,7 @@ public class TaskRepositoryTests
         // Assert
         Assert.Null(result);
     }
-    
+
     [Fact]
     public async Task Create_WhenOk_ReturnsOk()
     {

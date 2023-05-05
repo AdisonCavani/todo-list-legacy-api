@@ -5,7 +5,7 @@ using Server;
 using Server.Repositories;
 using Server.Startup;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 AWSSDKHandler.RegisterXRayForAllServices();

@@ -14,7 +14,6 @@ If you found any - open new issue.
 - 🔑 Serverless REST API
 - 🌗 Light & dark theme
 - 📱 Progressive Web App
-- 🔒 AWS Secrets Manager
 - 🙍‍♂️ AWS Cognito Identity Provider
 - 📈 Self-hosted Plausible Analytics
 - 📕 Storybook - on [storybook.todo.k1ng.dev](https://storybook.todo.k1ng.dev)
@@ -35,8 +34,7 @@ If you found any - open new issue.
 ### Backend:
 - **Language**: [C# .NET](https://learn.microsoft.com/dotnet/csharp)
 - **Framework**: [ASP.NET](https://www.asp.net)
-- **ORM**: [Entity Framework](https://learn.microsoft.com/ef)
-- **Database**: [PostgreSQL](https://www.postgresql.org)
+- **Database**: [AWS DynamoDb](https://aws.amazon.com/dynamodb)
 - **Validation**: [FluentValidation](https://fluentvalidation.net)
 - **Mapper**: Manual mapping
 

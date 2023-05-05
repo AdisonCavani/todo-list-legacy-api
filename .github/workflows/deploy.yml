@@ -45,12 +45,12 @@ jobs:
 
       - name: Build
         run: dotnet build --no-restore
+                
+      - name: Change directory
+        run: cd ./Server
 
       - name: Install AWS CLI
         run: dotnet tool install -g Amazon.Lambda.Tools
-        
-      - name: Change directory
-        run: cd ./Server
 
       - name: Deploy fn to AWS Lambda
         run: dotnet lambda deploy-function

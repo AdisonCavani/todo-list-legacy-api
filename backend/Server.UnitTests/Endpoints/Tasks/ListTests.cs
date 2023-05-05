@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
 using Server.Contracts.Dtos;
-using Server.Contracts.Requests;
 using Server.Contracts.Responses;
 using Server.Repositories;
 using Xunit;

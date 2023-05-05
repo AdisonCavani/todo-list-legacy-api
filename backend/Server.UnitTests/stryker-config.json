@@ -2,6 +2,6 @@
   "stryker-config": {
     "mutation-level": "Complete",
     "reporters": ["progress", "cleartext", "html"],
-    "mutate": ["Endpoints/**/*.cs", "Validators/**/*.cs", "!Endpoints/Health.cs", "!Endpoints/Map.cs"]
+    "mutate": ["Endpoints/**/*.cs", "Repositories/**/*.cs", "Validators/**/*.cs", "!Endpoints/Health.cs", "!Endpoints/Map.cs"]
   }
 }

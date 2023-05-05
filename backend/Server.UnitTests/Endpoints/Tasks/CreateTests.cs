@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Repositories;
@@ -40,6 +41,8 @@ public class CreateTests
         {
             Title = "New task"
         };
+
+        _repository.CreateAsync(request, Helpers.UserId.ToString()).ReturnsNullForAnyArgs();
 
         // Act
         var response = await Server.Endpoints.Tasks.Create.HandleAsync(

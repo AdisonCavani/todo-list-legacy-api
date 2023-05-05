@@ -19,11 +19,7 @@ public static class List
         if (userId is null)
             return TypedResults.StatusCode(StatusCodes.Status500InternalServerError);
 
-        var response = await repo.ListAsync(new()
-        {
-            Page = 1,
-            PageSize = 100
-        }, userId, ct);
+        var response = await repo.ListAsync(userId, ct);
 
         return TypedResults.Ok(response);
     }

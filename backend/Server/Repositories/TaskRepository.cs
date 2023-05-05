@@ -106,12 +106,12 @@ public class TaskRepository : ITaskRepository
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    public async Task<PaginatedRes<TaskDto>> ListAsync(PaginatedReq req, string userId, CancellationToken ct = default)
+    public async Task<PaginatedRes<TaskDto>> ListAsync(string userId, CancellationToken ct = default)
     {
         var queryRequest = new QueryRequest
         {
             TableName = TasksTableName,
-            Limit = req.PageSize,
+            Limit = 100,
             KeyConditionExpression = $"{TaskMapper.Pk} = :v_pk",
             ExpressionAttributeValues = new()
             {
@@ -135,8 +135,8 @@ public class TaskRepository : ITaskRepository
         // TODO: improve pagination
         return new()
         {
-            CurrentPage = req.Page,
-            PageSize = req.PageSize,
+            CurrentPage = 1,
+            PageSize = 100,
             Data = tasks,
             TotalCount = 0,
             TotalPages = 0

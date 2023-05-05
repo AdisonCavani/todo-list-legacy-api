@@ -12,7 +12,7 @@ AWSSDKHandler.RegisterXRayForAllServices();
 
 builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.AddContext<SerializationContext>());
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
-builder.Services.AddSingleton<IAmazonDynamoDB>();
+builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient());
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
 builder.Services.AddAuth();

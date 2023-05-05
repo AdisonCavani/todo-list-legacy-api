@@ -41,7 +41,7 @@ function ProfileMenu({ firstName, lastName, email }: User) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          color="ghost"
+          variant="ghost"
           className="relative h-8 w-8 rounded-full hover:bg-transparent"
         >
           <Avatar>

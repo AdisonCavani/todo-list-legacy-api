@@ -233,7 +233,7 @@ function Task(task: TaskDto) {
               <DropdownMenuTrigger asChild>
                 <Button
                   aria-label="Due Date"
-                  color="outline"
+                  variant="outline"
                   className="w-full"
                 >
                   <IconCalendarEvent className="h-4 w-4" />
@@ -315,7 +315,7 @@ function Task(task: TaskDto) {
 
         <DialogFooter>
           <Button
-            color="blue"
+            variant="blue"
             disabled={isSubmitDisabled}
             onClick={handleOnSubmit}
             className="w-full"
@@ -327,7 +327,7 @@ function Task(task: TaskDto) {
             )}
           </Button>
           <Button
-            color="subtle"
+            variant="subtle"
             onClick={() => setOpen(false)}
             className="w-full"
           >

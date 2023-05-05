@@ -90,7 +90,7 @@ function Form() {
                   <DropdownMenuTrigger asChild>
                     <Button
                       aria-label="Due Date"
-                      color={date ? "outline" : "ghost"}
+                      variant={date ? "outline" : "ghost"}
                       size="xxs"
                       className="h-7"
                     >
@@ -186,7 +186,7 @@ function Form() {
               <TooltipTrigger asChild>
                 <Button
                   aria-label="Remind me"
-                  color="ghost"
+                  variant="ghost"
                   size="xxs"
                   className="h-7"
                   onClick={handleNotSupportedFeature}
@@ -205,7 +205,7 @@ function Form() {
               <TooltipTrigger asChild>
                 <Button
                   aria-label="Repeat"
-                  color="ghost"
+                  variant="ghost"
                   size="xxs"
                   className="h-7"
                   onClick={handleNotSupportedFeature}
@@ -223,7 +223,7 @@ function Form() {
           disabled={submitDisabled}
           onClick={handleOnSubmit}
           size="xs"
-          color="outline"
+          variant="outline"
         >
           {isLoading && <IconLoader2 className="h-4 w-4 animate-spin" />}
           Add

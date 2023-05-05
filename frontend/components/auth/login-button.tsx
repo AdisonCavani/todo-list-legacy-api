@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 function LoginButton() {
   return (
     <Button
-      color="yellow"
+      variant="yellow"
       onClick={() =>
         signIn("cognito", {
           callbackUrl: "/app",

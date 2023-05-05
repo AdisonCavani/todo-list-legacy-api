@@ -21,14 +21,14 @@ export const Default: StoryFn<typeof Button> = (props) => <Button {...props} />;
 
 export const Colors: StoryFn<typeof Button> = (props) => (
   <>
-    <Button {...props} color="default" />
-    <Button {...props} color="blue" />
-    <Button {...props} color="destructive" />
-    <Button {...props} color="ghost" />
-    <Button {...props} color="link" />
-    <Button {...props} color="outline" />
-    <Button {...props} color="subtle" />
-    <Button {...props} color="yellow" />
+    <Button {...props} variant="default" />
+    <Button {...props} variant="blue" />
+    <Button {...props} variant="destructive" />
+    <Button {...props} variant="ghost" />
+    <Button {...props} variant="link" />
+    <Button {...props} variant="outline" />
+    <Button {...props} variant="subtle" />
+    <Button {...props} variant="yellow" />
   </>
 );
 

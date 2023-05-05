@@ -6,7 +6,7 @@ using Server;
 using Server.Repositories;
 using Server.Startup;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateSlimBuilder(args);
 
 // Add services to the container.
 AWSSDKHandler.RegisterXRayForAllServices();
@@ -26,11 +26,10 @@ builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi,
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+#if DEBUG
+app.UseSwagger();
+app.UseSwaggerUI();
+#endif
 
 app.UseHsts();
 app.UseHttpsRedirection();

@@ -21,6 +21,7 @@ namespace Server;
 // Responses
 [JsonSerializable(typeof(HealthCheckRes))]
 [JsonSerializable(typeof(PaginatedRes<TaskDto>))]
+[JsonSerializable(typeof(HttpValidationProblemDetails))]
 
 // AWS Lambda
 [JsonSerializable(typeof(APIGatewayHttpApiV2ProxyRequest))]

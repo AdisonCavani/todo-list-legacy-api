@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Amazon.DynamoDBv2;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
@@ -5,11 +6,14 @@ using Server;
 using Server.Repositories;
 using Server.Startup;
 
-var builder = WebApplication.CreateBuilder(args);
+var startTime = Stopwatch.GetTimestamp();
+
+var builder = WebApplication.CreateSlimBuilder(args);
 
 // Add services to the container.
 AWSSDKHandler.RegisterXRayForAllServices();
 
+builder.Services.AddLogger(builder.Configuration);
 builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.AddContext<SerializationContext>());
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
 builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient());
@@ -38,5 +42,13 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapEndpoints();
+
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+lifetime.ApplicationStarted.Register(() =>
+{
+    var elapsed = Stopwatch.GetElapsedTime(startTime).Milliseconds;
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation("Startup completed in: {Elapsed} ms", elapsed);
+});
 
 app.Run();

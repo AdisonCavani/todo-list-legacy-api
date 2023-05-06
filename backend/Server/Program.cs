@@ -43,12 +43,15 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapEndpoints();
 
+app.MapGet("/", () => "Hello world!");
+app.MapGet("/auth", () => "Hello world with auth!").RequireAuthorization();
+
 var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
 lifetime.ApplicationStarted.Register(() =>
 {
     var elapsed = Stopwatch.GetElapsedTime(startTime).Milliseconds;
     var logger = app.Services.GetRequiredService<ILogger<Program>>();
-    logger.LogInformation("Startup completed in: {Elapsed} ms", elapsed);
+    logger.LogCritical("Startup completed in: {Elapsed} ms", elapsed);
 });
 
 app.Run();

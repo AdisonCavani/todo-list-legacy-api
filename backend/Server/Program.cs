@@ -1,12 +1,9 @@
-using System.Diagnostics;
 using Amazon.DynamoDBv2;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using Server;
 using Server.Repositories;
 using Server.Startup;
-
-var startTime = Stopwatch.GetTimestamp();
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -42,16 +39,5 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapEndpoints();
-
-app.MapGet("/", () => "Hello world!");
-app.MapGet("/auth", () => "Hello world with auth!").RequireAuthorization();
-
-var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
-lifetime.ApplicationStarted.Register(() =>
-{
-    var elapsed = Stopwatch.GetElapsedTime(startTime).Milliseconds;
-    var logger = app.Services.GetRequiredService<ILogger<Program>>();
-    logger.LogCritical("Startup completed in: {Elapsed} ms", elapsed);
-});
 
 app.Run();

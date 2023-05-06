@@ -1,4 +1,9 @@
-﻿namespace Server.Startup;
+﻿#if DEBUG
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+#endif
+
+namespace Server.Startup;
 
 public static class Swagger
 {

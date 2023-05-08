@@ -4,7 +4,7 @@ namespace Server.Database.Entities;
 
 public class TaskEntity
 {
-    [JsonPropertyName("pk")]  public string Pk => $"USER#{UserId}";
+    [JsonPropertyName("pk")] public string Pk => $"USER#{UserId}";
     [JsonPropertyName("sk")] public string Sk => $"TASK#{Id}";
     [JsonPropertyName("id")] public string Id { get; set; } = default!;
     [JsonPropertyName("user_id")] public string UserId { get; set; } = default!;

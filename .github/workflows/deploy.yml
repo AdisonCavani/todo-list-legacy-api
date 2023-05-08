@@ -1,4 +1,4 @@
-name: Deploy AWS Lambda
+name: Deploy to AWS
 
 on:
   workflow_run:
@@ -21,6 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Configure AWS SAM
+        uses: aws-actions/setup-sam@v1
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -31,23 +34,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.x.x
+      
+      - name: Build app via SAM CLI
+        run: sam build
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
+      - name: Deploy app via SAM CLI
+        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
 
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore
-
-      - name: Install AWS CLI
-        run: dotnet tool install -g Amazon.Lambda.Tools
-
-      - name: Deploy fn to AWS Lambda
-        run: dotnet lambda deploy-function

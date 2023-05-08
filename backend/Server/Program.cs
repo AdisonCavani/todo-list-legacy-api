@@ -27,10 +27,11 @@ builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi,
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-#if DEBUG
-app.UseSwagger();
-app.UseSwaggerUI();
-#endif
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseExceptionHandler();
 app.UseHsts();

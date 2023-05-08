@@ -1,7 +1,5 @@
-﻿#if DEBUG
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-#endif
 
 namespace Server.Startup;
 
@@ -9,7 +7,6 @@ public static class Swagger
 {
     public static void AddSwagger(this IServiceCollection services)
     {
-#if DEBUG
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
@@ -23,6 +20,5 @@ public static class Swagger
                 Type = SecuritySchemeType.ApiKey
             });
         });
-#endif
     }
 }

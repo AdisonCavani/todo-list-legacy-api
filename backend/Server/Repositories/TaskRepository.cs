@@ -1,7 +1,5 @@
 ﻿using System.Net;
-using System.Text.Json;
 using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
@@ -29,14 +27,10 @@ public class TaskRepository : ITaskRepository
     {
         var entity = req.ToTaskEntity(userId);
 
-        var taskAsJson = JsonSerializer.Serialize(entity, SerializationContext.Default.TaskEntity);
-        var itemAsDoc = Document.FromJson(taskAsJson);
-        var itemAsAttrib = itemAsDoc.ToAttributeMap();
-
         var createItemReq = new PutItemRequest
         {
             TableName = TasksTableName,
-            Item = itemAsAttrib
+            Item = DynamoDbMapper.ToDict(entity)
         };
 
         var response = await _client.PutItemAsync(createItemReq, ct);
@@ -64,22 +58,17 @@ public class TaskRepository : ITaskRepository
         if (!response.IsItemSet)
             return null;
 
-        var itemAsDoc = Document.FromAttributeMap(response.Item);
-        return JsonSerializer.Deserialize(itemAsDoc.ToJson(), SerializationContext.Default.TaskEntity)?.ToTaskDto();
+        return DynamoDbMapper.FromDict(response.Item)?.ToTaskDto();
     }
 
     public async Task<TaskDto?> UpdateAsync(UpdateTaskReq req, string userId, CancellationToken ct = default)
     {
         var entity = req.ToTaskEntity(userId);
 
-        var taskAsJson = JsonSerializer.Serialize(entity, SerializationContext.Default.TaskEntity);
-        var itemAsDoc = Document.FromJson(taskAsJson);
-        var itemAsAttrib = itemAsDoc.ToAttributeMap();
-
         var updateItemReq = new PutItemRequest
         {
             TableName = TasksTableName,
-            Item = itemAsAttrib
+            Item = DynamoDbMapper.ToDict(entity)
         };
 
         var response = await _client.PutItemAsync(updateItemReq, ct);
@@ -125,8 +114,7 @@ public class TaskRepository : ITaskRepository
 
         foreach (var item in response.Items)
         {
-            var itemAsDoc = Document.FromAttributeMap(item);
-            var taskEntity = JsonSerializer.Deserialize(itemAsDoc.ToJson(), SerializationContext.Default.TaskEntity);
+            var taskEntity = DynamoDbMapper.FromDict(item);
 
             if (taskEntity is not null)
                 tasks.Add(taskEntity.ToTaskDto());

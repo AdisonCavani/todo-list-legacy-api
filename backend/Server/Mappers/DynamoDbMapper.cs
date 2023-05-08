@@ -12,10 +12,10 @@ public static class DynamoDbMapper
         var itemAsJson = JsonSerializer.Serialize(item, SerializationContext.Default.TaskEntity);
         var itemAsDoc = Document.FromJson(itemAsJson);
         var itemAsAttrib = itemAsDoc.ToAttributeMap();
-        
+
         return itemAsAttrib;
     }
-    
+
     public static TaskEntity? FromDict(Dictionary<string, AttributeValue> item)
     {
         var itemAsDoc = Document.FromAttributeMap(item);

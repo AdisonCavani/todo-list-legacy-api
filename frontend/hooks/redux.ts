@@ -52,10 +52,6 @@ function useCreateTaskMutation() {
         ...(old?.filter((task) => task.id !== context?.taskId) ?? []),
         data,
       ]);
-
-      toast({
-        title: "Task created successfully.",
-      });
     },
   });
 }
@@ -88,11 +84,6 @@ function useUpdateTaskMutation() {
       toast({
         variant: "destructive",
         title: "Failed to update task.",
-      });
-    },
-    onSuccess() {
-      toast({
-        title: "Task updated successfully.",
       });
     },
   });
@@ -128,11 +119,6 @@ function useDeleteTaskMutation() {
       toast({
         variant: "destructive",
         title: "Failed to delete task.",
-      });
-    },
-    onSuccess() {
-      toast({
-        title: "Task deleted successfully.",
       });
     },
   });

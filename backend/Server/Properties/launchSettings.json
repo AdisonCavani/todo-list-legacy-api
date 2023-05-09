@@ -19,7 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "COGNITO_AUTHORITY": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_N5gpeDsBt",
         "CORS_ORIGIN": "http://localhost:3000",
-        "TABLE_NAME": "tasks"
+        "TABLE_NAME": "TodoListDynamoDbTable"
       }
     }
   }

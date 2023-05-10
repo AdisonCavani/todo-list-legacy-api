@@ -5,7 +5,7 @@ import type { UpdateTaskReq } from "./req/UpdateTaskReq";
 import type { HealthCheckRes } from "./res/HealthCheckRes";
 import type { PaginatedRes } from "./res/PaginatedRes";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
 const getEndpoint = {
   "/health": {

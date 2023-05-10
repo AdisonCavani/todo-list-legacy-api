@@ -11,16 +11,15 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-neutral-900 text-white hover:bg-neutral-700 dark:bg-neutral-50 dark:text-neutral-900",
-        destructive:
-          "bg-red-500 text-white hover:bg-red-600 dark:hover:bg-red-600",
+        destructive: "bg-red-600 text-white hover:bg-red-700",
         outline:
           "bg-transparent border border-neutral-200 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800",
         subtle:
           "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-600 dark:text-neutral-100 dark:hover:bg-neutral-700",
         ghost:
-          "bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:text-neutral-100 dark:hover:text-neutral-100 data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent",
+          "bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent",
         link: "bg-transparent dark:bg-transparent underline-offset-4 hover:underline text-neutral-900 dark:text-neutral-100 hover:bg-transparent dark:hover:bg-transparent",
-        blue: "bg-blue-100 text-blue-900 hover:bg-blue-200 dark:bg-blue-600 dark:text-blue-100 dark:hover:bg-blue-700",
+        blue: "bg-blue-100 text-blue-900 hover:bg-blue-200 dark:bg-blue-700 dark:text-blue-100 dark:hover:bg-blue-700",
         yellow:
           "bg-yellow-300 dark:bg-yellow-400 text-neutral-900 dark:text-neutral-900 hover:bg-yellow-400 dark:hover:bg-yellow-500 dark:hover:active:bg-yellow-600",
       },

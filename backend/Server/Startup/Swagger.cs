@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
 namespace Server.Startup;
@@ -18,6 +19,13 @@ public static class Swagger
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey
+            });
+
+            options.SwaggerDoc("v1", new()
+            {
+                Title = "To-do list API",
+                Description = "Documentation for REST API",
+                Version = "v1",
             });
         });
     }

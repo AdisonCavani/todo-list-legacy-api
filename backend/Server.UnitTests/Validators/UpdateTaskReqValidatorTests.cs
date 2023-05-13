@@ -10,7 +10,7 @@ public class UpdateTaskReqValidatorTests
     private readonly UpdateTaskReqValidator _validator = new();
 
     [Fact]
-    public void WhenAllNull_ReturnsValidationError()
+    public void Should_ReturnValidationError_WhenAllFieldsAreNull()
     {
         // Arrange
         var model = new UpdateTaskReq();
@@ -24,7 +24,7 @@ public class UpdateTaskReqValidatorTests
     }
 
     [Fact]
-    public void WhenIdNull_ReturnsValidationError()
+    public void Should_ReturnValidationError_WhenIdIsNull()
     {
         // Arrange
         var model = new UpdateTaskReq
@@ -40,7 +40,7 @@ public class UpdateTaskReqValidatorTests
     }
     
     [Fact]
-    public void WhenTitleNull_ReturnsValidationError()
+    public void Should_ReturnValidationError_WhenTitleIsNull()
     {
         // Arrange
         var model = new UpdateTaskReq
@@ -56,7 +56,7 @@ public class UpdateTaskReqValidatorTests
     }
     
     [Fact]
-    public void WhenOk_ReturnsOk()
+    public void Should_ReturnOk_WhenValidationPasses()
     {
         // Arrange
         var model = new UpdateTaskReq

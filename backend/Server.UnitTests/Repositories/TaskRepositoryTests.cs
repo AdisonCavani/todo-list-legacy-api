@@ -21,7 +21,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Create_WhenNotOk_ReturnsNull()
+    public async Task CreateAsync_Should_ReturnNull_WhenNotOk()
     {
         // Arrange
         var request = new CreateTaskReq
@@ -44,7 +44,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Create_WhenOk_ReturnsOk()
+    public async Task CreateAsync_Should_ReturnOk_WhenOk()
     {
         // Arrange
         var request = new CreateTaskReq
@@ -67,7 +67,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Get_WhenNotOk_ReturnsNull()
+    public async Task GetAsync_Should_ReturnNull_WhenNotOk()
     {
         // Arrange
         var request = Guid.NewGuid();
@@ -87,7 +87,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Get_WhenOk_ReturnsOk()
+    public async Task GetAsync_Should_ReturnOk_WhenOk()
     {
         // Arrange
         var request = Guid.NewGuid();
@@ -113,7 +113,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Update_WhenNotOk_ReturnsNull()
+    public async Task UpdateAsync_Should_ReturnNull_WhenNotOk()
     {
         // Arrange
         var request = new UpdateTaskReq
@@ -137,7 +137,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Update_WhenOk_ReturnsOk()
+    public async Task UpdateAsync_Should_ReturnOk_WhenOk()
     {
         // Arrange
         var request = new UpdateTaskReq
@@ -164,7 +164,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Delete_WhenNotOk_ReturnsNull()
+    public async Task DeleteAsync_Should_ReturnFalse_WhenNotOk()
     {
         // Arrange
         var request = Guid.NewGuid();
@@ -184,7 +184,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task Delete_WhenOk_ReturnsOk()
+    public async Task DeleteAsync_Should_ReturnTrue_WhenOk()
     {
         // Arrange
         var request = Guid.NewGuid();
@@ -204,7 +204,7 @@ public class TaskRepositoryTests
     }
 
     [Fact]
-    public async Task List_WhenOk_ReturnsOk()
+    public async Task ListAsync_Should_ReturnOk()
     {
         // Arrange
         var items = new List<TaskEntity>

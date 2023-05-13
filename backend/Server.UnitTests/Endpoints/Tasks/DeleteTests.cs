@@ -11,7 +11,7 @@ public class DeleteTests
     private readonly ITaskRepository _repository = Substitute.For<ITaskRepository>();
 
     [Fact]
-    public async Task WhenUserIdNull_Returns500()
+    public async Task Should_Return500_WhenUserIdIsNull()
     {
         // Arrange
         var request = Guid.NewGuid();
@@ -31,7 +31,7 @@ public class DeleteTests
     }
 
     [Fact]
-    public async Task WhenRepoReturnsFalse_Returns404()
+    public async Task Should_Return404_WhenRepoReturnsFalse()
     {
         // Arrange
         var request = Guid.NewGuid();
@@ -50,7 +50,7 @@ public class DeleteTests
     }
 
     [Fact]
-    public async Task WhenRepoReturnsTrue_Returns404()
+    public async Task Should_Return204_WhenRepoReturnsTrue()
     {
         // Arrange
         var request = Guid.NewGuid();

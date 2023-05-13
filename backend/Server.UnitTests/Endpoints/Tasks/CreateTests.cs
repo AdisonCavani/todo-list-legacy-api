@@ -14,7 +14,7 @@ public class CreateTests
     private readonly ITaskRepository _repository = Substitute.For<ITaskRepository>();
 
     [Fact]
-    public async Task WhenUserIdNull_Returns500()
+    public async Task Should_Return500_WhenUserIdIsNull()
     {
         // Arrange
         var request = new CreateTaskReq();
@@ -34,7 +34,7 @@ public class CreateTests
     }
 
     [Fact]
-    public async Task WhenRepoReturnsNull_Returns500()
+    public async Task Should_Return_500_WhenRepoReturnsNull()
     {
         // Arrange
         var request = new CreateTaskReq
@@ -60,7 +60,7 @@ public class CreateTests
     }
 
     [Fact]
-    public async Task WhenOk_ReturnsOk()
+    public async Task Should_ReturnCreated_WhenOk()
     {
         // Arrange
         var request = new CreateTaskReq

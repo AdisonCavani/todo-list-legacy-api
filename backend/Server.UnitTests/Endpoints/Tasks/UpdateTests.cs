@@ -13,7 +13,7 @@ public class UpdateTests
     private readonly ITaskRepository _repository = Substitute.For<ITaskRepository>();
 
     [Fact]
-    public async Task WhenUserIdNull_Returns500()
+    public async Task Should_Return500_WhenUserIdIsNull()
     {
         // Arrange
         var request = new UpdateTaskReq();
@@ -33,7 +33,7 @@ public class UpdateTests
     }
 
     [Fact]
-    public async Task WhenRepoReturnsNull_Returns404()
+    public async Task Should_Return404_WhenRepoReturnsNull()
     {
         // Arrange
         var request = new UpdateTaskReq();
@@ -50,7 +50,7 @@ public class UpdateTests
     }
 
     [Fact]
-    public async Task WhenRepoReturnsTrue_Returns404()
+    public async Task Should_ReturnOk_WhenRepoReturnsTrue()
     {
         // Arrange
         var request = new UpdateTaskReq

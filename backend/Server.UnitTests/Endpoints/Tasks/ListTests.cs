@@ -14,7 +14,7 @@ public class ListTests
     private readonly ITaskRepository _repository = Substitute.For<ITaskRepository>();
 
     [Fact]
-    public async Task WhenUserIdNull_Returns500()
+    public async Task Should_Return500_WhenUserIdIsNull()
     {
         // Act
         var response = await Server.Endpoints.Tasks.List.HandleAsync(
@@ -34,7 +34,7 @@ public class ListTests
     }
 
     [Fact]
-    public async Task WhenOk_ReturnsOk()
+    public async Task Should_ReturnOk_WhenOk()
     {
         // Arrange
         var request = new PaginatedReq

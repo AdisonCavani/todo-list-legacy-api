@@ -1,5 +1,8 @@
 ﻿using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
@@ -95,12 +98,17 @@ public class TaskRepository : ITaskRepository
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    public async Task<PaginatedRes<TaskDto>> ListAsync(string userId, CancellationToken ct = default)
+    public async Task<PaginatedRes<TaskDto>> ListAsync(PaginatedReq req, string userId, CancellationToken ct = default)
     {
+        var exclusiveStartKey = string.IsNullOrWhiteSpace(req.PageKey)
+            ? null
+            : JsonSerializer.Deserialize<Dictionary<string, AttributeValue>>(Convert.FromBase64String(req.PageKey));
+
         var queryRequest = new QueryRequest
         {
             TableName = TasksTableName,
-            Limit = 100,
+            Limit = req.PageSize,
+            ExclusiveStartKey = exclusiveStartKey,
             KeyConditionExpression = $"{TaskMapper.Pk} = :v_pk",
             ExpressionAttributeValues = new()
             {
@@ -120,14 +128,20 @@ public class TaskRepository : ITaskRepository
                 tasks.Add(taskEntity.ToTaskDto());
         }
 
-        // TODO: improve pagination
+        var nextPageKey = response.LastEvaluatedKey.Count == 0
+            ? null
+            : Convert.ToBase64String(JsonSerializer.SerializeToUtf8Bytes(response.LastEvaluatedKey,
+                new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                }));
+
         return new()
         {
-            CurrentPage = 1,
-            PageSize = 100,
+            PageKey = req.PageKey,
+            PageSize = req.PageSize,
             Data = tasks,
-            TotalCount = 0,
-            TotalPages = 0
+            NextPageKey = nextPageKey
         };
     }
 }

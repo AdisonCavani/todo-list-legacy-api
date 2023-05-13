@@ -10,32 +10,25 @@ public static class Map
         group.MapPost("/", Tasks.Create.HandleAsync)
             .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<CreateTaskReq>>()
-            .WithOpenApi(operation => new(operation)
-            {
-                Summary = "Create new Task"
-            });
+            .WithOpenApi(Tasks.Create.OpenApi);
+
+        group.MapGet("/{id}", Tasks.Get.HandleAsync)
+            .RequireAuthorization()
+            .WithOpenApi(Tasks.Get.OpenApi);
 
         group.MapDelete("/{id}", Tasks.Delete.HandleAsync)
             .RequireAuthorization()
-            .WithOpenApi(operation => new(operation)
-            {
-                Summary = "Remove Task by id"
-            });
+            .WithOpenApi(Tasks.Delete.OpenApi);
 
         group.MapGet("/", Tasks.List.HandleAsync)
             .RequireAuthorization()
-            .WithOpenApi(operation => new(operation)
-            {
-                Summary = "Get a list of Tasks"
-            });
+            .AddEndpointFilter<ValidationFilter<PaginatedReq>>()
+            .WithOpenApi(Tasks.List.OpenApi);
 
         group.MapPatch("/", Tasks.Update.HandleAsync)
             .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<UpdateTaskReq>>()
-            .WithOpenApi(operation => new(operation)
-            {
-                Summary = "Update a Task"
-            });
+            .WithOpenApi(Tasks.Update.OpenApi);
 
         group.WithTags("Task Endpoint");
     }

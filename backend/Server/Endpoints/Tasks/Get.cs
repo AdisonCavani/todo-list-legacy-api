@@ -3,15 +3,14 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Server.Contracts.Dtos;
-using Server.Contracts.Requests;
 using Server.Repositories;
 
 namespace Server.Endpoints.Tasks;
 
-public static class Update
+public static class Get
 {
     public static async Task<Results<StatusCodeHttpResult, NotFound, Ok<TaskDto>>> HandleAsync(
-        [FromBody] UpdateTaskReq req,
+        [FromRoute] Guid id,
         HttpContext context,
         ITaskRepository repo,
         CancellationToken ct = default)
@@ -21,7 +20,7 @@ public static class Update
         if (userId is null)
             return TypedResults.StatusCode(StatusCodes.Status500InternalServerError);
 
-        var response = await repo.UpdateAsync(req, userId, ct);
+        var response = await repo.GetAsync(id, userId, ct);
 
         if (response is null)
             return TypedResults.NotFound();
@@ -31,7 +30,7 @@ public static class Update
 
     public static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
-        operation.Summary = "Update Task by id";
+        operation.Summary = "Get Task by id";
 
         return operation;
     }

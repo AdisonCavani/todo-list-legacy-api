@@ -225,7 +225,10 @@ public class TaskRepositoryTests
         AmazonDynamoDb.QueryAsync(Arg.Any<QueryRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.ListAsync(Helpers.UserId.ToString());
+        var result = await _repository.ListAsync(new PaginatedReq
+        {
+            PageSize = 5
+        }, Helpers.UserId.ToString());
 
         // Assert
         Assert.NotNull(result);

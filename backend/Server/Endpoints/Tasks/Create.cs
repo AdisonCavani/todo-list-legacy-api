@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Repositories;
@@ -12,7 +13,7 @@ public static class Create
     public static async Task<Results<StatusCodeHttpResult, Ok<TaskDto>>> HandleAsync(
         [FromBody] CreateTaskReq req,
         HttpContext context,
-        [FromServices] ITaskRepository repo,
+        ITaskRepository repo,
         CancellationToken ct = default)
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -26,5 +27,12 @@ public static class Create
             return TypedResults.StatusCode(StatusCodes.Status500InternalServerError);
 
         return TypedResults.Ok(response);
+    }
+
+    public static OpenApiOperation OpenApi(OpenApiOperation operation)
+    {
+        operation.Summary = "Create new Task";
+
+        return operation;
     }
 }

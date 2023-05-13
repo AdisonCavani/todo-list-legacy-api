@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
 using Server.Contracts.Dtos;
+using Server.Contracts.Requests;
 using Server.Contracts.Responses;
 using Server.Repositories;
 using Xunit;
@@ -17,6 +18,10 @@ public class ListTests
     {
         // Act
         var response = await Server.Endpoints.Tasks.List.HandleAsync(
+            new PaginatedReq
+            {
+                PageSize = 5
+            },
             new DefaultHttpContext(),
             _repository);
 
@@ -32,15 +37,21 @@ public class ListTests
     public async Task WhenOk_ReturnsOk()
     {
         // Arrange
+        var request = new PaginatedReq
+        {
+            PageSize = 5
+        };
+        
         var responseDto = new PaginatedRes<TaskDto>
         {
             Data = new List<TaskDto>()
         };
 
-        _repository.ListAsync(Helpers.UserId.ToString()).Returns(responseDto);
+        _repository.ListAsync(request, Helpers.UserId.ToString()).Returns(responseDto);
 
         // Act
         var response = await Server.Endpoints.Tasks.List.HandleAsync(
+            request,
             Helpers.ValidHttpContext,
             _repository);
 

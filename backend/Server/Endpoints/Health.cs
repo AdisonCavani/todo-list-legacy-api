@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Models;
 using Server.Contracts.Dtos;
 using Server.Contracts.Responses;
 
@@ -27,5 +28,12 @@ public static class Health
         return report.Status == HealthStatus.Healthy
             ? TypedResults.Ok(response)
             : TypedResults.StatusCode(StatusCodes.Status503ServiceUnavailable); // TODO: add response
+    }
+    
+    internal static OpenApiOperation OpenApi(OpenApiOperation operation)
+    {
+        operation.Summary = "Get health check report";
+
+        return operation;
     }
 }

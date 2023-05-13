@@ -9,26 +9,16 @@ public class CreateTaskReqValidatorTests
 {
     private readonly CreateTaskReqValidator _validator = new();
 
-    [Fact]
-    public void WhenTitleNull_ReturnsValidationError()
-    {
-        // Arrange
-        var model = new CreateTaskReq();
-
-        // Act
-        var result = _validator.TestValidate(model);
-
-        // Assert
-        result.ShouldHaveValidationErrorFor(request => request.Title);
-    }
-    
-    [Fact]
-    public void WhenTitleEmpty_ReturnsValidationError()
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void Should_ReturnValidationError_WhenTitleIsNullOrWhiteSpace(string title)
     {
         // Arrange
         var model = new CreateTaskReq
         {
-            Title = string.Empty
+            Title = title
         };
 
         // Act
@@ -37,25 +27,9 @@ public class CreateTaskReqValidatorTests
         // Assert
         result.ShouldHaveValidationErrorFor(request => request.Title);
     }
-    
-    [Fact]
-    public void WhenTitleWhitespace_ReturnsValidationError()
-    {
-        // Arrange
-        var model = new CreateTaskReq
-        {
-            Title = "   "
-        };
 
-        // Act
-        var result = _validator.TestValidate(model);
-
-        // Assert
-        result.ShouldHaveValidationErrorFor(request => request.Title);
-    }
-    
     [Fact]
-    public void WhenOk_ReturnsOk()
+    public void Should_ReturnOk_WhenValidationPasses()
     {
         // Arrange
         var model = new CreateTaskReq

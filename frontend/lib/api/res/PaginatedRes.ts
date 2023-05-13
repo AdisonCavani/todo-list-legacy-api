@@ -1,9 +1,8 @@
 type PaginatedRes<T> = {
   data: T[];
-  currentPage: number;
+  pageKey?: string | null | undefined;
   pageSize: number;
-  totalPages: number;
-  totalCount: number;
+  nextPageKey?: string | null | undefined;
 };
 
 export type { PaginatedRes };

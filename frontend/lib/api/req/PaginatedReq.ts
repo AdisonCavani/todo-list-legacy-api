@@ -1,6 +1,6 @@
 type PaginatedReq = {
+  pageKey?: string | null | undefined;
   pageSize: number;
-  page: number;
 };
 
 export type { PaginatedReq };

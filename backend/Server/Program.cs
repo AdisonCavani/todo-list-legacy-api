@@ -1,13 +1,13 @@
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
+using Serilog;
 using Server.Endpoints;
 using Server.Startup;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 AWSSDKHandler.RegisterXRayForAllServices();
 
-builder.Services.AddLogger(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
@@ -18,6 +18,8 @@ builder.Services.AddCorsPolicy();
 builder.Services.AddProblemDetails();
 builder.Services.AddAwsServices();
 
+builder.Host.UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 app.UseHsts();
 app.UseHttpsRedirection();

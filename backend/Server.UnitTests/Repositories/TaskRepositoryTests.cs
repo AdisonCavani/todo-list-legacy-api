@@ -122,12 +122,12 @@ public class TaskRepositoryTests
             Title = "Updated task"
         };
 
-        var responseDto = new UpdateItemResponse
+        var responseDto = new PutItemResponse
         {
             HttpStatusCode = HttpStatusCode.NotFound
         };
 
-        AmazonDynamoDb.UpdateItemAsync(Arg.Any<UpdateItemRequest>()).Returns(responseDto);
+        AmazonDynamoDb.PutItemAsync(Arg.Any<PutItemRequest>()).Returns(responseDto);
 
         // Act
         var result = await _repository.UpdateAsync(request, Helpers.UserId.ToString());

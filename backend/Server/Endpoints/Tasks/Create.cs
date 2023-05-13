@@ -10,7 +10,7 @@ namespace Server.Endpoints.Tasks;
 
 public static class Create
 {
-    public static async Task<Results<StatusCodeHttpResult, Ok<TaskDto>>> HandleAsync(
+    internal static async Task<Results<StatusCodeHttpResult, Ok<TaskDto>>> HandleAsync(
         [FromBody] CreateTaskReq req,
         HttpContext context,
         ITaskRepository repo,

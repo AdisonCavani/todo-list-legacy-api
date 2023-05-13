@@ -10,7 +10,7 @@ namespace Server.Endpoints.Tasks;
 
 public static class List
 {
-    public static async Task<Results<StatusCodeHttpResult, Ok<PaginatedRes<TaskDto>>>> HandleAsync(
+    internal static async Task<Results<StatusCodeHttpResult, Ok<PaginatedRes<TaskDto>>>> HandleAsync(
         [AsParameters] PaginatedReq req,
         HttpContext context,
         ITaskRepository repo,
@@ -26,7 +26,7 @@ public static class List
         return TypedResults.Ok(response);
     }
 
-    public static OpenApiOperation OpenApi(OpenApiOperation operation)
+    internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Get a paginated list of Tasks";
 

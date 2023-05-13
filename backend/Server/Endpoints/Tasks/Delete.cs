@@ -8,7 +8,7 @@ namespace Server.Endpoints.Tasks;
 
 public static class Delete
 {
-    public static async Task<Results<StatusCodeHttpResult, NoContent, NotFound>> HandleAsync(
+    internal static async Task<Results<StatusCodeHttpResult, NoContent, NotFound>> HandleAsync(
         [FromRoute] Guid id,
         HttpContext context,
         ITaskRepository repo,
@@ -24,7 +24,7 @@ public static class Delete
         return deleted ? TypedResults.NoContent() : TypedResults.NotFound();
     }
 
-    public static OpenApiOperation OpenApi(OpenApiOperation operation)
+    internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Delete Task by id";
 

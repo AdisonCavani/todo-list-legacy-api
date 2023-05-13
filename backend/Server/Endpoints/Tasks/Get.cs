@@ -9,7 +9,7 @@ namespace Server.Endpoints.Tasks;
 
 public static class Get
 {
-    public static async Task<Results<StatusCodeHttpResult, NotFound, Ok<TaskDto>>> HandleAsync(
+    internal static async Task<Results<StatusCodeHttpResult, NotFound, Ok<TaskDto>>> HandleAsync(
         [FromRoute] Guid id,
         HttpContext context,
         ITaskRepository repo,
@@ -28,7 +28,7 @@ public static class Get
         return TypedResults.Ok(response);
     }
 
-    public static OpenApiOperation OpenApi(OpenApiOperation operation)
+    internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Get Task by id";
 

@@ -10,7 +10,7 @@ namespace Server.Endpoints.Tasks;
 
 public static class Update
 {
-    public static async Task<Results<StatusCodeHttpResult, NotFound, Ok<TaskDto>>> HandleAsync(
+    internal static async Task<Results<StatusCodeHttpResult, NotFound, Ok<TaskDto>>> HandleAsync(
         [FromBody] UpdateTaskReq req,
         HttpContext context,
         ITaskRepository repo,
@@ -29,7 +29,7 @@ public static class Update
         return TypedResults.Ok(response);
     }
 
-    public static OpenApiOperation OpenApi(OpenApiOperation operation)
+    internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Update Task by id";
 

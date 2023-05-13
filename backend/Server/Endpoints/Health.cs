@@ -7,7 +7,7 @@ namespace Server.Endpoints;
 
 public static class Health
 {
-    public static async Task<Results<StatusCodeHttpResult, Ok<HealthCheckRes>>> HandleAsync(
+    internal static async Task<Results<StatusCodeHttpResult, Ok<HealthCheckRes>>> HandleAsync(
         HealthCheckService service,
         CancellationToken ct = default)
     {

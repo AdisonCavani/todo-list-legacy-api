@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
-using Server.Database.Entities;
+using Server.Contracts.Entities;
 
 namespace Server.Mappers;
 

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Server.Database.Entities;
+namespace Server.Contracts.Entities;
 
 public class TaskEntity
 {

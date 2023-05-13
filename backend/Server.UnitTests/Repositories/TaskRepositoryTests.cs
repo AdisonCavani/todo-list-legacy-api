@@ -2,8 +2,8 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using NSubstitute;
+using Server.Contracts.Entities;
 using Server.Contracts.Requests;
-using Server.Database.Entities;
 using Server.Mappers;
 using Server.Repositories;
 using Xunit;

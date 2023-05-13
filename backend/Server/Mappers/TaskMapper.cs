@@ -1,7 +1,7 @@
 ﻿using Amazon.DynamoDBv2.Model;
 using Server.Contracts.Dtos;
+using Server.Contracts.Entities;
 using Server.Contracts.Requests;
-using Server.Database.Entities;
 
 namespace Server.Mappers;
 

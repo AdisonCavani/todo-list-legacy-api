@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 using Amazon.Lambda.APIGatewayEvents;
 using Server.Contracts.Dtos;
+using Server.Contracts.Entities;
 using Server.Contracts.Requests;
 using Server.Contracts.Responses;
-using Server.Database.Entities;
 
 namespace Server;
 

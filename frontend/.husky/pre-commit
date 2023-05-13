@@ -7,6 +7,6 @@ if ! git diff --quiet HEAD $REF -- frontend; then
   cd frontend
   pnpm prettier
   pnpm lint --fix
-fi
 
-git add .
+  git add .
+fi

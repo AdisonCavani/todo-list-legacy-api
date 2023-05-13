@@ -85,9 +85,9 @@ public class CreateTests
 
         // Assert
         Assert.IsAssignableFrom<IResult>(response);
-        Assert.IsType<Ok<TaskDto>>(response.Result);
+        Assert.IsType<Created<TaskDto>>(response.Result);
 
-        var okResponse = (Ok<TaskDto>) response.Result;
+        var okResponse = (Created<TaskDto>) response.Result;
 
         Assert.Equal(responseDto, okResponse.Value);
     }

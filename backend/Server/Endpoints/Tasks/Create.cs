@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Repositories;
@@ -10,7 +11,7 @@ namespace Server.Endpoints.Tasks;
 
 public static class Create
 {
-    internal static async Task<Results<StatusCodeHttpResult, Ok<TaskDto>>> HandleAsync(
+    internal static async Task<Results<StatusCodeHttpResult, Created<TaskDto>>> HandleAsync(
         [FromBody] CreateTaskReq req,
         HttpContext context,
         ITaskRepository repo,
@@ -26,10 +27,10 @@ public static class Create
         if (response is null)
             return TypedResults.StatusCode(StatusCodes.Status500InternalServerError);
 
-        return TypedResults.Ok(response);
+        return TypedResults.Created($"{ApiRoutes.Tasks}/{response.Id}", response);
     }
 
-    public static OpenApiOperation OpenApi(OpenApiOperation operation)
+    internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Create new Task";
 

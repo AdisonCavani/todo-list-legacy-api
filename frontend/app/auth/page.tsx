@@ -1,4 +1,4 @@
-import LoginButton from "@components/auth/login-button";
+import LoginButtons from "@components/auth/login-buttons";
 import SessionExpired from "@components/auth/session-expired";
 import { authOptions } from "@lib/auth";
 import { cn } from "@lib/utils";
@@ -38,7 +38,8 @@ async function Page() {
 
         <hr className="w-full border-neutral-300 dark:border-neutral-500" />
 
-        <LoginButton />
+        {/* @ts-expect-error */}
+        <LoginButtons />
       </div>
     </main>
   );

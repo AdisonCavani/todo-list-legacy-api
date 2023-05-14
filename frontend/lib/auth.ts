@@ -1,6 +1,7 @@
 import type { NextAuthOptions, TokenSet } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import CognitoProvider from "next-auth/providers/cognito";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -25,6 +26,21 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+
+      profile(profile) {
+        return {
+          id: profile.sub,
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+          email: profile.email,
+          image: profile.picture,
+          access_token: profile.id_token,
+        };
+      },
+    }),
   ],
 
   callbacks: {
@@ -38,7 +54,7 @@ export const authOptions: NextAuthOptions = {
 
       // Initial sign in
       if (account) {
-        token.access_token = account.access_token!;
+        token.access_token = account.id_token!;
         token.expires_at = account.expires_at!;
         token.refresh_token = account.refresh_token!;
 

@@ -21,7 +21,15 @@ let nextConfig = {
     return [
       {
         source: "/(.*)",
-        headers: securityHeaders,
+        headers:
+          process.env.NODE_ENV === "production"
+            ? securityHeaders
+            : [
+                {
+                  key: "Permissions-Policy",
+                  value: "camera=(), microphone=(), geolocation=()",
+                },
+              ],
       },
     ];
   },

@@ -36,7 +36,7 @@ public class DeleteTests
         // Arrange
         var request = Guid.NewGuid();
 
-        _repository.DeleteAsync(request, Helpers.UserId.ToString()).Returns(false);
+        _repository.DeleteAsync(request, Helpers.UserId).Returns(false);
 
         // Act
         var response = await Server.Endpoints.Tasks.Delete.HandleAsync(
@@ -55,7 +55,7 @@ public class DeleteTests
         // Arrange
         var request = Guid.NewGuid();
 
-        _repository.DeleteAsync(request, Helpers.UserId.ToString()).Returns(true);
+        _repository.DeleteAsync(request, Helpers.UserId).Returns(true);
 
         // Act
         var response = await Server.Endpoints.Tasks.Delete.HandleAsync(

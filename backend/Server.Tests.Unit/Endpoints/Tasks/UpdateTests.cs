@@ -65,7 +65,7 @@ public class UpdateTests
             Title = request.Title
         };
 
-        _repository.UpdateAsync(request, Helpers.UserId.ToString()).Returns(responseDto);
+        _repository.UpdateAsync(request, Helpers.UserId).Returns(responseDto);
 
         // Act
         var response = await Server.Endpoints.Tasks.Update.HandleAsync(

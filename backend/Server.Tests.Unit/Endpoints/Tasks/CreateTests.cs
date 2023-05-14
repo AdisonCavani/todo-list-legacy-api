@@ -43,7 +43,7 @@ public class CreateTests
             Title = "New task"
         };
 
-        _repository.CreateAsync(request, Helpers.UserId.ToString()).ReturnsNullForAnyArgs();
+        _repository.CreateAsync(request, Helpers.UserId).ReturnsNullForAnyArgs();
 
         // Act
         var response = await Server.Endpoints.Tasks.Create.HandleAsync(
@@ -73,11 +73,11 @@ public class CreateTests
         {
             Id = Guid.NewGuid().ToString(),
             Title = request.Title,
-            UserId = Helpers.UserId.ToString()
+            UserId = Helpers.UserId
         };
 
 
-        _repository.CreateAsync(request, Helpers.UserId.ToString()).Returns(responseDto);
+        _repository.CreateAsync(request, Helpers.UserId).Returns(responseDto);
 
         // Act
         var response = await Server.Endpoints.Tasks.Create.HandleAsync(

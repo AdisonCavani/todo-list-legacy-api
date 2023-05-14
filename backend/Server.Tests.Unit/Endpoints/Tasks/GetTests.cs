@@ -60,7 +60,7 @@ public class GetTests
             Title = "Task"
         };
 
-        _repository.GetAsync(request, Helpers.UserId.ToString()).Returns(responseDto);
+        _repository.GetAsync(request, Helpers.UserId).Returns(responseDto);
 
         // Act
         var response = await Server.Endpoints.Tasks.Get.HandleAsync(

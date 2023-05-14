@@ -47,7 +47,7 @@ public class ListTests
             Data = new List<TaskDto>()
         };
 
-        _repository.ListAsync(request, Helpers.UserId.ToString()).Returns(responseDto);
+        _repository.ListAsync(request, Helpers.UserId).Returns(responseDto);
 
         // Act
         var response = await Server.Endpoints.Tasks.List.HandleAsync(

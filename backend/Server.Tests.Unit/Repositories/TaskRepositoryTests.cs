@@ -37,7 +37,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.PutItemAsync(Arg.Any<PutItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.CreateAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.CreateAsync(request, Helpers.UserId);
 
         // Assert
         Assert.Null(result);
@@ -60,7 +60,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.PutItemAsync(Arg.Any<PutItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.CreateAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.CreateAsync(request, Helpers.UserId);
 
         // Assert
         Assert.NotNull(result);
@@ -80,7 +80,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.GetItemAsync(Arg.Any<GetItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.GetAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.GetAsync(request, Helpers.UserId);
 
         // Assert
         Assert.Null(result);
@@ -106,7 +106,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.GetItemAsync(Arg.Any<GetItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.GetAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.GetAsync(request, Helpers.UserId);
 
         // Assert
         Assert.NotNull(result);
@@ -130,7 +130,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.PutItemAsync(Arg.Any<PutItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.UpdateAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.UpdateAsync(request, Helpers.UserId);
 
         // Assert
         Assert.Null(result);
@@ -146,7 +146,7 @@ public class TaskRepositoryTests
             Title = "Updated task"
         };
 
-        var item = request.ToTaskEntity(Helpers.UserId.ToString());
+        var item = request.ToTaskEntity(Helpers.UserId);
 
         var responseDto = new PutItemResponse
         {
@@ -157,7 +157,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.PutItemAsync(Arg.Any<PutItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.UpdateAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.UpdateAsync(request, Helpers.UserId);
 
         // Assert
         Assert.NotNull(result);
@@ -177,7 +177,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.DeleteItemAsync(Arg.Any<DeleteItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.DeleteAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.DeleteAsync(request, Helpers.UserId);
 
         // Assert
         Assert.False(result);
@@ -197,7 +197,7 @@ public class TaskRepositoryTests
         AmazonDynamoDb.DeleteItemAsync(Arg.Any<DeleteItemRequest>()).Returns(responseDto);
 
         // Act
-        var result = await _repository.DeleteAsync(request, Helpers.UserId.ToString());
+        var result = await _repository.DeleteAsync(request, Helpers.UserId);
 
         // Assert
         Assert.True(result);
@@ -228,7 +228,7 @@ public class TaskRepositoryTests
         var result = await _repository.ListAsync(new PaginatedReq
         {
             PageSize = 5
-        }, Helpers.UserId.ToString());
+        }, Helpers.UserId);
 
         // Assert
         Assert.NotNull(result);

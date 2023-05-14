@@ -5,7 +5,7 @@ namespace Server.Tests.Unit;
 
 public static class Helpers
 {
-    internal static readonly Guid UserId = Guid.NewGuid();
+    internal const string UserId = "user@example.com";
 
     internal static readonly HttpContext ValidHttpContext = new DefaultHttpContext
     {
@@ -13,7 +13,7 @@ public static class Helpers
         {
             new(new List<Claim>
             {
-                new(ClaimTypes.NameIdentifier, UserId.ToString())
+                new(ClaimTypes.Email, UserId)
             })
         })
     };

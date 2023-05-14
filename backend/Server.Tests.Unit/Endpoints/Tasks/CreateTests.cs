@@ -2,12 +2,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
+using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Repositories;
 using Xunit;
 
-namespace Server.UnitTests.Endpoints.Tasks;
+namespace Server.Tests.Unit.Endpoints.Tasks;
 
 public class CreateTests
 {
@@ -70,6 +71,7 @@ public class CreateTests
 
         var responseDto = new TaskDto
         {
+            Id = Guid.NewGuid().ToString(),
             Title = request.Title,
             UserId = Helpers.UserId.ToString()
         };
@@ -87,8 +89,9 @@ public class CreateTests
         Assert.IsAssignableFrom<IResult>(response);
         Assert.IsType<Created<TaskDto>>(response.Result);
 
-        var okResponse = (Created<TaskDto>) response.Result;
+        var createdResponse = (Created<TaskDto>) response.Result;
 
-        Assert.Equal(responseDto, okResponse.Value);
+        Assert.Equal(responseDto, createdResponse.Value);
+        Assert.Equal($"{ApiRoutes.Tasks}/{responseDto.Id}", createdResponse.Location);
     }
 }

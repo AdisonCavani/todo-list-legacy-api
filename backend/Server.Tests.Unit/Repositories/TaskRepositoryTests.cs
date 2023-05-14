@@ -8,7 +8,7 @@ using Server.Mappers;
 using Server.Repositories;
 using Xunit;
 
-namespace Server.UnitTests.Repositories;
+namespace Server.Tests.Unit.Repositories;
 
 public class TaskRepositoryTests
 {

@@ -6,7 +6,7 @@ using Server.Contracts.Requests;
 using Server.Repositories;
 using Xunit;
 
-namespace Server.UnitTests.Endpoints.Tasks;
+namespace Server.Tests.Unit.Endpoints.Tasks;
 
 public class UpdateTests
 {

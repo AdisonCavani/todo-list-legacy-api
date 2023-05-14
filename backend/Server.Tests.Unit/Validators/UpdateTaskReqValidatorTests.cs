@@ -3,7 +3,7 @@ using Server.Contracts.Requests;
 using Server.Validators;
 using Xunit;
 
-namespace Server.UnitTests.Validators;
+namespace Server.Tests.Unit.Validators;
 
 public class UpdateTaskReqValidatorTests
 {

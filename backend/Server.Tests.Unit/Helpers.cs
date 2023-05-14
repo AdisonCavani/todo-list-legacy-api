@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace Server.UnitTests;
+namespace Server.Tests.Unit;
 
 public static class Helpers
 {

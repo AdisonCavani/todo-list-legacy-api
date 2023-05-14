@@ -171,6 +171,24 @@ async function fetchApi(
   });
 
   if (!res.ok) {
+    // If JWT expired & is client
+    if (res.status === 401 && typeof window !== "undefined") {
+      const { signOut } = await import("next-auth/react");
+
+      const params = new URLSearchParams();
+      params.append("sessionExpired", "true");
+
+      signOut({
+        callbackUrl: `/auth?${params}`,
+      });
+
+      // TODO: find a better way
+      // This fixes exception when data is undefined, because router hasn't finished redirecting
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      return;
+    }
+
     const text = await res.text();
 
     const errorObj = {

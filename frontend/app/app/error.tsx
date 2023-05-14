@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@ui/button";
-import { signOut } from "next-auth/react";
 import type Error from "next/error";
 
 type Props = {
@@ -10,8 +9,7 @@ type Props = {
 };
 
 // TODO: replace this with proper Next.js type
-// @ts-expect-error
-function ErrorComponent({ error, reset }: Props) {
+function ErrorComponent({ reset }: Props) {
   return (
     <div className="-mx-6 -my-8 flex h-full grow flex-col items-center justify-center bg-red-200 text-red-700">
       <p className="font-semibold">Oops!</p>
@@ -20,9 +18,9 @@ function ErrorComponent({ error, reset }: Props) {
         variant="destructive"
         size="xs"
         className="mt-5"
-        onClick={() => signOut()}
+        onClick={() => reset()}
       >
-        Sign out
+        Try again
       </Button>
     </div>
   );

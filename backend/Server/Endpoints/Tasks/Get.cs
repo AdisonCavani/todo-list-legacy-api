@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
@@ -28,6 +29,7 @@ public static class Get
         return TypedResults.Ok(response);
     }
 
+    [ExcludeFromCodeCoverage]
     internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Get Task by id";

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
@@ -24,6 +25,7 @@ public static class Delete
         return deleted ? TypedResults.NoContent() : TypedResults.NotFound();
     }
 
+    [ExcludeFromCodeCoverage]
     internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Delete Task by id";

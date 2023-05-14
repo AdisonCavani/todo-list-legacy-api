@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.OpenApi.Models;
 using Server.Contracts.Dtos;
@@ -26,6 +27,7 @@ public static class List
         return TypedResults.Ok(response);
     }
 
+    [ExcludeFromCodeCoverage]
     internal static OpenApiOperation OpenApi(OpenApiOperation operation)
     {
         operation.Summary = "Get a paginated list of Tasks";

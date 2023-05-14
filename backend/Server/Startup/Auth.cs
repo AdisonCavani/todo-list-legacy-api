@@ -12,7 +12,7 @@ public static class Auth
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
+        }).AddJwtBearer("Cognito", options =>
         {
             options.Authority = Environment.GetEnvironmentVariable(EnvVariables.CognitoAuthority) ??
                                 throw new Exception(
@@ -22,6 +22,9 @@ public static class Auth
                 ValidateIssuerSigningKey = true,
                 ValidateAudience = false
             };
-        });
+        }).AddJwtBearer("Google",
+            x => x.UseGoogle(Environment.GetEnvironmentVariable(EnvVariables.GoogleClientId) ??
+                             throw new Exception(
+                                 $"${nameof(EnvVariables.GoogleClientId)} env variable cannot be null")));
     }
 }

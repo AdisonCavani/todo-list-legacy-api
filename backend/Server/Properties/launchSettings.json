@@ -18,6 +18,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "COGNITO_AUTHORITY": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_N5gpeDsBt",
+        "GOOGLE_CLIENT_ID": "103962427268-tcl37rkfkl20942mib207j7dk2v4or4d.apps.googleusercontent.com",
         "CORS_ORIGIN": "http://localhost:3000",
         "TABLE_NAME": "TodoListDynamoDbTable"
       }

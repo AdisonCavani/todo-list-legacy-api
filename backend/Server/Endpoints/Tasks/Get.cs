@@ -16,7 +16,7 @@ public static class Get
         ITaskRepository repo,
         CancellationToken ct = default)
     {
-        var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = context.User.FindFirstValue(ClaimTypes.Email);
 
         if (userId is null)
             return TypedResults.StatusCode(StatusCodes.Status500InternalServerError);

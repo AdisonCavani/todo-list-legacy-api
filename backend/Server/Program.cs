@@ -1,4 +1,5 @@
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
+using Microsoft.AspNetCore.Authorization;
 using Serilog;
 using Server.Endpoints;
 using Server.Startup;
@@ -12,7 +13,12 @@ builder.Services.AddServices();
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
 builder.Services.AddAuth();
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.DefaultPolicy = new AuthorizationPolicyBuilder("Cognito", "Google")
+        .RequireAuthenticatedUser()
+        .Build();
+});
 builder.Services.AddSwagger();
 builder.Services.AddCorsPolicy();
 builder.Services.AddProblemDetails();

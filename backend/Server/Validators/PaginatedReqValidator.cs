@@ -13,6 +13,9 @@ public class PaginatedReqValidator : AbstractValidator<PaginatedReq>
             if (value is null)
                 return;
             
+            if (string.IsNullOrWhiteSpace(value))
+                context.AddFailure("Empty or whitespace string is not allowed"); 
+
             var buffer = new Span<byte>(new byte[value.Length]);
             
             if (!Convert.TryFromBase64String(value, buffer , out _))

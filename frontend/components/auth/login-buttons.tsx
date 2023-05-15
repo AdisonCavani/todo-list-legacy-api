@@ -1,68 +1,47 @@
 "use client";
 
-import { IconBrandAmazon, IconBrandGoogle } from "@tabler/icons-react";
-import { Button, ButtonProps } from "@ui/button";
-import { getProviders, signIn } from "next-auth/react";
-import { ReactNode } from "react";
+import GoogleLogo from "@images/google.svg";
+import { IconBrandAmazon } from "@tabler/icons-react";
+import { Button } from "@ui/button";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
 
-async function LoginButtons() {
-  const providers = await getProviders();
-  const props = getProps(providers);
-
+function LoginButtons() {
   return (
     <>
-      {props.map(({ id, name, icon, variant }) => (
-        <Button
-          key={id}
-          variant={variant}
-          onClick={() =>
-            signIn(id, {
-              callbackUrl: "/app",
-            })
-          }
-        >
-          {icon}
-          {name}
-        </Button>
-      ))}
+      {/* AWS Cognito */}
+      <Button
+        variant="yellow"
+        onClick={() =>
+          signIn("cognito", {
+            callbackUrl: "/app",
+          })
+        }
+      >
+        <IconBrandAmazon size={20} />
+        Continue with AWS Cognito
+      </Button>
+
+      {/* Google */}
+      <Button
+        variant="outline"
+        onClick={() =>
+          signIn("google", {
+            callbackUrl: "/app",
+          })
+        }
+      >
+        <Image
+          src={GoogleLogo}
+          alt="Google logo"
+          width={20}
+          height={20}
+          className="h-5 w-5"
+        />
+        Continue with Google
+      </Button>
     </>
   );
 }
 
 export default LoginButtons;
-
-type ReturnProps = {
-  id: string;
-  name: string;
-  icon: ReactNode;
-  variant: ButtonProps["variant"];
-};
-
-function getProps(
-  providers: Awaited<ReturnType<typeof getProviders>>
-): ReturnProps[] {
-  const array: ReturnProps[] = [];
-
-  for (const provider in providers) {
-    switch (provider) {
-      case "cognito":
-        array.push({
-          id: "cognito",
-          name: "AWS Cognito",
-          icon: <IconBrandAmazon size={20} />,
-          variant: "yellow",
-        });
-        break;
-      case "google":
-        array.push({
-          id: "google",
-          name: "Google",
-          icon: <IconBrandGoogle size={20} />,
-          variant: "blue",
-        });
-        break;
-    }
-  }
-
-  return array;
-}

@@ -38,7 +38,6 @@ async function Page() {
 
         <hr className="w-full border-neutral-300 dark:border-neutral-500" />
 
-        {/* @ts-expect-error */}
         <LoginButtons />
       </div>
     </main>

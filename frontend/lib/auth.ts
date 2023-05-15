@@ -1,7 +1,7 @@
 import type { NextAuthOptions, TokenSet } from "next-auth";
 import type { JWT } from "next-auth/jwt";
-import CognitoProvider from "next-auth/providers/cognito";
-import GoogleProvider from "next-auth/providers/google";
+import CognitoProvider, { CognitoProfile } from "next-auth/providers/cognito";
+import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.COGNITO_CLIENT_SECRET,
       issuer: process.env.COGNITO_ISSUER,
 
-      profile(profile) {
+      profile(profile: CognitoProfile) {
         return {
           id: profile.sub,
           firstName: profile.given_name,
@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 
-      profile(profile) {
+      profile(profile: GoogleProfile) {
         return {
           id: profile.sub,
           firstName: profile.given_name,

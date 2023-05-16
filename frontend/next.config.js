@@ -3,9 +3,16 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   disable: process.env.NODE_ENV === "development",
 });
 
+const withMDX = require("@next/mdx")();
+
 /** @type {import('next').NextConfig} */
 let nextConfig = {
   reactStrictMode: true,
+  pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+
+  experimental: {
+    mdxRs: true,
+  },
 
   async redirects() {
     return [
@@ -21,7 +28,7 @@ let nextConfig = {
     return [
       {
         source: "/(.*)",
-        headers: securityHeaders, // TODO: skip this is development
+        headers: securityHeaders,
       },
     ];
   },
@@ -82,4 +89,4 @@ const securityHeaders = [
   },
 ];
 
-module.exports = withPWA(nextConfig);
+module.exports = withPWA(withMDX(nextConfig));

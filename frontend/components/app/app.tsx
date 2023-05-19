@@ -28,6 +28,7 @@ function App({ initialData, token }: Props) {
       httpGet(
         "/tasks",
         {
+          page: 1,
           pageSize: 100,
         },
         token

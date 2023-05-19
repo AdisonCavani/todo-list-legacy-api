@@ -1,5 +1,5 @@
 type PaginatedReq = {
-  pageKey?: string | null | undefined;
+  page: number;
   pageSize: number;
 };
 

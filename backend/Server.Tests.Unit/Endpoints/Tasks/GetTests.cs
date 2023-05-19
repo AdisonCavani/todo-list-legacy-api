@@ -56,7 +56,7 @@ public class GetTests
 
         var responseDto = new TaskDto
         {
-            Id = request.ToString(),
+            Id = request,
             Title = "Task"
         };
 

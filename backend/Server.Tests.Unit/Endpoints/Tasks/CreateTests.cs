@@ -71,7 +71,7 @@ public class CreateTests
 
         var responseDto = new TaskDto
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = Guid.NewGuid(),
             Title = request.Title,
             UserId = Helpers.UserId
         };

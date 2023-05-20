@@ -26,7 +26,6 @@ async function Page() {
   const res = await httpGet(
     "/tasks",
     {
-      page: 1,
       pageSize: 100,
     },
     session?.user.access_token!

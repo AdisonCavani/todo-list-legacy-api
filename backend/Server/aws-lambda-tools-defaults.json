@@ -16,11 +16,5 @@
   "function-timeout": 10,
   "function-architecture": "x86_64",
   "function-handler": "bootstrap",
-  "msbuild-parameters": "--self-contained true",
-  "environment-variables": {
-    "COGNITO_AUTHORITY": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_N5gpeDsBt",
-    "CORS_ORIGIN": "https://todo.k1ng.dev",
-    "GOOGLE_CLIENT_ID": "103962427268-tcl37rkfkl20942mib207j7dk2v4or4d.apps.googleusercontent.com",
-    "TABLE_NAME": "TodoListDynamoDbTable"
-  }
+  "msbuild-parameters": "--self-contained true"
 }

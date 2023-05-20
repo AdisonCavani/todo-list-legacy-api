@@ -61,7 +61,7 @@ public class UpdateTests
 
         var responseDto = new TaskDto
         {
-            Id = request.Id,
+            Id = request.Id.ToString(),
             Title = request.Title
         };
 

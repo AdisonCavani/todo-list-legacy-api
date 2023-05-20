@@ -20,7 +20,7 @@
         "COGNITO_AUTHORITY": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_N5gpeDsBt",
         "GOOGLE_CLIENT_ID": "103962427268-tcl37rkfkl20942mib207j7dk2v4or4d.apps.googleusercontent.com",
         "CORS_ORIGIN": "http://localhost:3000",
-        "SQL_CONNECTION_STRING": "server=localhost;uid=root;pwd=root;database=todo-list"
+        "TABLE_NAME": "TodoListDynamoDbTable"
       }
     }
   }

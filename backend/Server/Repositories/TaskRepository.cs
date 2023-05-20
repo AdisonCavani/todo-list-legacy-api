@@ -1,98 +1,146 @@
-﻿using Dapper;
+﻿using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
 using Server.Contracts.Dtos;
-using Server.Contracts.Entities;
 using Server.Contracts.Requests;
 using Server.Contracts.Responses;
-using Server.Database;
 using Server.Mappers;
+using Server.Startup;
 
 namespace Server.Repositories;
 
-// TODO: use CancellationToken, see: https://stackoverflow.com/questions/25540793/cancellationtoken-with-async-dapper-methods
 public class TaskRepository : ITaskRepository
 {
-    private readonly ISqlConnectionFactory _connectionFactory;
+    private readonly IAmazonDynamoDB _client;
 
-    public TaskRepository(ISqlConnectionFactory connectionFactory)
+    private static readonly string TasksTableName =
+        Environment.GetEnvironmentVariable(EnvVariables.TableName) ??
+        throw new Exception(
+            $"{nameof(EnvVariables.TableName)} env variable cannot be null");
+
+    public TaskRepository(IAmazonDynamoDB client)
     {
-        _connectionFactory = connectionFactory;
+        _client = client;
     }
 
     public async Task<TaskDto?> CreateAsync(CreateTaskReq req, string userId, CancellationToken ct = default)
     {
         var entity = req.ToTaskEntity(userId);
-        var sql = @"
-                INSERT INTO `task` (`id`, `user_id`, `title`, `description`, `due_date`, `is_completed`, `is_important`)
-                VALUES (@Id, @UserId, @Title, @Description, @DueDate, @IsCompleted, @IsImportant)";
 
-        await using var connection = _connectionFactory.Create();
-        await connection.ExecuteAsync(sql, entity);
+        var createItemReq = new PutItemRequest
+        {
+            TableName = TasksTableName,
+            Item = DynamoDbMapper.ToDict(entity)
+        };
+
+        var response = await _client.PutItemAsync(createItemReq, ct);
+
+        if (response.HttpStatusCode != HttpStatusCode.OK)
+            return null;
 
         return entity.ToTaskDto();
     }
 
     public async Task<TaskDto?> GetAsync(Guid id, string userId, CancellationToken ct = default)
     {
-        var sql = @"
-                SELECT *
-                FROM `task`
-                WHERE `id` = @Id AND `user_id` = @UserId";
+        var request = new GetItemRequest
+        {
+            TableName = TasksTableName,
+            Key = new()
+            {
+                {TaskMapper.Pk, TaskMapper.GetPk(userId)},
+                {TaskMapper.Sk, TaskMapper.GetSk(id)}
+            }
+        };
 
-        await using var connection = _connectionFactory.Create();
-        var response = await connection.QueryFirstOrDefaultAsync<TaskEntity>(sql, new {Id = id, UserId = userId});
+        var response = await _client.GetItemAsync(request, ct);
 
-        return response?.ToTaskDto();
+        if (!response.IsItemSet)
+            return null;
+
+        return DynamoDbMapper.FromDict(response.Item)?.ToTaskDto();
     }
 
     public async Task<TaskDto?> UpdateAsync(UpdateTaskReq req, string userId, CancellationToken ct = default)
     {
         var entity = req.ToTaskEntity(userId);
 
-        var sql = @"
-                UPDATE `task`
-                SET `title` = @Title,
-                    `description` = @Description,
-                    `due_date` = @DueDate,
-                    `is_completed` = @IsCompleted,
-                    `is_important` = @IsImportant
-                WHERE `id` = @Id AND `user_id` = @UserId";
+        var updateItemReq = new PutItemRequest
+        {
+            TableName = TasksTableName,
+            Item = DynamoDbMapper.ToDict(entity)
+        };
 
-        await using var connection = _connectionFactory.Create();
-        await connection.ExecuteAsync(sql, entity);
+        var response = await _client.PutItemAsync(updateItemReq, ct);
+
+        if (response.HttpStatusCode != HttpStatusCode.OK)
+            return null;
 
         return entity.ToTaskDto();
     }
 
     public async Task<bool> DeleteAsync(Guid id, string userId, CancellationToken ct = default)
     {
-        var sql = @"
-                DELETE FROM `task`
-                WHERE `id` = @Id
-                AND `user_id` = @UserId";
+        var deleteItemReq = new DeleteItemRequest
+        {
+            TableName = TasksTableName,
+            Key = new()
+            {
+                {TaskMapper.Pk, TaskMapper.GetPk(userId)},
+                {TaskMapper.Sk, TaskMapper.GetSk(id)}
+            }
+        };
 
-        await using var connection = _connectionFactory.Create();
-        var rowsAffected = await connection.ExecuteAsync(sql, new {Id = id, UserId = userId});
-
-        return rowsAffected > 0;
+        var response = await _client.DeleteItemAsync(deleteItemReq, ct);
+        return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
     public async Task<PaginatedRes<TaskDto>> ListAsync(PaginatedReq req, string userId, CancellationToken ct = default)
     {
-        var sql = @"
-                SELECT *
-                FROM `task`
-                LIMIT @PageSize OFFSET @Offset";
+        var exclusiveStartKey = string.IsNullOrWhiteSpace(req.PageKey)
+            ? null
+            : JsonSerializer.Deserialize<Dictionary<string, AttributeValue>>(Convert.FromBase64String(req.PageKey));
 
-        int offset = (req.Page - 1) * req.PageSize;
+        var queryRequest = new QueryRequest
+        {
+            TableName = TasksTableName,
+            Limit = req.PageSize,
+            ExclusiveStartKey = exclusiveStartKey,
+            KeyConditionExpression = $"{TaskMapper.Pk} = :v_pk",
+            ExpressionAttributeValues = new()
+            {
+                {":v_pk", TaskMapper.GetPk(userId)}
+            }
+        };
 
-        await using var connection = _connectionFactory.Create();
-        var response = await connection.QueryAsync<TaskEntity>(sql, new {req.PageSize, Offset = offset});
+        var response = await _client.QueryAsync(queryRequest, ct);
+
+        var tasks = new List<TaskDto>();
+
+        foreach (var item in response.Items)
+        {
+            var taskEntity = DynamoDbMapper.FromDict(item);
+
+            if (taskEntity is not null)
+                tasks.Add(taskEntity.ToTaskDto());
+        }
+
+        var nextPageKey = response.LastEvaluatedKey.Count == 0
+            ? null
+            : Convert.ToBase64String(JsonSerializer.SerializeToUtf8Bytes(response.LastEvaluatedKey,
+                new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                }));
 
         return new()
         {
-            Data = response.Select(x => x.ToTaskDto()),
-            Page = req.Page,
-            PageSize = req.PageSize
+            PageKey = req.PageKey,
+            PageSize = req.PageSize,
+            Data = tasks,
+            NextPageKey = nextPageKey
         };
     }
 }

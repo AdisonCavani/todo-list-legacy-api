@@ -1,14 +1,17 @@
-﻿namespace Server.Contracts.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Server.Contracts.Entities;
 
 public class TaskEntity
 {
-    public Guid Id { get; set; }
-    public string UserId { get; set; } = default!;
-    public string Title { get; set; } = default!;
-    public string? Description { get; set; }
-    public DateOnly? DueDate { get; set; }
-    public bool IsCompleted { get; set; }
-    public bool IsImportant { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    [JsonPropertyName("pk")] public string Pk => $"USER#{UserId}";
+    [JsonPropertyName("sk")] public string Sk => $"TASK#{Id}";
+    [JsonPropertyName("id")] public string Id { get; set; } = default!;
+    [JsonPropertyName("user_id")] public string UserId { get; set; } = default!;
+    [JsonPropertyName("updated_at")] public DateTime UpdatedAt { get; set; }
+    [JsonPropertyName("title")] public string Title { get; set; } = default!;
+    [JsonPropertyName("description")] public string? Description { get; set; }
+    [JsonPropertyName("due_date")] public DateOnly? DueDate { get; set; }
+    [JsonPropertyName("is_completed")] public bool IsCompleted { get; set; }
+    [JsonPropertyName("is_important")] public bool IsImportant { get; set; }
 }

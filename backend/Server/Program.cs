@@ -11,7 +11,7 @@ AWSSDKHandler.RegisterXRayForAllServices();
 
 builder.Services.AddServices();
 builder.Services.AddValidators();
-builder.Services.AddHealthChecks().AddCheck<MySqlHealthCheck>(nameof(MySqlHealthCheck));
+builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
 builder.Services.AddAuth();
 builder.Services.AddAuthorization(options =>
 {

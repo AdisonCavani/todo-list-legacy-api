@@ -2,7 +2,7 @@
 
 public class PaginatedReq
 {
-    public int Page { get; set; }
+    public string? PageKey { get; set; }
     
     public int PageSize { get; set; }
 }

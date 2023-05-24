@@ -26,6 +26,7 @@
       "@hooks/*": ["hooks/*"],
       "@lib/*": ["lib/*"],
       "@images/*": ["public/static/images/*"],
+      "@styles/*": ["styles/*"],
       "@ui/*": ["ui/*"]
     },
     "noFallthroughCasesInSwitch": true,

@@ -32,4 +32,14 @@
         transparent
       );
   }
+  .gradient-radial-overlay2 {
+    background: radial-gradient(
+        450px circle at 50% 0%,
+        #9a6aff,
+        70%,
+        transparent
+      ),
+      radial-gradient(400px circle at 50% 50%, #60ffc7, 60%, transparent),
+      radial-gradient(350px circle at 50% 80%, #7db5e3, 60%, transparent);
+  }
 }

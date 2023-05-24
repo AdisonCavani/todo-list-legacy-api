@@ -14,16 +14,6 @@ let nextConfig = {
     mdxRs: true,
   },
 
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/app",
-        permanent: true,
-      },
-    ];
-  },
-
   headers() {
     return [
       {

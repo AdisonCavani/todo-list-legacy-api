@@ -38,6 +38,7 @@ const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://insights.k1ng.dev;
   style-src 'self' 'unsafe-inline';
   font-src 'self';
+  img-src 'self' data:;
   connect-src 'self' https://insights.k1ng.dev ${process.env.NEXT_PUBLIC_API_URL};
 `;
 

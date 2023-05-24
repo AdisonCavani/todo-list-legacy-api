@@ -22,8 +22,6 @@ function Cards({ id, gradient, items }: Props) {
     const cards = document.getElementById(newId)
       ?.children as HTMLCollectionOf<HTMLLIElement>;
 
-    console.log(cards);
-
     for (const card of cards) {
       const rect = card.getBoundingClientRect(),
         x = event.clientX - rect.left,

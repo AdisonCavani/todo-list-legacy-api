@@ -55,7 +55,10 @@ function Header({ session }: Props) {
             )}
           </li>
           <li className="block sm:hidden">
-            <button onClick={() => setOpen((prev) => !prev)}>
+            <button
+              aria-label="Toggle mobile menu"
+              onClick={() => setOpen((prev) => !prev)}
+            >
               <IconMenu />
             </button>
           </li>

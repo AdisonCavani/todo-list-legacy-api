@@ -90,7 +90,13 @@ function ProfileMenu({ firstName, lastName, email }: User) {
           <IconSettings size={16} />
           Settings
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => signOut()}>
+        <DropdownMenuItem
+          onClick={() =>
+            signOut({
+              callbackUrl: "/",
+            })
+          }
+        >
           <IconLogout size={16} />
           Logout
         </DropdownMenuItem>

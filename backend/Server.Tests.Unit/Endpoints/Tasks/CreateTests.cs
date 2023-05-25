@@ -6,7 +6,6 @@ using Server.Contracts;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
 using Server.Repositories;
-using Xunit;
 
 namespace Server.Tests.Unit.Endpoints.Tasks;
 

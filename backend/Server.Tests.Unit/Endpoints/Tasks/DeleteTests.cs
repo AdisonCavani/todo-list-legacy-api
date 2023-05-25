@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
 using Server.Repositories;
-using Xunit;
 
 namespace Server.Tests.Unit.Endpoints.Tasks;
 

@@ -1,7 +1,6 @@
 ﻿using FluentValidation.TestHelper;
 using Server.Contracts.Requests;
 using Server.Validators;
-using Xunit;
 
 namespace Server.Tests.Unit.Validators;
 

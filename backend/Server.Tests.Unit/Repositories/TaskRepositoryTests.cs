@@ -6,7 +6,6 @@ using Server.Contracts.Entities;
 using Server.Contracts.Requests;
 using Server.Mappers;
 using Server.Repositories;
-using Xunit;
 
 namespace Server.Tests.Unit.Repositories;
 

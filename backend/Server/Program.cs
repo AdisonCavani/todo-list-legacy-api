@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 AWSSDKHandler.RegisterXRayForAllServices();
 
-builder.Services.AddServices();
+builder.Services.AddServices(builder.Environment);
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
 builder.Services.AddAuth();

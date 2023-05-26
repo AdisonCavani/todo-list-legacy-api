@@ -77,6 +77,10 @@ public class TasksApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
         _container.Start();
         HttpClient = CreateClient();
+        
+        // TODO: find a better way
+        // Wait for DynamoDB
+        Thread.Sleep(10000);
 
         return Task.CompletedTask;
     }

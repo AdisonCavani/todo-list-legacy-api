@@ -5,7 +5,6 @@ using Amazon.DynamoDBv2.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
-using Server.Contracts.Responses;
 using Server.Mappers;
 using Server.Startup;
 using Server.Tests.Integration.Helpers;

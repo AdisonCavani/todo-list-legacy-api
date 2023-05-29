@@ -175,11 +175,8 @@ async function fetchApi(
     if (res.status === 401 && typeof window !== "undefined") {
       const { signOut } = await import("next-auth/react");
 
-      const params = new URLSearchParams();
-      params.append("sessionExpired", "true");
-
       signOut({
-        callbackUrl: `/auth?${params}`,
+        callbackUrl: "/auth",
       });
 
       // TODO: find a better way

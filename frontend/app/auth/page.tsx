@@ -1,5 +1,4 @@
 import LoginButtons from "@components/auth/login-buttons";
-import SessionExpired from "@components/auth/session-expired";
 import { authOptions } from "@lib/auth";
 import { cn } from "@lib/utils";
 import { IconChecklist, IconChevronLeft } from "@tabler/icons-react";
@@ -33,7 +32,12 @@ async function Page() {
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 xs:w-80">
         <div className="flex flex-col space-y-2 text-center">
           <IconChecklist className="mx-auto h-6 w-6" />
-          <SessionExpired />
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Welcome back
+          </h1>
+          <p className="text-sm text-neutral-500 dark:text-neutral-300">
+            Sign in to your account using OAuth2 providers
+          </p>
         </div>
 
         <hr className="w-full border-neutral-300 dark:border-neutral-500" />

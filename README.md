@@ -14,6 +14,7 @@ If you found any - open new issue.
 - 🔑 Serverless REST API
 - 🌗 Light & dark theme
 - 📱 Progressive Web App
+- ♥️ [Status page](https://todo.k1ng.dev/health) - health check
 - 🙍‍♂️ AWS Cognito Identity Provider
 - 📈 Self-hosted Plausible Analytics
 - 📕 Storybook - on [storybook.todo.k1ng.dev](https://storybook.todo.k1ng.dev)

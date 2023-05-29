@@ -30,7 +30,7 @@ If you found any - open new issue.
 - **UI Components** [shadcn/ui](https://ui.shadcn.com)
 - **Fetching**: [React Query](https://tanstack.com/query/latest)
 - **Auth**: [Auth.js (NextAuth.js)](https://next-auth.js.org)
-- **Auth provider**: [AWS Cognito](https://aws.amazon.com/cognito)
+- **Auth providers**: [AWS Cognito](https://aws.amazon.com/cognito) & [Google](https://developers.google.com/identity/protocols/oauth2)
 
 ### Backend:
 - **Language**: [C# .NET](https://learn.microsoft.com/dotnet/csharp)

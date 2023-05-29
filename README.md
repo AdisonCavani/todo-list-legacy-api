@@ -15,7 +15,7 @@ If you found any - open new issue.
 - 🌗 Light & dark theme
 - 📱 Progressive Web App
 - ♥️ [Status page](https://todo.k1ng.dev/health) - health check
-- 🙍‍♂️ AWS Cognito Identity Provider
+- 🙍‍♂️ AWS Cognito & Google OAuth 2.0 login
 - 📈 Self-hosted Plausible Analytics
 - 📕 Storybook - on [storybook.todo.k1ng.dev](https://storybook.todo.k1ng.dev)
 

@@ -45,7 +45,7 @@ function Header({ session }: Props) {
               {session ? "Open app" : "Sign in"}
             </Link>
           </li>
-          <li className="block sm:hidden">
+          <li className="flex sm:hidden">
             <button
               aria-label="Toggle mobile menu"
               onClick={() => setOpen((prev) => !prev)}

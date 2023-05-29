@@ -5,8 +5,5 @@ if ! git diff --quiet HEAD $REF -- frontend; then
   echo Changes found in frontend folder
 
   cd frontend
-  pnpm prettier
-  pnpm lint --fix
-
-  git add .
+  pnpm lint
 fi

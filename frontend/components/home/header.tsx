@@ -38,21 +38,12 @@ function Header({ session }: Props) {
           ))}
 
           <li className="ml-auto">
-            {session ? (
-              <Link
-                href="/app"
-                className="flex h-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 text-sm font-medium"
-              >
-                Open app
-              </Link>
-            ) : (
-              <Link
-                href="/auth"
-                className="flex h-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 text-sm font-medium text-white"
-              >
-                Sign in
-              </Link>
-            )}
+            <Link
+              href={session ? "/app" : "/auth"}
+              className="flex h-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 text-sm font-medium text-white"
+            >
+              {session ? "Open app" : "Sign in"}
+            </Link>
           </li>
           <li className="block sm:hidden">
             <button

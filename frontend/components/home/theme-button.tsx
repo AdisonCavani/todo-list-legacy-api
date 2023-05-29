@@ -19,7 +19,7 @@ function ThemeButton({ theme, children }: PropsWithChildren<Props>) {
 
   if (!mounted) {
     return (
-      <button className="p-1 text-neutral-400 dark:text-neutral-600">
+      <button aria-label={`Switch theme to ${theme}`} className="p-1 text-neutral-400 dark:text-neutral-600">
         {children}
       </button>
     );
@@ -27,6 +27,7 @@ function ThemeButton({ theme, children }: PropsWithChildren<Props>) {
 
   return (
     <button
+    aria-label={`Switch theme to ${theme}`}
       onClick={() => setTheme(theme)}
       className={cn(
         "p-1",

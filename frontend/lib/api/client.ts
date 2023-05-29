@@ -57,7 +57,7 @@ export async function httpGet<Endpoint extends keyof typeof getEndpoint>(
   let queryUrl = "";
 
   // Path params
-  if (isPrimitive(request))
+  if (request && isPrimitive(request))
     queryUrl = baseUrl + endpoint.substring(0, endpoint.indexOf("{")) + request;
   // Query params
   else

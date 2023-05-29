@@ -72,4 +72,5 @@
   flex-direction: row;
   align-items: flex-start;
   column-gap: 12px;
+  color: white;
 }

@@ -24,7 +24,7 @@ function Header({ session }: Props) {
         <ul
           className={cn(
             "relative flex h-full items-center gap-x-6 px-8 text-sm  font-semibold",
-            "after:absolute after:inset-x-0 after:bottom-0 after:h-[1px] after:bg-white/10"
+            "after:absolute after:inset-x-0 after:bottom-0 after:h-[1px] after:bg-black/10 dark:after:bg-white/10"
           )}
         >
           <li>
@@ -48,7 +48,7 @@ function Header({ session }: Props) {
             ) : (
               <Link
                 href="/auth"
-                className="flex h-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 text-sm font-medium"
+                className="flex h-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 text-sm font-medium text-white"
               >
                 Sign in
               </Link>

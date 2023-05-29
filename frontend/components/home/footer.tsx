@@ -1,25 +1,27 @@
+import ThemeButton from "./theme-button";
 import { MenuEntries, MenuEntry } from "@lib/data";
 import { isUrlInternal } from "@lib/helpers";
+import { IconDeviceLaptop, IconMoon, IconSun } from "@tabler/icons-react";
 import Link from "next/link";
 import { Fragment } from "react";
 
 const FooterEntries: MenuEntry[] = [
   { name: "Analytics", href: "https://insights.k1ng.dev" },
+  { name: "Health", href: "/health" },
   ...MenuEntries,
 ];
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 py-10">
-      <p className="text-center text-sm leading-6 text-neutral-200">
-        © {new Date().getUTCFullYear()} Adrian Środoń. All rights reserved.
-      </p>
-      <div className="mt-8 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-neutral-400">
+    <footer className="space-y-6 border-t border-white/10 py-10">
+      <div className="flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-neutral-600 dark:text-neutral-400">
         {FooterEntries.map(({ name, href }, index) => (
           <Fragment key={index}>
             {isUrlInternal(href) ? (
               <>
-                <Link href={href}>{name}</Link>
+                <Link href={href} prefetch={false}>
+                  {name}
+                </Link>
                 <Divider index={index} />
               </>
             ) : (
@@ -37,6 +39,22 @@ function Footer() {
             )}
           </Fragment>
         ))}
+      </div>
+      <div className="mx-8 flex justify-between">
+        <p className="text-sm leading-6 dark:text-neutral-200">
+          © {new Date().getUTCFullYear()} Adrian Środoń. All rights reserved.
+        </p>
+        <div className="flex items-center rounded-full border p-1 dark:border-neutral-600">
+          <ThemeButton theme="dark">
+            <IconMoon size={18} />
+          </ThemeButton>
+          <ThemeButton theme="light">
+            <IconSun size={18} />
+          </ThemeButton>
+          <ThemeButton theme="system">
+            <IconDeviceLaptop size={18} />
+          </ThemeButton>
+        </div>
       </div>
     </footer>
   );

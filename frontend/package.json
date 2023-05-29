@@ -34,7 +34,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
+    "@ianvs/prettier-plugin-sort-imports": "^4.0.0",
     "@next/bundle-analyzer": "13.4.3",
     "@storybook/addon-a11y": "^7.0.18",
     "@storybook/addon-essentials": "^7.0.18",

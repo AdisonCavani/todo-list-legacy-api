@@ -1,4 +1,5 @@
 ﻿using Amazon.DynamoDBv2;
+using Amazon.Runtime;
 using Ductus.FluentDocker.Builders;
 using Ductus.FluentDocker.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -32,11 +33,15 @@ public class TasksApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
         builder.ConfigureTestServices(services =>
         {
-            services.RemoveAll<IAmazonDynamoDB>();
-            services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(new AmazonDynamoDBConfig
+            var credentials = new BasicAWSCredentials("0", "0");
+            
+            var config = new AmazonDynamoDBConfig
             {
                 ServiceURL = "http://localhost:8001"
-            }));
+            };
+            
+            services.RemoveAll<IAmazonDynamoDB>();
+            services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(credentials, config));
 
             services
                 .AddAuthentication(TestAuthHandler.AuthenticationSchemeName)
@@ -72,6 +77,10 @@ public class TasksApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
         _container.Start();
         HttpClient = CreateClient();
+        
+        // TODO: find a better way
+        // Wait for DynamoDB
+        Thread.Sleep(10000);
 
         return Task.CompletedTask;
     }

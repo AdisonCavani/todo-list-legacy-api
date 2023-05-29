@@ -5,7 +5,6 @@ using Amazon.DynamoDBv2.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Contracts.Dtos;
 using Server.Contracts.Requests;
-using Server.Contracts.Responses;
 using Server.Mappers;
 using Server.Startup;
 using Server.Tests.Integration.Helpers;
@@ -39,48 +38,6 @@ public class GetTests : IAsyncLifetime
 
     [Fact]
     public async Task Should_ReturnOk_WhenOk()
-    {
-        await using var scope = _factory.Services.CreateAsyncScope();
-        var db = scope.ServiceProvider.GetRequiredService<IAmazonDynamoDB>();
-
-        var entity = new CreateTaskReq
-        {
-            Title = "New task"
-        }.ToTaskEntity(TestAuthHandler.UserId);
-
-        var createItemReq = new PutItemRequest
-        {
-            TableName = TasksTableName,
-            Item = DynamoDbMapper.ToDict(entity)
-        };
-
-        await db.PutItemAsync(createItemReq);
-
-        var response = await _httpClient.GetAsync($"/api/tasks/{entity.Id}");
-
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
-        var okResult = await response.Content.ReadFromJsonAsync<TaskDto>();
-        Assert.NotNull(okResult);
-        Assert.Equivalent(entity.ToTaskDto(), okResult);
-
-        var task = await _httpClient.GetFromJsonAsync<TaskDto>($"/api/tasks/{okResult.Id}");
-        Assert.NotNull(task);
-
-        Assert.Equivalent(entity.ToTaskDto(), task);
-
-        var taskList = await _httpClient.GetFromJsonAsync<PaginatedRes<TaskDto>>("/api/tasks?pageSize=5");
-        Assert.NotNull(taskList);
-        Assert.NotNull(taskList.Data);
-        Assert.Equal(5, taskList.PageSize);
-        Assert.Null(taskList.PageKey);
-        Assert.Null(taskList.NextPageKey);
-        Assert.Single(taskList.Data);
-        Assert.Equivalent(entity.ToTaskDto(), taskList.Data.FirstOrDefault());
-    }
-    
-    [Fact]
-    public async Task Should_ReturnOk_WhenOk2()
     {
         await using var scope = _factory.Services.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<IAmazonDynamoDB>();

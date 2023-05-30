@@ -32,7 +32,7 @@ function Page() {
               </a>
             </h2>
 
-            <p className="text-lg dark:text-slate-300">{summary}</p>
+            <p className="text-lg text-slate-300">{summary}</p>
           </div>
 
           <Cards id={id} gradient={gradient} items={items} />

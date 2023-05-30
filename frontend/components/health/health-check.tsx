@@ -38,7 +38,7 @@ function HealthCheck({
   return (
     <div
       className={cn(
-        "flex bg-white p-5 dark:bg-neutral-800",
+        "flex bg-neutral-800 p-5",
         topLeft && "rounded-tl",
         topRight && "rounded-tr",
         bottomLeft && "rounded-bl",
@@ -61,9 +61,7 @@ function HealthCheck({
             </Tooltip>
           </TooltipProvider>
         </div>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          {getSummary(status)}
-        </p>
+        <p className="text-sm text-neutral-400">{getSummary(status)}</p>
       </div>
 
       <TooltipProvider>

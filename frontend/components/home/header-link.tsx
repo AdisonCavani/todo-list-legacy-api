@@ -14,12 +14,7 @@ function HeaderLink({
   const isActive = segment === href;
 
   return (
-    <li
-      className={cn(
-        className,
-        !isActive && "text-neutral-500 dark:text-neutral-300"
-      )}
-    >
+    <li className={cn(className, !isActive && "text-neutral-300")}>
       <Link href={href}>{name}</Link>
     </li>
   );

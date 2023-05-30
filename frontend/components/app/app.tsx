@@ -1,12 +1,9 @@
 "use client";
 
-import Form from "./form";
-import Sort from "./sort";
-import Task from "./task";
 import { httpGet } from "@api/client";
 import { TaskDto } from "@api/dtos/TaskDto";
 import { queryKeys } from "@hooks/redux";
-import { sortMethods, SortingOptions } from "@lib/sort";
+import { SortingOptions, sortMethods } from "@lib/sort";
 import { useQuery } from "@tanstack/react-query";
 import {
   Accordion,
@@ -15,6 +12,9 @@ import {
   AccordionTrigger,
 } from "@ui/accordion";
 import { useState } from "react";
+import Form from "./form";
+import Sort from "./sort";
+import Task from "./task";
 
 type Props = {
   initialData: TaskDto[];

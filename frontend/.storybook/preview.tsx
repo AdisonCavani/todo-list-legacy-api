@@ -1,9 +1,9 @@
 import type { Preview } from "@storybook/react";
 import "../app/globals.css";
-import { fontInter } from "../lib/font";
-import Theme from "./theme";
 import { ThemeProvider } from "next-themes";
 import React from "react";
+import { fontInter } from "../lib/font";
+import Theme from "./theme";
 
 document.body.classList.add("font-sans");
 document.body.classList.add("antialiased");

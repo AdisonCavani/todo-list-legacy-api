@@ -1,6 +1,6 @@
-import HeaderLink from "./header-link";
 import { MenuEntries } from "@lib/data";
 import { cn } from "@lib/utils";
+import HeaderLink from "./header-link";
 
 function MobileMenu() {
   const classes = cn("flex h-12 items-center border-b border-neutral-800");

@@ -52,7 +52,7 @@ async function Page() {
 
       <h3 className="text-2xl font-medium">Current status</h3>
 
-      <section className="grid grid-cols-1 gap-[1px] rounded border bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-700 sm:grid-cols-2">
+      <section className="grid grid-cols-1 gap-[1px] rounded border border-neutral-700 bg-neutral-700 sm:grid-cols-2">
         <HealthCheckComponent {...healthCheck} topLeft topRight />
         <HealthCheckComponent
           title="Website"

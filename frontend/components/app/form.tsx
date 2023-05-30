@@ -1,6 +1,5 @@
 "use client";
 
-import DateComponent from "./date";
 import { useCreateTaskMutation } from "@hooks/redux";
 import { useToast } from "@hooks/use-toast";
 import { addDays, getShortDayName } from "@lib/date";
@@ -31,6 +30,7 @@ import {
   TooltipTrigger,
 } from "@ui/tooltip";
 import { createRef, useState } from "react";
+import DateComponent from "./date";
 
 function Form() {
   const [title, setTitle] = useState<string>("");

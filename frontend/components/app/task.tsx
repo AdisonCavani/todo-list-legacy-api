@@ -1,4 +1,3 @@
-import DateComponent from "./date";
 import type { TaskDto } from "@api/dtos/TaskDto";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/redux";
 import { cn } from "@lib/utils";
@@ -33,6 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@ui/dropdown-menu";
 import { createRef, MouseEventHandler, useState } from "react";
+import DateComponent from "./date";
 
 function Task(task: TaskDto) {
   const { title, description, dueDate, isCompleted, isImportant } = task;

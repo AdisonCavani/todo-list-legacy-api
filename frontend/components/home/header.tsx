@@ -1,7 +1,5 @@
 "use client";
 
-import HeaderLink from "./header-link";
-import MobileMenu from "./mobile-menu";
 import { MenuEntries } from "@lib/data";
 import { cn } from "@lib/utils";
 import styles from "@styles/header.module.css";
@@ -9,6 +7,8 @@ import { IconChecklist, IconMenu } from "@tabler/icons-react";
 import type { Session } from "next-auth";
 import Link from "next/link";
 import { useState } from "react";
+import HeaderLink from "./header-link";
+import MobileMenu from "./mobile-menu";
 
 type Props = {
   session: Session | null;
@@ -24,7 +24,7 @@ function Header({ session }: Props) {
         <ul
           className={cn(
             "relative flex h-full items-center gap-x-6 px-8 text-sm  font-semibold",
-            "after:absolute after:inset-x-0 after:bottom-0 after:h-[1px] after:bg-black/10 dark:after:bg-white/10"
+            "after:absolute after:inset-x-0 after:bottom-0 after:h-[1px] after:bg-white/10"
           )}
         >
           <li>
@@ -40,7 +40,7 @@ function Header({ session }: Props) {
           <li className="ml-auto">
             <Link
               href={session ? "/app" : "/auth"}
-              className="flex h-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 text-sm font-medium text-white"
+              className="flex h-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 text-sm font-medium"
             >
               {session ? "Open app" : "Sign in"}
             </Link>

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Tests.Unit", "Server
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Tests.Integration", "Server.Tests.Integration\Server.Tests.Integration.csproj", "{F3340CE1-471B-4FC1-82B0-B43C52896634}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Tests.Auth", "Server.Tests.Auth\Server.Tests.Auth.csproj", "{680EA96F-11D2-4755-A001-E54FF8EA7670}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F3340CE1-471B-4FC1-82B0-B43C52896634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3340CE1-471B-4FC1-82B0-B43C52896634}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3340CE1-471B-4FC1-82B0-B43C52896634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{680EA96F-11D2-4755-A001-E54FF8EA7670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{680EA96F-11D2-4755-A001-E54FF8EA7670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{680EA96F-11D2-4755-A001-E54FF8EA7670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{680EA96F-11D2-4755-A001-E54FF8EA7670}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -70,15 +70,28 @@ public class TaskRepository : ITaskRepository
         var updateItemReq = new PutItemRequest
         {
             TableName = TasksTableName,
-            Item = DynamoDbMapper.ToDict(entity)
+            Item = DynamoDbMapper.ToDict(entity),
+            ConditionExpression = $"{TaskMapper.Pk} = :v_pk AND {TaskMapper.Sk} = :v_sk",
+            ExpressionAttributeValues = new()
+            {
+                {":v_pk", TaskMapper.GetPk(userId)},
+                {":v_sk", TaskMapper.GetSk(req.Id)}
+            }
         };
 
-        var response = await _client.PutItemAsync(updateItemReq, ct);
+        try
+        {
+            var response = await _client.PutItemAsync(updateItemReq, ct);
 
-        if (response.HttpStatusCode != HttpStatusCode.OK)
+            if (response.HttpStatusCode != HttpStatusCode.OK)
+                return null;
+
+            return entity.ToTaskDto();
+        }
+        catch (ConditionalCheckFailedException)
+        {
             return null;
-
-        return entity.ToTaskDto();
+        }
     }
 
     public async Task<bool> DeleteAsync(Guid id, string userId, CancellationToken ct = default)
@@ -90,11 +103,12 @@ public class TaskRepository : ITaskRepository
             {
                 {TaskMapper.Pk, TaskMapper.GetPk(userId)},
                 {TaskMapper.Sk, TaskMapper.GetSk(id)}
-            }
+            },
+            ReturnValues = ReturnValue.ALL_OLD
         };
 
         var response = await _client.DeleteItemAsync(deleteItemReq, ct);
-        return response.HttpStatusCode == HttpStatusCode.OK;
+        return response.HttpStatusCode == HttpStatusCode.OK && response.Attributes.Count > 0;
     }
 
     public async Task<PaginatedRes<TaskDto>> ListAsync(PaginatedReq req, string userId, CancellationToken ct = default)

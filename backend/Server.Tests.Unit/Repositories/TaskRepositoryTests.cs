@@ -190,7 +190,11 @@ public class TaskRepositoryTests
 
         var responseDto = new DeleteItemResponse
         {
-            HttpStatusCode = HttpStatusCode.OK
+            HttpStatusCode = HttpStatusCode.OK,
+            Attributes = new Dictionary<string, AttributeValue>
+            {
+                { "", new AttributeValue() }
+            }
         };
 
         AmazonDynamoDb.DeleteItemAsync(Arg.Any<DeleteItemRequest>()).Returns(responseDto);

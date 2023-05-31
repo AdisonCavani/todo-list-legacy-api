@@ -6,7 +6,7 @@ public static class Aws
 {
     public static void AddAwsServices(this IServiceCollection services)
     {
-        services.ConfigureHttpJsonOptions(options => options.SerializerOptions.AddContext<SerializationContext>());
+        services.ConfigureHttpJsonOptions(options => options.SerializerOptions.TypeInfoResolver = new SerializationContext());
         services.AddAWSLambdaHosting(LambdaEventSource.HttpApi,
             options => { options.Serializer = new SourceGeneratorLambdaJsonSerializer<SerializationContext>(); });
     }

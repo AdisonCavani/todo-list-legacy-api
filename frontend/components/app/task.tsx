@@ -172,16 +172,13 @@ function Task(task: TaskDto) {
         <DialogHeader>
           <div className="flex justify-between">
             <DialogTitle>Update task</DialogTitle>
-            <button
+            <Button
+              size="xs"
+              loading={deleteTaskLoading}
+              icon={<IconTrash size={18} />}
+              variant="destructive"
               onClick={handleOnDelete}
-              className="rounded-md bg-red-100 p-[6px] text-red-900 hover:bg-red-200 dark:bg-red-300 dark:hover:bg-red-400"
-            >
-              {deleteTaskLoading ? (
-                <IconLoader2 size={18} className="animate-spin" />
-              ) : (
-                <IconTrash size={18} />
-              )}
-            </button>
+            />
           </div>
           <DialogDescription>
             Make changes to your task here. Click save when you&apos;re done.

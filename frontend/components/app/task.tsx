@@ -31,10 +31,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@ui/dropdown-menu";
-import { createRef, MouseEventHandler, useState } from "react";
+import {
+  createRef,
+  forwardRef,
+  LegacyRef,
+  MouseEventHandler,
+  useState,
+} from "react";
 import DateComponent from "./date";
 
-function Task(task: TaskDto) {
+const Task = forwardRef((task: TaskDto, ref) => {
   const { title, description, dueDate, isCompleted, isImportant } = task;
   const { mutate } = useUpdateTaskMutation();
 
@@ -109,7 +115,10 @@ function Task(task: TaskDto) {
       }}
     >
       <DialogTrigger asChild>
-        <li className="flex cursor-pointer flex-row items-center gap-x-2 rounded-md bg-white px-4 shadow-ms hover:bg-neutral-100 dark:bg-neutral-800">
+        <li
+          ref={ref as LegacyRef<HTMLLIElement>}
+          className="flex cursor-pointer flex-row items-center gap-x-2 rounded-md bg-white px-4 shadow-ms hover:bg-neutral-100 dark:bg-neutral-800"
+        >
           <button
             aria-label="Toggle task completion"
             onClick={handleOnClick}
@@ -334,6 +343,8 @@ function Task(task: TaskDto) {
       </DialogContent>
     </Dialog>
   );
-}
+});
+
+Task.displayName = "Task"
 
 export default Task;

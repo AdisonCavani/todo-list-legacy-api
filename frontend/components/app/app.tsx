@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@ui/accordion";
 import { useState } from "react";
+import FlipMove from "react-flip-move";
 import Form from "./form";
 import Sort from "./sort";
 import Task from "./task";
@@ -66,10 +67,12 @@ function App({ initialData, token }: Props) {
       <Form />
 
       {notFinishedTasks.length > 0 && (
-        <ul className="flex flex-col gap-y-2">
-          {notFinishedTasks.map((task) => (
-            <Task key={task.id} {...task} />
-          ))}
+        <ul className="relative flex flex-col gap-y-2">
+          <FlipMove typeName={null}>
+            {notFinishedTasks.map((task) => (
+              <Task key={task.id} {...task} />
+            ))}
+          </FlipMove>
         </ul>
       )}
 
@@ -85,10 +88,12 @@ function App({ initialData, token }: Props) {
               </div>
             </AccordionTrigger>
             <AccordionContent>
-              <ul className="flex flex-col gap-y-2">
-                {finishedTasks.map((task) => (
-                  <Task key={task.id} {...task} />
-                ))}
+              <ul className="relative flex flex-col gap-y-2">
+                <FlipMove typeName={null}>
+                  {finishedTasks.map((task) => (
+                    <Task key={task.id} {...task} />
+                  ))}
+                </FlipMove>
               </ul>
             </AccordionContent>
           </AccordionItem>

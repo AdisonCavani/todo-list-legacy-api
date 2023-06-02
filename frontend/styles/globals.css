@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 220 13% 91%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 217 90% 80%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0 9%;
+    --foreground: 213 31% 91%;
+
+    --muted: 0 0% 22%;
+    --muted-foreground: 0 0% 83%;
+
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 83%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --border: 0 0% 20%;
+    --input: 216 34% 17%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 0 0% 25%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* TODO: change this color */
+    --ring: 217 90% 80%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .gradient-radial-after {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.4),
+      transparent 40%
+    );
+  }
+  .gradient-radial-before {
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
+  }
+  .gradient-radial-overlay {
+    background: radial-gradient(
+        400px circle at calc(100% - calc((100vw - 1200px) / 2) - 10%) 45%,
+        #59e5ae,
+        70%,
+        transparent
+      ),
+      radial-gradient(400px circle at 50% 55%, #97ed8d, 60%, transparent),
+      radial-gradient(
+        350px circle at calc(calc((100vw - 1200px) / 2) + 15%) 40%,
+        #f2f75d,
+        60%,
+        transparent
+      );
+  }
+  .gradient-radial-overlay2 {
+    background: radial-gradient(
+        450px circle at 50% 0%,
+        #9a6aff,
+        70%,
+        transparent
+      ),
+      radial-gradient(400px circle at 50% 50%, #60ffc7, 60%, transparent),
+      radial-gradient(350px circle at 50% 80%, #7db5e3, 60%, transparent);
+  }
+}

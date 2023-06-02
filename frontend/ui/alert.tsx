@@ -3,14 +3,15 @@ import { cva, type VariantProps } from "cva";
 import * as React from "react";
 
 const alertVariants = cva(
-  "relative w-full rounded-lg p-4 [&>svg]:absolute [&>svg]:text-foreground [&>svg]:left-4 [&>svg]:top-4 [&>svg+div]:translate-y-[-3px] [&:has(svg)]:pl-11",
+  "relative w-full rounded-lg border p-4 [&>svg]:absolute [&>svg]:text-foreground [&>svg]:left-4 [&>svg]:top-4 [&>svg+div]:translate-y-[-3px] [&:has(svg)]:pl-11",
   {
     variants: {
       variant: {
         default: "bg-background text-foreground",
         success: "bg-green-600 text-white dark:bg-green-700",
         warning: "bg-yellow-600 text-white",
-        destructive: "bg-red-600 text-red-50",
+        destructive:
+          "text-destructive border-destructive/50 dark:border-destructive [&>svg]:text-destructive",
       },
     },
     defaultVariants: {
@@ -38,10 +39,22 @@ const AlertTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h5
     ref={ref}
-    className={cn("text-lg font-medium leading-none tracking-tight", className)}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
     {...props}
   />
 ));
 AlertTitle.displayName = "AlertTitle";
+
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    {...props}
+  />
+));
+AlertDescription.displayName = "AlertDescription";
 
 export { Alert, AlertTitle };

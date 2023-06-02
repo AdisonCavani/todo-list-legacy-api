@@ -83,11 +83,11 @@ export const reducer = (state: State, action: Action): State => {
         ),
       };
 
-    case "DISMISS_TOAST":
+    case "DISMISS_TOAST": {
       const { toastId } = action;
 
       // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity.
+      // but I'll keep it here for simplicity
       if (toastId) {
         addToRemoveQueue(toastId);
       } else {
@@ -107,6 +107,7 @@ export const reducer = (state: State, action: Action): State => {
             : t
         ),
       };
+    }
     case "REMOVE_TOAST":
       if (action.toastId === undefined) {
         return {
@@ -132,7 +133,7 @@ function dispatch(action: Action) {
   });
 }
 
-interface Toast extends Omit<ToasterToast, "id"> {}
+type Toast = Omit<ToasterToast, "id">;
 
 function toast({ ...props }: Toast) {
   const id = genId();

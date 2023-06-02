@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@styles/globals.css";
 import NextThemeProvider from "@components/theme-provider";
 import { fontInter } from "@lib/font";
 import { ColorRecordType, twindConfig } from "@lib/twind";

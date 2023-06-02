@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/app",
     },
-    sitemap: `${process.env.VERCEL_URL || "http://localhost:3000"}/sitemap.xml`,
+    sitemap: "https://todo.k1ng.dev/sitemap.xml",
   };
 }

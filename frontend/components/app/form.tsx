@@ -73,7 +73,7 @@ function Form() {
       </div>
 
       <div className="flex h-11 items-center justify-between rounded-b-md border-t border-neutral-300 bg-neutral-50 px-4 dark:border-neutral-700 dark:bg-neutral-900/30">
-        <div className="relative flex flex-row items-center gap-x-2 text-neutral-500">
+        <div className="relative flex flex-row items-center gap-x-2 text-neutral-600 dark:text-neutral-400">
           <input
             type="date"
             min={new Date().toISOString().split("T")[0]}

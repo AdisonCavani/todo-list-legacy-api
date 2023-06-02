@@ -24,6 +24,9 @@ export const metadata = {
       media: "(prefers-color-scheme: dark)",
     },
   ],
+  openGraph: {
+    images: ["/static/images/og.webp"],
+  },
 
   icons: {
     icon: [

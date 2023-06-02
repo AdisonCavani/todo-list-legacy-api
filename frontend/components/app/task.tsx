@@ -345,6 +345,6 @@ const Task = forwardRef((task: TaskDto, ref) => {
   );
 });
 
-Task.displayName = "Task"
+Task.displayName = "Task";
 
 export default Task;

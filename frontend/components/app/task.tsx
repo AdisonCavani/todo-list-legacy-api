@@ -203,8 +203,8 @@ const Task = forwardRef((task: TaskDto, ref) => {
               Title
             </label>
             <Input
+              id="title"
               type="text"
-              name="title"
               placeholder="Do a homework"
               value={dialogTitle}
               onChange={(event) => setDialogTitle(event.target.value)}
@@ -219,7 +219,7 @@ const Task = forwardRef((task: TaskDto, ref) => {
               Description
             </label>
             <Textarea
-              name="description"
+              id="description"
               placeholder="Student's book, p.84, ex.1-3"
               value={dialogDescription}
               onChange={(event) => setDialogDescription(event.target.value)}

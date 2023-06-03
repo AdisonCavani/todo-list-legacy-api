@@ -14,7 +14,7 @@ const DialogPortal = ({
   ...props
 }: DialogPrimitive.DialogPortalProps) => (
   <DialogPrimitive.Portal className={cn(className)} {...props}>
-    <div className="fixed inset-0 z-50 flex items-start justify-center sm:items-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       {children}
     </div>
   </DialogPrimitive.Portal>
@@ -45,7 +45,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed z-50 grid w-full gap-4 rounded-b-lg border bg-background p-6 shadow-lg animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:max-w-lg sm:rounded-lg sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0",
+        "fixed z-50 grid gap-4 rounded-lg bg-white p-6 animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:max-w-lg sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0",
         className
       )}
       {...props}
@@ -61,10 +61,7 @@ const DialogHeader = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
-      className
-    )}
+    className={cn("flex flex-col space-y-1.5 text-left", className)}
     {...props}
   />
 );
@@ -76,7 +73,7 @@ const DialogFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      "flex flex-col-reverse gap-y-2 sm:flex-row sm:justify-end sm:space-x-2",
       className
     )}
     {...props}

@@ -31,6 +31,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@ui/dropdown-menu";
+import { Input } from "@ui/input";
+import { Textarea } from "@ui/textarea";
 import {
   createRef,
   forwardRef,
@@ -123,7 +125,7 @@ const Task = forwardRef((task: TaskDto, ref) => {
             aria-label="Toggle task completion"
             onClick={handleOnClick}
             className={cn(
-              "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 dark:border-neutral-500",
+              "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-neutral-500",
               isCompleted && "bg-neutral-400 dark:bg-neutral-500"
             )}
           />
@@ -164,6 +166,7 @@ const Task = forwardRef((task: TaskDto, ref) => {
           <button
             aria-label="Toggle task importance"
             onClick={onImportantChange}
+            className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {isImportant ? (
               <IconStarFilled size={18} className="text-yellow-400" />
@@ -199,13 +202,12 @@ const Task = forwardRef((task: TaskDto, ref) => {
             <label htmlFor="title" className="mb-2 block text-sm font-medium">
               Title
             </label>
-            <input
+            <Input
               type="text"
               name="title"
               placeholder="Do a homework"
               value={dialogTitle}
               onChange={(event) => setDialogTitle(event.target.value)}
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm outline-none dark:border-neutral-600 dark:bg-neutral-700"
             />
           </div>
 
@@ -216,12 +218,11 @@ const Task = forwardRef((task: TaskDto, ref) => {
             >
               Description
             </label>
-            <textarea
+            <Textarea
               name="description"
               placeholder="Student's book, p.84, ex.1-3"
               value={dialogDescription}
               onChange={(event) => setDialogDescription(event.target.value)}
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm outline-none dark:border-neutral-600 dark:bg-neutral-700"
             />
           </div>
 

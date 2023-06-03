@@ -5,13 +5,13 @@ import { cva, VariantProps } from "cva";
 import React from "react";
 
 const buttonVariants = cva(
-  "gap-x-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:cursor-not-allowed",
+  "gap-x-2 inline-flex items-center justify-center transition-all rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "bg-destructive-foreground text-white hover:bg-destructive-foreground/90",
         outline:
           "border border-input hover:bg-accent hover:text-accent-foreground",
         secondary:

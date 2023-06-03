@@ -11,11 +11,11 @@ const FooterEntries: MenuEntry[] = [
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 py-10">
-      <p className="text-center text-sm leading-6 text-neutral-200">
+    <footer className="border-t py-10">
+      <p className="text-center text-sm leading-6">
         © {new Date().getUTCFullYear()} Adrian Środoń. All rights reserved.
       </p>
-      <div className="mt-8 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-neutral-400">
+      <div className="mt-8 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-muted-foreground">
         {FooterEntries.map(({ name, href }, index) => (
           <Fragment key={index}>
             {isUrlInternal(href) ? (
@@ -47,7 +47,7 @@ function Divider({ index }: { index: number }) {
   return (
     <>
       {index !== FooterEntries.length - 1 && (
-        <hr className="h-4 w-px border-0 bg-neutral-300 dark:bg-neutral-600" />
+        <hr className="h-4 w-px border-0 bg-muted" />
       )}
     </>
   );

@@ -66,7 +66,7 @@ function RootLayout({ children }: PropsWithChildren) {
           </>
         )}
       </head>
-      <body className="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-900">
+      <body className="flex min-h-screen flex-col">
         <NextThemeProvider>{children}</NextThemeProvider>
       </body>
     </html>

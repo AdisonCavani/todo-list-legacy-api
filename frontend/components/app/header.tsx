@@ -1,5 +1,6 @@
 import { authOptions } from "@lib/auth";
 import { IconChecklist } from "@tabler/icons-react";
+import { buttonVariants } from "@ui/button";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import ProfileMenu from "./profile-menu";
@@ -12,7 +13,7 @@ async function Header() {
       <Link
         href="/"
         prefetch={false}
-        className="flex items-center gap-x-4 text-white"
+        className={buttonVariants({ variant: "link", className: "text-white" })}
       >
         <IconChecklist className="h-6 w-6" />
         <h1 className="select-none font-semibold">To Do</h1>

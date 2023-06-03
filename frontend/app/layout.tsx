@@ -13,6 +13,7 @@ export const metadata = {
   },
   description: "Managing your tasks has never been simpler before.",
 
+  metadataBase: new URL("https://todo.k1ng.dev"),
   manifest: "/static/manifest.json",
   themeColor: [
     {

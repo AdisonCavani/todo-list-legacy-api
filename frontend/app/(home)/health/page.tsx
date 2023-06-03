@@ -3,18 +3,12 @@ import { mapToHealth } from "@lib/health";
 import { IconCheck, IconExclamationMark } from "@tabler/icons-react";
 import { Alert, AlertTitle } from "@ui/alert";
 
-export const dynamic = "force-static";
-
 export const metadata = {
   title: "Health",
 };
 
 async function Page() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/health`, {
-    next: {
-      revalidate: 60,
-    },
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/health`);
   const text = await res.text();
 
   const healthCheck = mapToHealth(

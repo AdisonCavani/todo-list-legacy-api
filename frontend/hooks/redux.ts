@@ -5,7 +5,6 @@ import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
 import { useToast } from "@hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { v4 } from "uuid";
 
 function useCreateTaskMutation() {
   const queryClient = useQueryClient();
@@ -15,41 +14,18 @@ function useCreateTaskMutation() {
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
       httpPost("/tasks", req, session.data?.user.access_token!),
-    async onMutate(data) {
+    async onMutate() {
       await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
-
-      const taskId = v4();
-
-      const newTask: TaskDto = {
-        id: taskId,
-        userId: "",
-        updatedAt: new Date().toISOString(),
-        isCompleted: false,
-        isImportant: false,
-        ...data,
-      };
-
-      const previousTasks =
-        queryClient.getQueryData<TaskDto[]>([queryKeys.tasks]) ?? [];
-
-      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => [
-        ...(old ?? []),
-        newTask,
-      ]);
-
-      return { previousTasks, taskId };
     },
-    onError(_, __, context) {
-      queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
-
+    onError() {
       toast({
         variant: "destructive",
         title: "Failed to create task.",
       });
     },
-    onSuccess(data, _, context) {
+    onSuccess(data) {
       queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => [
-        ...(old?.filter((task) => task.id !== context?.taskId) ?? []),
+        ...(old ?? []),
         data,
       ]);
     },

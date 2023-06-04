@@ -49,7 +49,10 @@ function RootLayout({ children }: PropsWithChildren) {
   return (
     <html
       lang="en"
-      className={cn("font-sans antialiased", fontInter.variable)}
+      className={cn(
+        "font-sans antialiased sm:overflow-y-auto",
+        fontInter.variable
+      )}
       suppressHydrationWarning
     >
       <head>

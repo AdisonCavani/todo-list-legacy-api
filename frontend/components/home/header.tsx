@@ -28,7 +28,11 @@ function Header({ session }: Props) {
           )}
         >
           <li>
-            <Link href="/" className="flex items-center gap-x-1">
+            <Link
+              href="/"
+              prefetch={false}
+              className="flex items-center gap-x-1"
+            >
               <IconChecklist size={20} />
               <span className="select-none">To Do</span>
             </Link>

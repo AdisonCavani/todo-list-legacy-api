@@ -15,7 +15,9 @@ function HeaderLink({
 
   return (
     <li className={cn(className, !isActive && "text-neutral-300")}>
-      <Link href={href}>{name}</Link>
+      <Link href={href} prefetch={false}>
+        {name}
+      </Link>
     </li>
   );
 }

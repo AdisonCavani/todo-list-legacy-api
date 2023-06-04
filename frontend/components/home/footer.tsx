@@ -20,7 +20,9 @@ function Footer() {
           <Fragment key={index}>
             {isUrlInternal(href) ? (
               <>
-                <Link href={href}>{name}</Link>
+                <Link href={href} prefetch={false}>
+                  {name}
+                </Link>
                 <Divider index={index} />
               </>
             ) : (

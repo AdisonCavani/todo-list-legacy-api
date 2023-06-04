@@ -1,11 +1,11 @@
 "use client";
 
+import Link from "@components/router/link";
 import { MenuEntries } from "@lib/data";
 import { cn } from "@lib/utils";
 import styles from "@styles/header.module.css";
 import { IconChecklist, IconMenu } from "@tabler/icons-react";
 import type { Session } from "next-auth";
-import Link from "next/link";
 import { useState } from "react";
 import HeaderLink from "./header-link";
 import MobileMenu from "./mobile-menu";

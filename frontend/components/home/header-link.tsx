@@ -1,8 +1,8 @@
 "use client";
 
+import Link from "@components/router/link";
 import { MenuEntry } from "@lib/data";
 import { cn } from "@lib/utils";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function HeaderLink({

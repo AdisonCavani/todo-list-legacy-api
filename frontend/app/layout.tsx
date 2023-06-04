@@ -1,4 +1,5 @@
 import "@styles/globals.css";
+import NProgressWrapper from "@components/nprogress-wrapper";
 import NextThemeProvider from "@components/theme-provider";
 import { fontInter } from "@lib/font";
 import { ColorRecordType, twindConfig } from "@lib/twind";
@@ -70,7 +71,9 @@ function RootLayout({ children }: PropsWithChildren) {
         )}
       </head>
       <body className="flex min-h-screen flex-col">
-        <NextThemeProvider>{children}</NextThemeProvider>
+        <NextThemeProvider>
+          <NProgressWrapper>{children}</NProgressWrapper>
+        </NextThemeProvider>
       </body>
     </html>
   );

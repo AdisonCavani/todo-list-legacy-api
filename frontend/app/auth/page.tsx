@@ -1,10 +1,10 @@
 import LoginButtons from "@components/auth/login-buttons";
+import Link from "@components/router/link";
 import { authOptions } from "@lib/auth";
 import { cn } from "@lib/utils";
 import { IconChecklist, IconChevronLeft } from "@tabler/icons-react";
 import { buttonVariants } from "@ui/button";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export const metadata = {

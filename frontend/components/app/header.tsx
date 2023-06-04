@@ -1,8 +1,8 @@
+import Link from "@components/router/link";
 import { authOptions } from "@lib/auth";
 import { IconChecklist } from "@tabler/icons-react";
 import { buttonVariants } from "@ui/button";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import ProfileMenu from "./profile-menu";
 
 async function Header() {

@@ -95,7 +95,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
         </DropdownMenu>
       </div>
 
-      <div className="mb-2 flex items-center justify-end gap-x-3">
+      <div className="mb-3 flex items-center justify-end gap-x-3">
         <Button
           size="xxs"
           variant="ghost"

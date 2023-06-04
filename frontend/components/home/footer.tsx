@@ -12,10 +12,10 @@ const FooterEntries: MenuEntry[] = [
 function Footer() {
   return (
     <footer className="border-t py-10">
-      <p className="text-center text-sm leading-6">
+      <p className="px-8 text-sm leading-6 sm:px-0 sm:text-center">
         © {new Date().getUTCFullYear()} Adrian Środoń. All rights reserved.
       </p>
-      <div className="mt-8 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-muted-foreground">
+      <div className="mt-8 flex flex-col justify-center gap-y-1 px-8 text-sm font-semibold leading-6 text-muted-foreground sm:flex-row sm:items-center sm:space-x-4 sm:px-0">
         {FooterEntries.map(({ name, href }, index) => (
           <Fragment key={index}>
             {isUrlInternal(href) ? (
@@ -49,7 +49,7 @@ function Divider({ index }: { index: number }) {
   return (
     <>
       {index !== FooterEntries.length - 1 && (
-        <hr className="h-4 w-px border-0 bg-muted" />
+        <hr className="hidden h-4 w-px border-0 bg-muted sm:block" />
       )}
     </>
   );

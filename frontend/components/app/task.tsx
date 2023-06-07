@@ -1,5 +1,5 @@
 import type { TaskDto } from "@api/dtos/TaskDto";
-import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/redux";
+import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/query";
 import { cn } from "@lib/utils";
 import {
   IconCalendar,

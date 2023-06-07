@@ -2,7 +2,7 @@
 
 import { httpGet } from "@api/client";
 import { TaskDto } from "@api/dtos/TaskDto";
-import { queryKeys } from "@hooks/redux";
+import { queryKeys } from "@hooks/query";
 import { SortingOptions, sortMethods } from "@lib/sort";
 import { useQuery } from "@tanstack/react-query";
 import {

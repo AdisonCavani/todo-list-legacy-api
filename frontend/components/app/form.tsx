@@ -1,6 +1,6 @@
 "use client";
 
-import { useCreateTaskMutation } from "@hooks/redux";
+import { useCreateTaskMutation } from "@hooks/query";
 import { useToast } from "@hooks/use-toast";
 import { addDays, getShortDayName } from "@lib/date";
 import {

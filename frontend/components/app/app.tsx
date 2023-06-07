@@ -4,6 +4,7 @@ import { httpGet } from "@api/client";
 import { TaskDto } from "@api/dtos/TaskDto";
 import { queryKeys } from "@hooks/query";
 import { SortingOptions, sortMethods } from "@lib/sort";
+import { TaskType } from "@lib/types";
 import { useQuery } from "@tanstack/react-query";
 import {
   Accordion,
@@ -69,8 +70,8 @@ function App({ initialData, token }: Props) {
       {notFinishedTasks.length > 0 && (
         <ul className="relative flex flex-col gap-y-2">
           <FlipMove typeName={null}>
-            {notFinishedTasks.map((task) => (
-              <Task key={task.id} {...task} />
+            {notFinishedTasks.map((task: TaskType) => (
+              <Task key={task.renderId ?? task.id} {...task} />
             ))}
           </FlipMove>
         </ul>
@@ -90,8 +91,8 @@ function App({ initialData, token }: Props) {
             <AccordionContent>
               <ul className="relative flex flex-col gap-y-2">
                 <FlipMove typeName={null}>
-                  {finishedTasks.map((task) => (
-                    <Task key={task.id} {...task} />
+                  {finishedTasks.map((task: TaskType) => (
+                    <Task key={task.renderId ?? task.id} {...task} />
                   ))}
                 </FlipMove>
               </ul>

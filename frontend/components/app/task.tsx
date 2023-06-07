@@ -1,5 +1,6 @@
-import type { TaskDto } from "@api/dtos/TaskDto";
+import { TaskDto } from "@api/dtos/TaskDto";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/query";
+import { TaskType } from "@lib/types";
 import { cn } from "@lib/utils";
 import {
   IconCalendar,
@@ -42,7 +43,7 @@ import {
 } from "react";
 import DateComponent from "./date";
 
-const Task = forwardRef((task: TaskDto, ref) => {
+const Task = forwardRef((task: TaskType | TaskDto, ref) => {
   const { title, description, dueDate, isCompleted, isImportant } = task;
   const { mutate } = useUpdateTaskMutation();
 

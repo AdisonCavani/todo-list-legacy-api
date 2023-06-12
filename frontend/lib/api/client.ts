@@ -1,208 +1,115 @@
-import type { TaskDto } from "./dtos/TaskDto";
-import type { CreateTaskReq } from "./req/CreateTaskReq";
-import type { PaginatedReq } from "./req/PaginatedReq";
-import type { UpdateTaskReq } from "./req/UpdateTaskReq";
-import type { HealthCheckRes } from "./res/HealthCheckRes";
-import type { PaginatedRes } from "./res/PaginatedRes";
+import { TaskDto } from "./dtos/TaskDto";
+import {
+  AuthQueryOptions,
+  CreateTaskOptions,
+  ListTasksOptions,
+  MutationOptions,
+  QueryOptions,
+  UpdateTaskOptions,
+} from "./requests";
+import { HealthCheckRes } from "./res/HealthCheckRes";
+import { PaginatedRes } from "./res/PaginatedRes";
 
 const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
-const getEndpoint = {
+export interface EndpointsSchema {
   "/health": {
-    auth: false,
-    request: undefined,
-    response: {} as HealthCheckRes,
-  },
+    get: () => Promise<HealthCheckRes>;
+  };
+  "/tasks": {
+    get: (options: ListTasksOptions) => Promise<PaginatedRes<TaskDto>>;
+    post: (options: CreateTaskOptions) => Promise<TaskDto>;
+    patch: (options: UpdateTaskOptions) => Promise<TaskDto>;
+  };
   "/tasks/{id}": {
-    auth: true,
-    request: {} as string,
-    response: {} as TaskDto,
-  },
-  "/tasks": {
-    auth: true,
-    request: {} as PaginatedReq,
-    response: {} as PaginatedRes<TaskDto>,
-  },
-};
-
-const postEndpoint = {
-  "/tasks": {
-    auth: true,
-    request: {} as CreateTaskReq,
-    response: {} as TaskDto,
-  },
-};
-
-const patchEndpoint = {
-  "/tasks": {
-    auth: true,
-    request: {} as UpdateTaskReq,
-    response: {} as TaskDto,
-  },
-};
-
-const deleteEndpoint = {
-  "/tasks/{id}": {
-    auth: true,
-    request: {} as string,
-    response: undefined,
-  },
-};
-
-export async function httpGet<Endpoint extends keyof typeof getEndpoint>(
-  endpoint: Endpoint,
-  request?: (typeof getEndpoint)[Endpoint]["request"],
-  jwtToken?: string
-): Promise<(typeof getEndpoint)[Endpoint]["response"] | undefined> {
-  let queryUrl = "";
-
-  // Path params
-  if (request && isPrimitive(request))
-    queryUrl = baseUrl + endpoint.substring(0, endpoint.indexOf("{")) + request;
-  // Query params
-  else
-    queryUrl = request
-      ? `${baseUrl + endpoint}?${appendParams(request)}`
-      : baseUrl + endpoint;
-
-  const res = await fetchApi(
-    "GET",
-    queryUrl,
-    undefined,
-    getEndpoint[endpoint],
-    jwtToken
-  );
-
-  return res;
+    get: (options: AuthQueryOptions) => Promise<TaskDto>;
+    delete: (options: AuthQueryOptions) => Promise<void>;
+  };
 }
 
-export async function httpPost<Endpoint extends keyof typeof postEndpoint>(
-  endpoint: Endpoint,
-  request: (typeof postEndpoint)[Endpoint]["request"],
-  jwtToken?: string
-): Promise<(typeof postEndpoint)[Endpoint]["response"]> {
-  const queryUrl = baseUrl + endpoint;
+export function client<TPath extends keyof EndpointsSchema>(
+  path: TPath,
+  ...pathParam: PathParameter<TPath>
+): EndpointsSchema[TPath] {
+  const fullPath =
+    baseUrl +
+    path
+      .split("/")
+      .map((segment) =>
+        segment.startsWith("{") && segment.endsWith("}")
+          ? pathParam.shift() // Use pathParam values for path parameters
+          : segment
+      )
+      .join("/");
 
-  const res = await fetchApi(
-    "POST",
-    queryUrl,
-    request,
-    postEndpoint[endpoint],
-    jwtToken
-  );
-
-  return res;
+  return {
+    get: (options?: any) => query(fullPath, options, "GET"),
+    post: (options?: any) => mutate(fullPath, options, "POST"),
+    patch: (options?: any) => mutate(fullPath, options, "PATCH"),
+    delete: (options?: any) => query(fullPath, options, "DELETE"),
+  };
 }
 
-export async function httpPatch<Endpoint extends keyof typeof patchEndpoint>(
-  endpoint: Endpoint,
-  request: (typeof patchEndpoint)[Endpoint]["request"],
-  jwtToken?: string
-): Promise<(typeof patchEndpoint)[Endpoint]["response"]> {
-  const queryUrl = baseUrl + endpoint;
+async function query<TReqOptions extends QueryOptions>(
+  url: string,
+  options: TReqOptions | undefined,
+  method: HttpMethod
+) {
+  const newUrl = options?.queryParameters
+    ? `${url}?${appendParams(options.queryParameters)}`
+    : url;
 
-  const res = await fetchApi(
-    "PATCH",
-    queryUrl,
-    request,
-    patchEndpoint[endpoint],
-    jwtToken
-  );
+  const headers = new Headers(options?.headers);
 
-  return res;
+  if (options?.jwtToken)
+    headers.append("Authorization", `Bearer ${options.jwtToken}`);
+
+  return await fetchApi(newUrl, headers, method);
 }
 
-export async function httpDelete<Endpoint extends keyof typeof deleteEndpoint>(
-  endpoint: Endpoint,
-  request: (typeof deleteEndpoint)[Endpoint]["request"],
-  jwtToken?: string
-): Promise<undefined> {
-  let queryUrl = "";
+async function mutate<TReqOptions extends MutationOptions>(
+  url: string,
+  options: TReqOptions | undefined,
+  method: HttpMethod
+) {
+  const headers = new Headers(options?.headers);
 
-  // Path params
-  if (isPrimitive(request))
-    queryUrl = baseUrl + endpoint.substring(0, endpoint.indexOf("{")) + request;
-  // Query params
-  else
-    queryUrl = request
-      ? `${baseUrl + endpoint}?${appendParams(request)}`
-      : baseUrl + endpoint;
+  if (options?.jwtToken)
+    headers.append("Authorization", `Bearer ${options.jwtToken}`);
 
-  const res = await fetchApi(
-    "DELETE",
-    queryUrl,
-    undefined,
-    deleteEndpoint[endpoint],
-    jwtToken
-  );
-
-  return res;
+  return await fetchApi(url, headers, method, JSON.stringify(options?.body!));
 }
-
-type Method = "GET" | "POST" | "PATCH" | "DELETE";
 
 async function fetchApi(
-  method: Method,
-  queryUrl: string,
-  request: any,
-  object: any,
-  jwtToken: string | undefined
+  url: string,
+  headers: Headers,
+  method: HttpMethod,
+  body?: BodyInit
 ) {
-  if (object.auth && !jwtToken) throw new Error("You need to pass jwt token");
+  headers.append("Content-Type", "application/json");
 
-  let headers: HeadersInit = {
-    "Content-Type": "application/json",
-  };
-
-  if (jwtToken)
-    headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${jwtToken}`,
-    };
-
-  let body: BodyInit | null = null;
-
-  if (method !== "GET") body = JSON.stringify(request);
-
-  const res = await fetch(queryUrl, {
+  const response = await fetch(url, {
     method: method,
     headers: headers,
     body: body,
   });
 
-  if (!res.ok) {
-    // If JWT expired & is client
-    if (res.status === 401 && typeof window !== "undefined") {
-      const { signOut } = await import("next-auth/react");
+  if (response.status === 204) return;
 
-      signOut({
-        callbackUrl: "/auth",
-      });
+  if (response.ok) return await response.json();
 
-      // TODO: find a better way
-      // This fixes exception when data is undefined, because router hasn't finished redirecting
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  const text = await response.text();
 
-      return;
-    }
+  const errorObj = {
+    message: "Fetch failed",
+    queryUrl: url,
+    method: method,
+    statusCode: response.status,
+    statusText: response.statusText,
+    ...(text.length > 0 && { reason: text }),
+  };
 
-    const text = await res.text();
-
-    const errorObj = {
-      message: "Fetch failed",
-      queryUrl: queryUrl,
-      method: method,
-      statusCode: res.status,
-      statusText: res.statusText,
-      ...(text.length > 0 && { reason: text }),
-    };
-
-    throw new Error(JSON.stringify(errorObj, null, 2));
-  }
-
-  if (res.status === 204) return;
-
-  return await res.json();
+  throw new Error(JSON.stringify(errorObj, null, 2));
 }
 
 function appendParams(obj: any): URLSearchParams {
@@ -217,8 +124,13 @@ function appendParams(obj: any): URLSearchParams {
   return params;
 }
 
-function isPrimitive(object: any) {
-  if (object === Object(object)) return false;
+type PathParameter<TPath extends string> =
+  // Define our template in terms of Head/{Parameter}Tail
+  TPath extends `${infer _Head}/{${infer _Parameter}}${infer Tail}`
+    ? // We can call PathParameter<Tail> recursively to
+      // match the template against the Tail of the path
+      [pathParameter: string, ...params: PathParameter<Tail>]
+    : // If no parameters were found we get an empty tuple
+      [];
 
-  return true;
-}
+export type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";

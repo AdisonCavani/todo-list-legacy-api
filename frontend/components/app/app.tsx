@@ -1,6 +1,6 @@
 "use client";
 
-import { httpGet } from "@api/client";
+import { client } from "@api/client";
 import { TaskDto } from "@api/dtos/TaskDto";
 import { queryKeys } from "@hooks/query";
 import { SortingOptions, sortMethods } from "@lib/sort";
@@ -27,13 +27,14 @@ function App({ initialData, token }: Props) {
   const { data: tasks } = useQuery({
     queryKey: [queryKeys.tasks],
     queryFn: () =>
-      httpGet(
-        "/tasks",
-        {
-          pageSize: 100,
-        },
-        token
-      ).then((res) => (res ? res.data : [])),
+      client("/tasks")
+        .get({
+          jwtToken: token,
+          queryParameters: {
+            pageSize: 100,
+          },
+        })
+        .then((res) => (res ? res.data : [])),
     initialData: initialData,
   });
 

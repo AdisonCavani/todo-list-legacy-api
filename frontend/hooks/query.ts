@@ -1,4 +1,4 @@
-import { httpDelete, httpPatch, httpPost } from "@api/client";
+import { client } from "@api/client";
 import type { TaskDto } from "@api/dtos/TaskDto";
 import type { CreateTaskReq } from "@api/req/CreateTaskReq";
 import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
@@ -15,7 +15,10 @@ function useCreateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
-      httpPost("/tasks", req, session.data?.user.access_token!),
+      client("/tasks").post({
+        jwtToken: session.data?.user.access_token!,
+        body: req,
+      }),
     async onMutate(data) {
       await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
 
@@ -75,7 +78,10 @@ function useUpdateTaskMutation() {
 
   return useMutation({
     mutationFn: (req: UpdateTaskReq) =>
-      httpPatch("/tasks", req, session.data?.user.access_token!),
+      client("/tasks").patch({
+        jwtToken: session.data?.user.access_token!,
+        body: req,
+      }),
     async onMutate(newTask: TaskDto) {
       await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
 
@@ -108,7 +114,9 @@ function useDeleteTaskMutation() {
 
   return useMutation({
     mutationFn: (req: string) =>
-      httpDelete("/tasks/{id}", req, session.data?.user.access_token!),
+      client("/tasks/{id}", req).delete({
+        jwtToken: session.data?.user.access_token!,
+      }),
     async onMutate(taskId) {
       await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
 

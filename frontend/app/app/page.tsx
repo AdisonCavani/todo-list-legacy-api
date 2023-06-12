@@ -1,4 +1,4 @@
-import { httpGet } from "@api/client";
+import { client } from "@api/client";
 import App from "@components/app/app";
 import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
@@ -23,19 +23,18 @@ export const metadata = {
 async function Page() {
   const session = await getServerSession(authOptions);
 
-  const res = await httpGet(
-    "/tasks",
-    {
+  const response = await client("/tasks").get({
+    jwtToken: session?.user.access_token!,
+    queryParameters: {
       pageSize: 100,
     },
-    session?.user.access_token!
-  );
+  });
 
   return (
     <AuthWrapper>
       <ReactQueryWrapper>
         <App
-          initialData={res?.data ?? []}
+          initialData={response?.data ?? []}
           token={session?.user.access_token!}
         />
       </ReactQueryWrapper>

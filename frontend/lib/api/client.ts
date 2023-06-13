@@ -1,31 +1,7 @@
-import { TaskDto } from "./dtos/TaskDto";
-import {
-  AuthQueryOptions,
-  CreateTaskOptions,
-  ListTasksOptions,
-  MutationOptions,
-  QueryOptions,
-  UpdateTaskOptions,
-} from "./requests";
-import { HealthCheckRes } from "./res/HealthCheckRes";
-import { PaginatedRes } from "./res/PaginatedRes";
+import { MutationOptions, QueryOptions } from "./requests";
+import { EndpointsSchema } from "./schema";
 
 const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api`;
-
-export interface EndpointsSchema {
-  "/health": {
-    get: () => Promise<HealthCheckRes>;
-  };
-  "/tasks": {
-    get: (options: ListTasksOptions) => Promise<PaginatedRes<TaskDto>>;
-    post: (options: CreateTaskOptions) => Promise<TaskDto>;
-    patch: (options: UpdateTaskOptions) => Promise<TaskDto>;
-  };
-  "/tasks/{id}": {
-    get: (options: AuthQueryOptions) => Promise<TaskDto>;
-    delete: (options: AuthQueryOptions) => Promise<void>;
-  };
-}
 
 export function client<TPath extends keyof EndpointsSchema>(
   path: TPath,

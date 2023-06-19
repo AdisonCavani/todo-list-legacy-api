@@ -50,15 +50,16 @@ function ProfileMenu({ firstName, lastName, email }: User) {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" sideOffset={8}>
-        <div className="flex max-w-[256px] flex-col gap-y-1 p-2 leading-none">
-          <p className="truncate font-medium">
+      <DropdownMenuContent align="end" sideOffset={12}>
+        <DropdownMenuItem
+          onClick={handleNotSupportedFeature}
+          className="flex-col items-start"
+        >
+          <p className="font-medium">
             {firstName} {lastName}
           </p>
-          <p className="truncate text-sm text-slate-600 dark:text-neutral-400">
-            {email}
-          </p>
-        </div>
+          <p className="text-muted-foreground">{email}</p>
+        </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 

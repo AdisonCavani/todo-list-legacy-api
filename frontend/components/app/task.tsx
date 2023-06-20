@@ -17,10 +17,12 @@ import {
 import { Button } from "@ui/button";
 import {
   Dialog,
+  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@ui/dialog";
 import {
   DropdownMenu,
@@ -44,6 +46,8 @@ import DateComponent from "./date";
 const Task = forwardRef((task: TaskType | TaskDto, ref) => {
   const { title, description, dueDate, isCompleted, isImportant } = task;
   const { mutate } = useUpdateTaskMutation();
+
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.stopPropagation();
@@ -78,7 +82,6 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
     dueDate ? new Date(dueDate) : null
   );
 
-  const dialogRef = createRef<HTMLDialogElement>();
   const dialogDateRef = createRef<HTMLInputElement>();
 
   const isSubmitDisabled = dialogTitle.trim().length <= 0;
@@ -92,81 +95,93 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
       dueDate: dialogDate?.toISOString().split("T")[0],
     });
 
-    dialogRef.current?.close();
+    setOpen(false);
   }
 
   function handleOnDelete() {
     deleteTask(task.id);
 
-    dialogRef.current?.close();
+    setOpen(false);
   }
 
   return (
-    <>
-      <li
-        ref={ref as LegacyRef<HTMLLIElement>}
-        onClick={() => dialogRef.current?.showModal()}
-        className="flex cursor-pointer flex-row items-center gap-x-2 rounded-md bg-white px-4 shadow-ms hover:bg-neutral-100 dark:bg-neutral-800"
-      >
-        <button
-          aria-label="Toggle task completion"
-          onClick={handleOnClick}
-          className={cn(
-            "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-neutral-500",
-            isCompleted && "bg-neutral-400 dark:bg-neutral-500"
-          )}
-        />
+    <Dialog
+      open={open}
+      onOpenChange={(event) => {
+        if (event) {
+          setDialogTitle(title);
+          setDialogDescription(description ?? "");
+          setDialogDate(dueDate ? new Date(dueDate) : null);
+        }
 
-        <div className="flex min-h-[52px] w-full flex-col justify-center px-4 py-2">
-          <p
-            className={`text-sm ${
-              isCompleted
-                ? "text-neutral-500 line-through decoration-neutral-500"
-                : "no-underline"
-            }`}
-          >
-            {title}
-          </p>
-
-          <div className="flex items-center">
-            {dueDate && (
-              <DateComponent
-                className={cn(
-                  description &&
-                    "after:mx-1 after:text-xs after:leading-none after:text-neutral-500 after:content-['•'] after:dark:text-neutral-400"
-                )}
-                date={new Date(dueDate)}
-                icon={<IconCalendarEvent size={13} />}
-                textCss="text-xs"
-              />
-            )}
-
-            {description && (
-              <IconNote
-                size={13}
-                className={cn("text-neutral-600 dark:text-neutral-300")}
-              />
-            )}
-          </div>
-        </div>
-
-        <button
-          aria-label="Toggle task importance"
-          onClick={onImportantChange}
-          className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        setOpen(event);
+      }}
+    >
+      <DialogTrigger asChild>
+        <li
+          ref={ref as LegacyRef<HTMLLIElement>}
+          className="flex cursor-pointer flex-row items-center gap-x-2 rounded-md bg-white px-4 shadow-ms hover:bg-neutral-100 dark:bg-neutral-800"
         >
-          {isImportant ? (
-            <IconStarFilled size={18} className="text-yellow-400" />
-          ) : (
-            <IconStar
-              size={18}
-              className="text-neutral-400 dark:text-neutral-500"
-            />
-          )}
-        </button>
-      </li>
+          <button
+            aria-label="Toggle task completion"
+            onClick={handleOnClick}
+            className={cn(
+              "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-neutral-500",
+              isCompleted && "bg-neutral-400 dark:bg-neutral-500"
+            )}
+          />
 
-      <Dialog ref={dialogRef} className="dark:bg-neutral-800">
+          <div className="flex min-h-[52px] w-full flex-col justify-center px-4 py-2">
+            <p
+              className={`text-sm ${
+                isCompleted
+                  ? "text-neutral-500 line-through decoration-neutral-500"
+                  : "no-underline"
+              }`}
+            >
+              {title}
+            </p>
+
+            <div className="flex items-center">
+              {dueDate && (
+                <DateComponent
+                  className={cn(
+                    description &&
+                      "after:mx-1 after:text-xs after:leading-none after:text-neutral-500 after:content-['•'] after:dark:text-neutral-400"
+                  )}
+                  date={new Date(dueDate)}
+                  icon={<IconCalendarEvent size={13} />}
+                  textCss="text-xs"
+                />
+              )}
+
+              {description && (
+                <IconNote
+                  size={13}
+                  className={cn("text-neutral-600 dark:text-neutral-300")}
+                />
+              )}
+            </div>
+          </div>
+
+          <button
+            aria-label="Toggle task importance"
+            onClick={onImportantChange}
+            className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {isImportant ? (
+              <IconStarFilled size={18} className="text-yellow-400" />
+            ) : (
+              <IconStar
+                size={18}
+                className="text-neutral-400 dark:text-neutral-500"
+              />
+            )}
+          </button>
+        </li>
+      </DialogTrigger>
+
+      <DialogContent className="dark:bg-neutral-800">
         <DialogHeader>
           <div className="flex justify-between">
             <DialogTitle>Update task</DialogTitle>
@@ -322,14 +337,14 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
           </Button>
           <Button
             variant="subtle"
-            onClick={() => dialogRef.current?.close()}
+            onClick={() => setOpen(false)}
             className="w-full"
           >
             Cancel
           </Button>
         </DialogFooter>
-      </Dialog>
-    </>
+      </DialogContent>
+    </Dialog>
   );
 });
 

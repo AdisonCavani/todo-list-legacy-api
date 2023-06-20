@@ -228,6 +228,7 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
                   aria-label="Due Date"
                   variant="outline"
                   className="w-full"
+                  onClick={(event) => event.stopPropagation()}
                 >
                   <IconCalendarEvent className="h-4 w-4" />
                   {dialogDate ? (

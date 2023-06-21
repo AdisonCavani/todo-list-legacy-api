@@ -1,4 +1,4 @@
-import { TaskDto } from "@api/dtos/TaskDto";
+import { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/query";
 import { TaskType } from "@lib/types";
 import { cn } from "@lib/utils";
@@ -8,6 +8,7 @@ import {
   IconCalendarEvent,
   IconCalendarPlus,
   IconCalendarStats,
+  IconCheck,
   IconLoader2,
   IconNote,
   IconStar,
@@ -44,7 +45,8 @@ import {
 import DateComponent from "./date";
 
 const Task = forwardRef((task: TaskType | TaskDto, ref) => {
-  const { title, description, dueDate, isCompleted, isImportant } = task;
+  const { title, description, dueDate, isCompleted, isImportant, priority } =
+    task;
   const { mutate } = useUpdateTaskMutation();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -126,10 +128,16 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
             aria-label="Toggle task completion"
             onClick={handleOnClick}
             className={cn(
-              "ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none rounded-full border border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-neutral-500",
-              isCompleted && "bg-neutral-400 dark:bg-neutral-500"
+              "group ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none items-center justify-center rounded-full border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              getColor(priority),
+              isCompleted &&
+                "border-neutral-400 bg-neutral-400 hover:bg-neutral-400 dark:border-neutral-500 dark:bg-neutral-500 dark:hover:bg-neutral-500"
             )}
-          />
+          >
+            {!isCompleted && (
+              <IconCheck className="ml-[1px] h-3 w-3 text-inherit opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+            )}
+          </button>
 
           <div className="flex min-h-[52px] w-full flex-col justify-center px-4 py-2">
             <p
@@ -167,14 +175,14 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
           <button
             aria-label="Toggle task importance"
             onClick={onImportantChange}
-            className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {isImportant ? (
               <IconStarFilled size={18} className="text-yellow-400" />
             ) : (
               <IconStar
                 size={18}
-                className="text-neutral-400 dark:text-neutral-500"
+                className="text-neutral-400 group-hover:text-yellow-400 dark:text-neutral-500"
               />
             )}
           </button>
@@ -351,3 +359,24 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
 Task.displayName = "Task";
 
 export default Task;
+
+function getColor(priority: TaskPriorityEnum) {
+  switch (priority) {
+    case 0:
+      return cn(
+        "border-neutral-400 dark:border-neutral-500 text-neutral-400 dark:text-neutral-500"
+      );
+    case 1:
+      return cn(
+        "border-blue-400 text-blue-400 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20"
+      );
+    case 2:
+      return cn(
+        "border-orange-400 text-orange-400 bg-orange-50 hover:bg-orange-100 dark:bg-orange-900/20"
+      );
+    default:
+      return cn(
+        "border-red-400 text-red-400 bg-red-50 hover:bg-red-100 dark:bg-red-900/20"
+      );
+  }
+}

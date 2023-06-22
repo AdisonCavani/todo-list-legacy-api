@@ -364,19 +364,19 @@ function getColor(priority: TaskPriorityEnum) {
   switch (priority) {
     case 0:
       return cn(
-        "border-neutral-400 dark:border-neutral-500 text-neutral-400 dark:text-neutral-500"
+        "border-neutral-400 text-neutral-400 dark:border-neutral-500 dark:text-neutral-500"
       );
     case 1:
       return cn(
-        "border-blue-400 text-blue-400 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20"
+        "border-blue-400 bg-blue-50 text-blue-400 hover:bg-blue-100 dark:bg-blue-900/20"
       );
     case 2:
       return cn(
-        "border-orange-400 text-orange-400 bg-orange-50 hover:bg-orange-100 dark:bg-orange-900/20"
+        "border-orange-400 bg-orange-50 text-orange-400 hover:bg-orange-100 dark:bg-orange-900/20"
       );
     default:
       return cn(
-        "border-red-400 text-red-400 bg-red-50 hover:bg-red-100 dark:bg-red-900/20"
+        "border-red-400 bg-red-50 text-red-400 hover:bg-red-100 dark:bg-red-900/20"
       );
   }
 }

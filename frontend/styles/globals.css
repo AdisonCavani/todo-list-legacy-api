@@ -64,10 +64,7 @@
     --destructive: 0 96% 89%;
     --destructive-foreground: 0 74% 42%;
 
-    /* TODO: change this color */
     --ring: 217 90% 80%;
-
-    --radius: 0.5rem;
   }
 }
 

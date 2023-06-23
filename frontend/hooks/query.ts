@@ -31,6 +31,7 @@ function useCreateTaskMutation() {
         updatedAt: new Date().toISOString(),
         isCompleted: false,
         isImportant: false,
+        priority: data.priority ?? 0,
         ...data,
       };
 

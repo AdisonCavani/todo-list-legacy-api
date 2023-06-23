@@ -135,7 +135,7 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
             )}
           >
             {!isCompleted && (
-              <IconCheck className="ml-[1px] h-3 w-3 text-inherit opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+              <IconCheck className="ml-px h-3 w-3 text-inherit opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
             )}
           </button>
 

@@ -16,7 +16,7 @@ import { useState } from "react";
 import FlipMove from "react-flip-move";
 import Form from "./form";
 import Sort from "./sort";
-import Task from "./task";
+import TaskEdit from "./task-edit";
 
 type Props = {
   initialData: TaskDto[];
@@ -72,7 +72,7 @@ function App({ initialData, token }: Props) {
         <ul className="relative flex flex-col gap-y-2">
           <FlipMove typeName={null}>
             {notFinishedTasks.map((task: TaskType) => (
-              <Task key={task.renderId ?? task.id} {...task} />
+              <TaskEdit key={task.renderId ?? task.id} {...task} />
             ))}
           </FlipMove>
         </ul>
@@ -93,7 +93,7 @@ function App({ initialData, token }: Props) {
               <ul className="relative flex flex-col gap-y-2">
                 <FlipMove typeName={null}>
                   {finishedTasks.map((task: TaskType) => (
-                    <Task key={task.renderId ?? task.id} {...task} />
+                    <TaskEdit key={task.renderId ?? task.id} {...task} />
                   ))}
                 </FlipMove>
               </ul>

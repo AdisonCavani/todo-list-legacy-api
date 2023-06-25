@@ -2,7 +2,7 @@
 
 import { client } from "@api/client";
 import { TaskDto } from "@api/dtos/TaskDto";
-import { queryKeys } from "@hooks/query";
+import { queryKeys } from "@lib/hooks/query";
 import { SortingOptions, sortMethods } from "@lib/sort";
 import { TaskType } from "@lib/types";
 import { useQuery } from "@tanstack/react-query";

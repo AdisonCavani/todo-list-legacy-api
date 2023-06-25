@@ -1,8 +1,8 @@
 "use client";
 
 import type { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
-import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/query";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
+import { useDeleteTaskMutation, useUpdateTaskMutation } from "@lib/hooks/query";
 import { DialogClose } from "@radix-ui/react-dialog";
 import {
   IconCalendar,

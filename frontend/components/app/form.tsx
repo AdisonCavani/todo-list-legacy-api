@@ -1,10 +1,10 @@
 "use client";
 
 import { TaskPriorityEnum } from "@api/dtos/TaskDto";
-import { useCreateTaskMutation } from "@hooks/query";
-import { useToast } from "@hooks/use-toast";
 import { addDays, getShortDayName } from "@lib/date";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
+import { useCreateTaskMutation } from "@lib/hooks/query";
+import { useToast } from "@lib/hooks/use-toast";
 import {
   IconBell,
   IconCalendar,

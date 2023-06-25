@@ -1,5 +1,5 @@
 import { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
-import { useUpdateTaskMutation } from "@hooks/query";
+import { useUpdateTaskMutation } from "@lib/hooks/query";
 import { cn } from "@lib/utils";
 import {
   IconCalendarEvent,

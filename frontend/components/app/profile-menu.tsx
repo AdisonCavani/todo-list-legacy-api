@@ -53,6 +53,7 @@ function ProfileMenu({ firstName, lastName, email, image }: User) {
 
       <DropdownMenuContent align="end" sideOffset={12}>
         <DropdownMenuItem
+          alignLeft
           onClick={handleNotSupportedFeature}
           className="flex-col items-start"
         >

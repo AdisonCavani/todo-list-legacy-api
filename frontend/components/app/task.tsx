@@ -12,8 +12,18 @@ import { forwardRef, MouseEventHandler } from "react";
 import DateComponent from "./date";
 
 const Task = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
-  const { title, description, dueDate, isCompleted, isImportant, priority } =
-    task;
+  const {
+    title,
+    description,
+    dueDate,
+    isCompleted,
+    isImportant,
+    priority,
+    id,
+    updatedAt,
+    userId,
+    ...props
+  } = task;
   const { mutate } = useUpdateTaskMutation();
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
@@ -39,7 +49,7 @@ const Task = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
   return (
     <li
       ref={ref}
-      {...task}
+      {...props}
       className="flex cursor-pointer flex-row items-center gap-x-2 rounded-md bg-white px-4 shadow-ms hover:bg-neutral-100 dark:bg-neutral-800"
     >
       <button

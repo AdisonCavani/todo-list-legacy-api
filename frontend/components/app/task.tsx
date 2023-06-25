@@ -1,5 +1,6 @@
 import { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/query";
+import { getPriorityColor, getPriorityText } from "@lib/helpers";
 import { TaskType } from "@lib/types";
 import { cn } from "@lib/utils";
 import {
@@ -9,6 +10,8 @@ import {
   IconCalendarPlus,
   IconCalendarStats,
   IconCheck,
+  IconFlag2,
+  IconFlag2Filled,
   IconLoader2,
   IconNote,
   IconStar,
@@ -83,6 +86,8 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
   const [dialogDate, setDialogDate] = useState<Date | null>(
     dueDate ? new Date(dueDate) : null
   );
+  const [dialogPriority, setDialogPriority] =
+    useState<TaskPriorityEnum>(priority);
 
   const dialogDateRef = createRef<HTMLInputElement>();
 
@@ -95,6 +100,7 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
       description:
         dialogDescription.trim().length === 0 ? null : dialogDescription.trim(),
       dueDate: dialogDate?.toISOString().split("T")[0],
+      priority: dialogPriority,
     });
 
     setOpen(false);
@@ -325,6 +331,62 @@ const Task = forwardRef((task: TaskType | TaskDto, ref) => {
                     </DropdownMenuItem>
                   </>
                 )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  aria-label="Priority"
+                  variant="outline"
+                  className="w-full"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  {dialogPriority > 0 ? (
+                    <IconFlag2Filled
+                      size={20}
+                      className={getPriorityColor(dialogPriority)}
+                    />
+                  ) : (
+                    <IconFlag2 size={20} />
+                  )}
+                  <span>{getPriorityText(dialogPriority)}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Priority</DropdownMenuLabel>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem onClick={() => setDialogPriority(3)}>
+                  <IconFlag2Filled className="h-5 w-5 text-red-500" />
+                  <div className="flex w-full justify-between">
+                    <span>Priority 1</span>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem onClick={() => setDialogPriority(2)}>
+                  <IconFlag2Filled className="h-5 w-5 text-orange-400" />
+                  <div className="flex w-full justify-between">
+                    <span>Priority 2</span>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem onClick={() => setDialogPriority(1)}>
+                  <IconFlag2Filled className="h-5 w-5 text-blue-500" />
+                  <div className="flex w-full justify-between">
+                    <span>Priority 3</span>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem onClick={() => setDialogPriority(0)}>
+                  <IconFlag2 className="h-5 w-5" />
+                  <div className="flex w-full justify-between">
+                    <span>Priority 4</span>
+                  </div>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

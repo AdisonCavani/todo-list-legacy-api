@@ -4,7 +4,7 @@ import { TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { useCreateTaskMutation } from "@hooks/query";
 import { useToast } from "@hooks/use-toast";
 import { addDays, getShortDayName } from "@lib/date";
-import { cn } from "@lib/utils";
+import { getPriorityColor, getPriorityText } from "@lib/helpers";
 import {
   IconBell,
   IconCalendar,
@@ -309,25 +309,3 @@ function Form() {
 }
 
 export default Form;
-
-function getPriorityText(priority: TaskPriorityEnum) {
-  switch (priority) {
-    case 1:
-      return "P3";
-    case 2:
-      return "P2";
-    default:
-      return "P1";
-  }
-}
-
-function getPriorityColor(priority: TaskPriorityEnum) {
-  switch (priority) {
-    case 1:
-      return cn("text-blue-400");
-    case 2:
-      return cn("text-orange-400");
-    default:
-      return cn("text-red-400");
-  }
-}

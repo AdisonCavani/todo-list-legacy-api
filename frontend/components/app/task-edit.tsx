@@ -3,6 +3,7 @@
 import type { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@hooks/query";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
+import { DialogClose } from "@radix-ui/react-dialog";
 import {
   IconCalendar,
   IconCalendarDue,
@@ -46,7 +47,6 @@ const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
   const { mutate: updateTask, isLoading: updateTaskLoading } =
     useUpdateTaskMutation();
 
-  const [open, setOpen] = useState<boolean>(false);
   const [dialogTitle, setDialogTitle] = useState<string>(title);
   const [dialogDescription, setDialogDescription] = useState<string>(
     description ?? ""
@@ -70,27 +70,20 @@ const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
       dueDate: dialogDate?.toISOString().split("T")[0],
       priority: dialogPriority,
     });
-
-    setOpen(false);
   }
 
   function handleOnDelete() {
     deleteTask(task.id);
-
-    setOpen(false);
   }
 
   return (
     <Dialog
-      open={open}
       onOpenChange={(event) => {
         if (event) {
           setDialogTitle(title);
           setDialogDescription(description ?? "");
           setDialogDate(dueDate ? new Date(dueDate) : null);
         }
-
-        setOpen(event);
       }}
     >
       <DialogTrigger asChild>
@@ -101,13 +94,16 @@ const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
         <DialogHeader>
           <div className="flex justify-between">
             <DialogTitle>Update task</DialogTitle>
-            <Button
-              size="xs"
-              loading={deleteTaskLoading}
-              icon={<IconTrash size={18} />}
-              variant="destructive"
-              onClick={handleOnDelete}
-            />
+
+            <DialogClose asChild>
+              <Button
+                size="xs"
+                loading={deleteTaskLoading}
+                icon={<IconTrash size={18} />}
+                variant="destructive"
+                onClick={handleOnDelete}
+              />
+            </DialogClose>
           </div>
           <DialogDescription>
             Make changes to your task here. Click save when you&apos;re done.
@@ -295,25 +291,25 @@ const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
         </div>
 
         <DialogFooter>
-          <Button
-            variant="blue"
-            disabled={isSubmitDisabled}
-            onClick={handleOnSubmit}
-            className="w-full"
-          >
-            {updateTaskLoading ? (
-              <IconLoader2 size={16} className="animate-spin" />
-            ) : (
-              <p>Save</p>
-            )}
-          </Button>
-          <Button
-            variant="subtle"
-            onClick={() => setOpen(false)}
-            className="w-full"
-          >
-            Cancel
-          </Button>
+          <DialogClose asChild>
+            <Button
+              variant="blue"
+              disabled={isSubmitDisabled}
+              onClick={handleOnSubmit}
+              className="w-full"
+            >
+              {updateTaskLoading ? (
+                <IconLoader2 size={16} className="animate-spin" />
+              ) : (
+                <p>Save</p>
+              )}
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button variant="subtle" className="w-full">
+              Cancel
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

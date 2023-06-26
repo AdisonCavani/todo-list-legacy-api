@@ -12,13 +12,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@ui/accordion";
-import dynamic from "next/dynamic";
 import { useState } from "react";
+import FlipMove from "react-flip-move";
 import Form from "./form";
 import Sort from "./sort";
 import TaskEdit from "./task-edit";
-
-const FlipMove = dynamic(() => import("react-flip-move"));
 
 type Props = {
   initialData: TaskDto[];

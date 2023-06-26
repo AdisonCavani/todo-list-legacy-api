@@ -15,9 +15,9 @@ async function Header() {
     .digest("hex")}`;
 
   return (
-    <header className="flex w-full items-center justify-between bg-blue-600 px-4 py-2 dark:bg-neutral-800">
+    <header className="sticky top-0 z-10 flex w-full items-center justify-between border-b bg-blue-600 px-4 py-2 dark:bg-neutral-800">
       <Link
-        href="/"
+        href="/app"
         prefetch={false}
         className={buttonVariants({ variant: "link", className: "text-white" })}
       >

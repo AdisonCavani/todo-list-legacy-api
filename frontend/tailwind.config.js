@@ -15,6 +15,9 @@ module.exports = {
       screens: {
         xs: "576px",
       },
+      backgroundSize: {
+        underline: "100% 1px",
+      },
 
       // shadcn/ui
       colors: {

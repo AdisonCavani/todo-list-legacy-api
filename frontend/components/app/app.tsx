@@ -1,10 +1,10 @@
 "use client";
 
 import { client } from "@api/client";
-import { TaskDto } from "@api/dtos/TaskDto";
+import type { TaskDto } from "@api/dtos/TaskDto";
 import { queryKeys } from "@lib/hooks/query";
-import { SortingOptions, sortMethods } from "@lib/sort";
-import { TaskType } from "@lib/types";
+import { sortMethods, type SortingOptions } from "@lib/sort";
+import type { TaskType } from "@lib/types";
 import { useQuery } from "@tanstack/react-query";
 import {
   Accordion,
@@ -12,11 +12,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@ui/accordion";
+import dynamic from "next/dynamic";
 import { useState } from "react";
-import FlipMove from "react-flip-move";
 import Form from "./form";
 import Sort from "./sort";
 import TaskEdit from "./task-edit";
+
+const FlipMove = dynamic(() => import("react-flip-move"));
 
 type Props = {
   initialData: TaskDto[];

@@ -34,7 +34,7 @@ function SettingsNavigation() {
         <Link
           href="/app/settings"
           className={cn(
-            "-mx-6 flex items-center gap-x-2 border-b p-6 font-semibold md:hidden"
+            "-mx-6 flex items-center gap-x-2 border-b p-6 font-semibold lg:hidden"
           )}
         >
           <IconChevronLeft size={20} />

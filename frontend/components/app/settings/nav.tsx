@@ -17,7 +17,9 @@ function SettingsNavigation() {
           "sticky top-[72px] mt-8 hidden h-full w-full max-w-[16rem] flex-col lg:flex"
         )}
       >
-        <NavLink href="/app/settings">General</NavLink>
+        <NavLink href="/app/settings" altHref="/app/settings/general">
+          General
+        </NavLink>
         <NavLink href="/app/settings/profile">Profile</NavLink>
       </aside>
 

@@ -6,9 +6,14 @@ import { buttonVariants } from "@ui/button";
 import { usePathname } from "next/navigation";
 import { ComponentProps } from "react";
 
-function NavLink({ className, href, ...props }: ComponentProps<typeof Link>) {
+function NavLink({
+  className,
+  href,
+  altHref,
+  ...props
+}: ComponentProps<typeof Link> & { altHref?: string }) {
   const segment = usePathname();
-  const isActive = segment === href;
+  const isActive = segment === href || segment === altHref;
 
   return (
     <Link

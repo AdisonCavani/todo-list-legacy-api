@@ -1,7 +1,7 @@
 {
   "scripts": {
     "analyze": "cross-env ANALYZE=true NODE_TLS_REJECT_UNAUTHORIZED=0 next build",
-    "dev": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
+    "dev": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 next dev --turbo",
     "dev:ts": "tsc --noEmit --incremental --watch",
     "ts": "tsc --noEmit",
     "build": "next build",
@@ -38,6 +38,8 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
     "@next/bundle-analyzer": "^13.4.7",
     "@storybook/addon-a11y": "^7.0.24",

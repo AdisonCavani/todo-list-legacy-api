@@ -53,13 +53,7 @@ function Header({ session }: Props) {
             <button
               aria-label="Toggle mobile menu"
               onClick={() => {
-                setOpen((prev) => {
-                  prev
-                    ? document.body.classList.remove("overflow-y-hidden")
-                    : document.body.classList.add("overflow-y-hidden");
-
-                  return !prev;
-                });
+                setOpen((prev) => !prev);
               }}
             >
               <IconMenu />

@@ -33,7 +33,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@ui/tooltip";
-import { createRef, useState } from "react";
+import { createRef, FormEventHandler, useState } from "react";
 import DateComponent from "./date";
 
 function Form() {
@@ -46,7 +46,11 @@ function Form() {
 
   const { toast } = useToast();
 
-  async function handleOnSubmit() {
+  const handleOnSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+
+    if (submitDisabled) return;
+
     mutate({
       title: title,
       dueDate: date?.toISOString().split("T")[0],
@@ -56,7 +60,7 @@ function Form() {
     setTitle("");
     setDate(null);
     setPriority(undefined);
-  }
+  };
 
   function handleNotSupportedFeature() {
     toast({
@@ -68,7 +72,10 @@ function Form() {
   const dateRef = createRef<HTMLInputElement>();
 
   return (
-    <div className="mb-3 rounded-md bg-white shadow-ms dark:bg-neutral-800">
+    <form
+      onSubmit={handleOnSubmit}
+      className="mb-3 rounded-md bg-white shadow-ms dark:bg-neutral-800"
+    >
       <div className="flex flex-row items-center gap-x-2 px-4">
         <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />
         <input
@@ -192,11 +199,11 @@ function Form() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
+                  type="button"
                   aria-label="Remind me"
                   variant="ghost"
                   size="xxs"
                   className="h-7"
-                  onClick={handleNotSupportedFeature}
                 >
                   <IconBell size={20} />
                 </Button>
@@ -211,6 +218,7 @@ function Form() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
+                  type="button"
                   aria-label="Repeat"
                   variant="ghost"
                   size="xxs"
@@ -232,6 +240,7 @@ function Form() {
                 <TooltipTrigger asChild>
                   <DropdownMenuTrigger asChild>
                     <Button
+                      type="button"
                       aria-label="Priority"
                       variant={priority ? "outline" : "ghost"}
                       size="xxs"
@@ -295,8 +304,8 @@ function Form() {
         </div>
 
         <Button
+          type="submit"
           disabled={submitDisabled}
-          onClick={handleOnSubmit}
           size="xs"
           variant="outline"
         >
@@ -304,7 +313,7 @@ function Form() {
           Add
         </Button>
       </div>
-    </div>
+    </form>
   );
 }
 

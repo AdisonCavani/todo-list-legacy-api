@@ -22,10 +22,10 @@ export function getPriorityText(priority: TaskPriorityEnum, long?: boolean) {
 export function getPriorityColor(priority: TaskPriorityEnum) {
   switch (priority) {
     case 1:
-      return cn("text-blue-400");
+      return cn("text-blue-500");
     case 2:
       return cn("text-orange-400");
     default:
-      return cn("text-red-400");
+      return cn("text-red-500");
   }
 }

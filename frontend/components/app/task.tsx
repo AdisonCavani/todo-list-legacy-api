@@ -57,14 +57,17 @@ const Task = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
         onClick={handleOnClick}
         className={cn(
           "group ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none items-center justify-center rounded-full border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          getColor(priority),
-          isCompleted &&
-            "border-neutral-400 bg-neutral-400 hover:bg-neutral-400 dark:border-neutral-500 dark:bg-neutral-500 dark:hover:bg-neutral-500"
+          getColor(priority, isCompleted)
         )}
       >
-        {!isCompleted && (
-          <IconCheck className="ml-px h-3 w-3 text-inherit opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-        )}
+        <IconCheck
+          className={cn(
+            "ml-px h-3 w-3",
+            isCompleted
+              ? "text-white"
+              : "text-inherit opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          )}
+        />
       </button>
 
       <div className="flex min-h-[52px] w-full flex-col justify-center px-4 py-2">
@@ -122,23 +125,35 @@ Task.displayName = "Task";
 
 export default Task;
 
-function getColor(priority: TaskPriorityEnum) {
+function getColor(priority: TaskPriorityEnum, completed: boolean) {
   switch (priority) {
     case 0:
       return cn(
-        "border-neutral-400 text-neutral-400 dark:border-neutral-500 dark:text-neutral-500"
+        "border-neutral-400 dark:border-neutral-500",
+        completed
+          ? "bg-neutral-400 dark:bg-neutral-500"
+          : "text-neutral-400 dark:text-neutral-500"
       );
     case 1:
       return cn(
-        "border-blue-400 bg-blue-50 text-blue-400 hover:bg-blue-100 dark:bg-blue-900/20"
+        "border-blue-500",
+        completed
+          ? "bg-blue-500"
+          : "bg-blue-50 text-blue-500 hover:bg-blue-100 dark:bg-blue-900/20"
       );
     case 2:
       return cn(
-        "border-orange-400 bg-orange-50 text-orange-400 hover:bg-orange-100 dark:bg-orange-900/20"
+        "border-orange-400",
+        completed
+          ? "bg-orange-400"
+          : "bg-orange-50 text-orange-400 hover:bg-orange-100 dark:bg-orange-900/20"
       );
     default:
       return cn(
-        "border-red-400 bg-red-50 text-red-400 hover:bg-red-100 dark:bg-red-900/20"
+        "border-red-500",
+        completed
+          ? "bg-red-500"
+          : "bg-red-50 text-red-500 hover:bg-red-100 dark:bg-red-900/20"
       );
   }
 }

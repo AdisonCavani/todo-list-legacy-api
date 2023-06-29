@@ -38,7 +38,7 @@ export const globalTypes = {
 
 export const decorators = [
   (Story, { globals }) => (
-    <ThemeProvider>
+    <ThemeProvider attribute="class">
       <Theme theme={globals.theme ?? "light"} />
       <Story />
     </ThemeProvider>

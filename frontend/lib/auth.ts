@@ -1,12 +1,19 @@
+import { db } from "@db/sql";
 import type { NextAuthOptions } from "next-auth";
 import Github, { type GithubProfile } from "next-auth/providers/github";
 import Google, { type GoogleProfile } from "next-auth/providers/google";
+import { DrizzleAdapter } from "./drizzle-adapter";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
     signIn: "/auth",
+  },
+
+  adapter: DrizzleAdapter(db),
+  session: {
+    strategy: "jwt",
   },
 
   providers: [
@@ -21,7 +28,6 @@ export const authOptions: NextAuthOptions = {
           lastName: profile.name!.split(" ")[1]!,
           email: profile.email!,
           image: profile.avatar_url,
-          access_token: "",
         };
       },
     }),
@@ -36,7 +42,6 @@ export const authOptions: NextAuthOptions = {
           lastName: profile.family_name,
           email: profile.email,
           image: profile.picture,
-          access_token: profile.id_token,
         };
       },
     }),
@@ -73,7 +78,6 @@ export const authOptions: NextAuthOptions = {
         session.user.firstName = token.firstName;
         session.user.lastName = token.lastName;
         session.user.email = token.email;
-        session.user.access_token = token.access_token;
       }
 
       return session;

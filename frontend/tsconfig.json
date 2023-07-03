@@ -23,6 +23,7 @@
     "paths": {
       "@api/*": ["lib/api/*"],
       "@components/*": ["components/*"],
+      "@db/*": ["db/*"],
       "@lib/*": ["lib/*"],
       "@images/*": ["public/static/images/*"],
       "@styles/*": ["styles/*"],

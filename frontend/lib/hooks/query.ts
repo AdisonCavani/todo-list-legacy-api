@@ -5,18 +5,16 @@ import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
 import { useToast } from "@lib/hooks/use-toast";
 import type { TaskType } from "@lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { v4 } from "uuid";
 
 function useCreateTaskMutation() {
   const queryClient = useQueryClient();
-  const session = useSession();
   const { toast } = useToast();
 
   return useMutation({
     mutationFn: (req: CreateTaskReq) =>
       client("/tasks").post({
-        jwtToken: session.data?.user.access_token!,
+        jwtToken: "",
         body: req,
       }),
     async onMutate(data) {
@@ -74,13 +72,12 @@ function useCreateTaskMutation() {
 
 function useUpdateTaskMutation() {
   const queryClient = useQueryClient();
-  const session = useSession();
   const { toast } = useToast();
 
   return useMutation({
     mutationFn: (req: UpdateTaskReq) =>
       client("/tasks").patch({
-        jwtToken: session.data?.user.access_token!,
+        jwtToken: "",
         body: req,
       }),
     async onMutate(newTask: TaskDto) {
@@ -110,13 +107,12 @@ function useUpdateTaskMutation() {
 
 function useDeleteTaskMutation() {
   const queryClient = useQueryClient();
-  const session = useSession();
   const { toast } = useToast();
 
   return useMutation({
     mutationFn: (req: string) =>
       client("/tasks/{id}", req).delete({
-        jwtToken: session.data?.user.access_token!,
+        jwtToken: "",
       }),
     async onMutate(taskId) {
       await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });

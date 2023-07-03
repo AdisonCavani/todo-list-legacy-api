@@ -3,7 +3,7 @@ import App from "@components/app/app";
 import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
 import { authOptions } from "@lib/auth";
-import { ColorRecordType, twindConfig } from "@lib/twind";
+import { twindConfig, type ColorRecordType } from "@lib/twind";
 import { getServerSession } from "next-auth";
 
 export const metadata = {

@@ -1,6 +1,6 @@
 import { cn } from "@lib/utils";
 import { IconExternalLink } from "@tabler/icons-react";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 function ExternalLink({ children, className, ...props }: ComponentProps<"a">) {
   return (

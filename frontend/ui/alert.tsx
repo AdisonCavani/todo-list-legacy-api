@@ -1,6 +1,6 @@
 import { cn } from "@lib/utils";
 import { cva, type VariantProps } from "cva";
-import { forwardRef, HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
 
 const alertVariants = cva(
   "relative w-full space-y-1 rounded-lg border p-4 [&:has(svg)]:pl-11 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",

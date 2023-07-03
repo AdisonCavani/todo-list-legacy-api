@@ -3,7 +3,7 @@ import type { TaskDto } from "@api/dtos/TaskDto";
 import type { CreateTaskReq } from "@api/req/CreateTaskReq";
 import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
 import { useToast } from "@lib/hooks/use-toast";
-import { TaskType } from "@lib/types";
+import type { TaskType } from "@lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { v4 } from "uuid";

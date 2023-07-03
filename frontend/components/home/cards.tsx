@@ -2,7 +2,7 @@
 
 import { cn } from "@lib/utils";
 import type { MouseEventHandler } from "react";
-import Card, { CardProps } from "./card";
+import Card, { type CardProps } from "./card";
 
 type Props = {
   id: string;

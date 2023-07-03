@@ -1,4 +1,4 @@
-import { HealthStatus } from "@lib/health";
+import type { HealthStatus } from "@lib/health";
 import { cn } from "@lib/utils";
 import {
   IconAlertCircleFilled,

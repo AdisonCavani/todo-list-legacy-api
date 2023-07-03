@@ -1,8 +1,8 @@
 import { cn } from "@lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { IconLoader2 } from "@tabler/icons-react";
-import { cva, VariantProps } from "cva";
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
+import { cva, type VariantProps } from "cva";
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 
 const buttonVariants = cva(
   "gap-x-2 inline-flex items-center justify-center transition-all rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:cursor-not-allowed",

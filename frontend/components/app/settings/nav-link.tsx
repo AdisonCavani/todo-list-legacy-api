@@ -4,7 +4,7 @@ import Link from "@components/router/link";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { usePathname } from "next/navigation";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 function NavLink({
   className,

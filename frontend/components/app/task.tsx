@@ -1,4 +1,4 @@
-import { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
+import type { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { useUpdateTaskMutation } from "@lib/hooks/query";
 import { cn } from "@lib/utils";
 import {
@@ -8,7 +8,7 @@ import {
   IconStar,
   IconStarFilled,
 } from "@tabler/icons-react";
-import { forwardRef, MouseEventHandler } from "react";
+import { forwardRef, type MouseEventHandler } from "react";
 import DateComponent from "./date";
 
 const Task = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {

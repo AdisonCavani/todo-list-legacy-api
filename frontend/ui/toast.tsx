@@ -1,12 +1,12 @@
 import { cn } from "@lib/utils";
 import * as ToastPrimitives from "@radix-ui/react-toast";
 import { IconX } from "@tabler/icons-react";
-import { cva, VariantProps } from "cva";
+import { cva, type VariantProps } from "cva";
 import {
-  ComponentPropsWithoutRef,
-  ElementRef,
   forwardRef,
-  ReactElement,
+  type ComponentPropsWithoutRef,
+  type ElementRef,
+  type ReactElement,
 } from "react";
 
 const ToastProvider = ToastPrimitives.Provider;

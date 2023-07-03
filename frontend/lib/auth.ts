@@ -1,7 +1,9 @@
 import type { NextAuthOptions, TokenSet } from "next-auth";
 import type { JWT } from "next-auth/jwt";
-import CognitoProvider, { CognitoProfile } from "next-auth/providers/cognito";
-import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
+import CognitoProvider, {
+  type CognitoProfile,
+} from "next-auth/providers/cognito";
+import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,

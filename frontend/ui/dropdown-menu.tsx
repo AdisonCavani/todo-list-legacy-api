@@ -8,10 +8,10 @@ import {
   IconCircleFilled,
 } from "@tabler/icons-react";
 import {
-  ComponentPropsWithoutRef,
-  ElementRef,
   forwardRef,
-  HTMLAttributes,
+  type ComponentPropsWithoutRef,
+  type ElementRef,
+  type HTMLAttributes,
 } from "react";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;

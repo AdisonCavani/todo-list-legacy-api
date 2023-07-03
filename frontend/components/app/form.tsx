@@ -1,6 +1,6 @@
 "use client";
 
-import { TaskPriorityEnum } from "@api/dtos/TaskDto";
+import type { TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { addDays, getShortDayName } from "@lib/date";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
 import { useCreateTaskMutation } from "@lib/hooks/query";
@@ -33,7 +33,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@ui/tooltip";
-import { createRef, FormEventHandler, useState } from "react";
+import { createRef, useState, type FormEventHandler } from "react";
 import DateComponent from "./date";
 
 function Form() {

@@ -1,4 +1,4 @@
-import { CardProps } from "@components/home/card";
+import type { CardProps } from "@components/home/card";
 import DragAndDropImage from "@images/drag_and_drop.png";
 import DueDateRemindersImage from "@images/due_date_reminders.png";
 import PriorityLevelsImage from "@images/priority_levels.png";

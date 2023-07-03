@@ -1,5 +1,5 @@
-import { HealthCheckRes } from "@api/res/HealthCheckRes";
-import { HealthCheck } from "@components/health/health-check";
+import type { HealthCheckRes } from "@api/res/HealthCheckRes";
+import type { HealthCheck } from "@components/health/health-check";
 
 export type HealthStatus = "healthy" | "degraded" | "unhealthy";
 

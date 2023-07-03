@@ -1,5 +1,5 @@
 import Link from "@components/router/link";
-import { MenuEntries, MenuEntry } from "@lib/data";
+import { MenuEntries, type MenuEntry } from "@lib/data";
 import { isUrlInternal } from "@lib/helpers";
 import { Fragment } from "react";
 

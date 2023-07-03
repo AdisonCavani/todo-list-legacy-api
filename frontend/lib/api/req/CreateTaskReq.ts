@@ -1,4 +1,4 @@
-import { TaskPriorityEnum } from "@api/dtos/TaskDto";
+import type { TaskPriorityEnum } from "@api/dtos/TaskDto";
 
 type CreateTaskReq = {
   title: string;

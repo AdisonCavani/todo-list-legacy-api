@@ -1,4 +1,4 @@
-import { SortingOptions, sortMethodsNames } from "@lib/sort";
+import { sortMethodsNames, type SortingOptions } from "@lib/sort";
 import { cn } from "@lib/utils";
 import {
   IconArrowsSort,

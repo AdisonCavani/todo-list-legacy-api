@@ -1,6 +1,6 @@
-import { CreateTaskReq } from "./req/CreateTaskReq";
-import { PaginatedReq } from "./req/PaginatedReq";
-import { UpdateTaskReq } from "./req/UpdateTaskReq";
+import type { CreateTaskReq } from "./req/CreateTaskReq";
+import type { PaginatedReq } from "./req/PaginatedReq";
+import type { UpdateTaskReq } from "./req/UpdateTaskReq";
 
 interface RequestOptions {
   headers?: HeadersInit;

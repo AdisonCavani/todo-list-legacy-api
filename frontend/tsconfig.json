@@ -26,7 +26,7 @@
       "@lib/*": ["lib/*"],
       "@images/*": ["public/static/images/*"],
       "@styles/*": ["styles/*"],
-      "@ui/*": ["ui/*"]
+      "@ui/*": ["components/ui/*"]
     },
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,

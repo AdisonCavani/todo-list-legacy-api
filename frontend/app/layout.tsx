@@ -7,6 +7,8 @@ import { cn } from "@lib/utils";
 import Script from "next/script";
 import type { PropsWithChildren } from "react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: {
     default: "To-do list",

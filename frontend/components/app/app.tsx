@@ -1,11 +1,6 @@
 "use client";
 
-import { client } from "@api/client";
-import type { TaskDto } from "@api/dtos/TaskDto";
-import { queryKeys } from "@lib/hooks/query";
 import { sortMethods, type SortingOptions } from "@lib/sort";
-import type { TaskType } from "@lib/types";
-import { useQuery } from "@tanstack/react-query";
 import {
   Accordion,
   AccordionContent,
@@ -18,25 +13,10 @@ import Form from "./form";
 import Sort from "./sort";
 import TaskEdit from "./task-edit";
 
-type Props = {
-  initialData: TaskDto[];
-  token: string;
-};
+type Props = {};
 
-function App({ initialData, token }: Props) {
-  const { data: tasks } = useQuery({
-    queryKey: [queryKeys.tasks],
-    queryFn: () =>
-      client("/tasks")
-        .get({
-          jwtToken: token,
-          queryParameters: {
-            pageSize: 100,
-          },
-        })
-        .then((res) => (res ? res.data : [])),
-    initialData: initialData,
-  });
+function App({}: Props) {
+  const tasks: any = [];
 
   const defaultSorting: SortingOptions = {
     fn: "sortTasksByImportance",
@@ -45,15 +25,15 @@ function App({ initialData, token }: Props) {
   const [sorting, setSorting] = useState<SortingOptions>(defaultSorting);
 
   const notFinishedTasks = tasks
-    .filter((x) => !x.isCompleted)
-    .sort((a, b) => {
+    .filter((x: any) => !x.isCompleted)
+    .sort((a: any, b: any) => {
       if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
       return sortMethods[sorting.fn](b, a);
     });
 
   const finishedTasks = tasks
-    .filter((x) => x.isCompleted)
-    .sort((a, b) => {
+    .filter((x: any) => x.isCompleted)
+    .sort((a: any, b: any) => {
       if (sorting.order === "asc") return sortMethods[sorting.fn](a, b);
       return sortMethods[sorting.fn](b, a);
     });
@@ -71,7 +51,7 @@ function App({ initialData, token }: Props) {
       {notFinishedTasks.length > 0 && (
         <ul className="relative flex flex-col gap-y-2">
           <FlipMove typeName={null}>
-            {notFinishedTasks.map(({ renderId, ...task }: TaskType) => (
+            {notFinishedTasks.map(({ renderId, ...task }: any) => (
               <TaskEdit key={renderId ?? task.id} {...task} />
             ))}
           </FlipMove>
@@ -92,7 +72,7 @@ function App({ initialData, token }: Props) {
             <AccordionContent>
               <ul className="relative flex flex-col gap-y-2">
                 <FlipMove typeName={null}>
-                  {finishedTasks.map(({ renderId, ...task }: TaskType) => (
+                  {finishedTasks.map(({ renderId, ...task }: any) => (
                     <TaskEdit key={renderId ?? task.id} {...task} />
                   ))}
                 </FlipMove>

@@ -1,8 +1,6 @@
 "use client";
 
-import type { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
-import { useDeleteTaskMutation, useUpdateTaskMutation } from "@lib/hooks/query";
 import { DialogClose } from "@radix-ui/react-dialog";
 import {
   IconCalendar,
@@ -39,13 +37,8 @@ import { createRef, forwardRef, useState } from "react";
 import DateComponent from "./date";
 import Task from "./task";
 
-const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
+const TaskEdit = forwardRef<HTMLLIElement, any>((task, ref) => {
   const { title, description, dueDate, priority } = task;
-
-  const { mutate: deleteTask, isLoading: deleteTaskLoading } =
-    useDeleteTaskMutation();
-  const { mutate: updateTask, isLoading: updateTaskLoading } =
-    useUpdateTaskMutation();
 
   const [dialogTitle, setDialogTitle] = useState<string>(title);
   const [dialogDescription, setDialogDescription] = useState<string>(
@@ -54,27 +47,15 @@ const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
   const [dialogDate, setDialogDate] = useState<Date | null>(
     dueDate ? new Date(dueDate) : null
   );
-  const [dialogPriority, setDialogPriority] =
-    useState<TaskPriorityEnum>(priority);
+  const [dialogPriority, setDialogPriority] = useState<any>(priority);
 
   const dialogDateRef = createRef<HTMLInputElement>();
 
   const isSubmitDisabled = dialogTitle.trim().length <= 0;
 
-  function handleOnSubmit() {
-    updateTask({
-      ...task,
-      title: dialogTitle,
-      description:
-        dialogDescription.trim().length === 0 ? null : dialogDescription.trim(),
-      dueDate: dialogDate?.toISOString().split("T")[0],
-      priority: dialogPriority,
-    });
-  }
+  function handleOnSubmit() {}
 
-  function handleOnDelete() {
-    deleteTask(task.id);
-  }
+  function handleOnDelete() {}
 
   return (
     <Dialog
@@ -98,7 +79,7 @@ const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
             <DialogClose asChild>
               <Button
                 size="xs"
-                loading={deleteTaskLoading}
+                loading={false}
                 icon={<IconTrash size={18} />}
                 variant="destructive"
                 onClick={handleOnDelete}
@@ -298,7 +279,7 @@ const TaskEdit = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
               onClick={handleOnSubmit}
               className="w-full"
             >
-              {updateTaskLoading ? (
+              {false ? (
                 <IconLoader2 size={16} className="animate-spin" />
               ) : (
                 <p>Save</p>

@@ -1,9 +1,7 @@
 "use client";
 
-import type { TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { addDays, getShortDayName } from "@lib/date";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
-import { useCreateTaskMutation } from "@lib/hooks/query";
 import { useToast } from "@lib/hooks/use-toast";
 import {
   IconBell,
@@ -39,10 +37,9 @@ import DateComponent from "./date";
 function Form() {
   const [title, setTitle] = useState<string>("");
   const [date, setDate] = useState<Date | null>(null);
-  const [priority, setPriority] = useState<TaskPriorityEnum>();
+  const [priority, setPriority] = useState<any>();
 
-  const { mutate, isLoading } = useCreateTaskMutation();
-  const submitDisabled = title.trim().length === 0 || isLoading;
+  const submitDisabled = title.trim().length === 0 || false; // isLoading;
 
   const { toast } = useToast();
 
@@ -50,12 +47,6 @@ function Form() {
     event.preventDefault();
 
     if (submitDisabled) return;
-
-    mutate({
-      title: title,
-      dueDate: date?.toISOString().split("T")[0],
-      priority: priority,
-    });
 
     setTitle("");
     setDate(null);
@@ -309,7 +300,7 @@ function Form() {
           size="xs"
           variant="outline"
         >
-          {isLoading && <IconLoader2 className="h-4 w-4 animate-spin" />}
+          {false && <IconLoader2 className="h-4 w-4 animate-spin" />}
           Add
         </Button>
       </div>

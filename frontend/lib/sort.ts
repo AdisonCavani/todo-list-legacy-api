@@ -1,4 +1,4 @@
-import type { TaskDto } from "@api/dtos/TaskDto";
+type TaskDto = any;
 
 function sortTasksByTitle(a: TaskDto, b: TaskDto): number {
   return a.title.localeCompare(b.title);

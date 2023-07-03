@@ -1,5 +1,3 @@
-import type { TaskDto, TaskPriorityEnum } from "@api/dtos/TaskDto";
-import { useUpdateTaskMutation } from "@lib/hooks/query";
 import { cn } from "@lib/utils";
 import {
   IconCalendarEvent,
@@ -11,7 +9,7 @@ import {
 import { forwardRef, type MouseEventHandler } from "react";
 import DateComponent from "./date";
 
-const Task = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
+const Task = forwardRef<HTMLLIElement, any>((task, ref) => {
   const {
     title,
     description,
@@ -24,26 +22,15 @@ const Task = forwardRef<HTMLLIElement, TaskDto>((task, ref) => {
     userId,
     ...props
   } = task;
-  const { mutate } = useUpdateTaskMutation();
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.stopPropagation();
-
-    mutate({
-      ...task,
-      isCompleted: !isCompleted,
-    });
   };
 
   const onImportantChange: MouseEventHandler<HTMLButtonElement> = async (
     event
   ) => {
     event.stopPropagation();
-
-    mutate({
-      ...task,
-      isImportant: !isImportant,
-    });
   };
 
   return (
@@ -125,7 +112,7 @@ Task.displayName = "Task";
 
 export default Task;
 
-function getColor(priority: TaskPriorityEnum, completed: boolean) {
+function getColor(priority: any, completed: boolean) {
   switch (priority) {
     case 0:
       return cn(

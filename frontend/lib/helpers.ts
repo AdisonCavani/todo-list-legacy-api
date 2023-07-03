@@ -1,10 +1,9 @@
-import type { TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { cn } from "./utils";
 
 export const isUrlInternal = (href: string) =>
   href && (href.startsWith("/") || href.startsWith("#"));
 
-export function getPriorityText(priority: TaskPriorityEnum, long?: boolean) {
+export function getPriorityText(priority: any, long?: boolean) {
   const prefix = long ? "Priority " : "P";
 
   switch (priority) {
@@ -19,7 +18,7 @@ export function getPriorityText(priority: TaskPriorityEnum, long?: boolean) {
   }
 }
 
-export function getPriorityColor(priority: TaskPriorityEnum) {
+export function getPriorityColor(priority: any) {
   switch (priority) {
     case 1:
       return cn("text-blue-500");

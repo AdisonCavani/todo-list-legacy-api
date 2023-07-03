@@ -1,4 +1,3 @@
-import { createHash } from "crypto";
 import SettingsCard from "@components/app/settings/card";
 import { authOptions } from "@lib/auth";
 import { ExternalLink } from "@ui/ext-link";
@@ -33,20 +32,14 @@ async function Page() {
         title="Your Avatar"
         summary="This is your avatar."
         avatarFallback={`${firstName} ${lastName}`}
-        avatarSrc={
-          image ??
-          `https://www.gravatar.com/avatar/${createHash("md5")
-            .update(email)
-            .digest("hex")}`
-        }
+        avatarSrc={image ?? undefined}
         hint={
           <>
             If your using Google, read{" "}
             <ExternalLink href="https://support.google.com/mail/answer/35529">
               this
             </ExternalLink>
-            . For AWS Cognito users we&apos;re using{" "}
-            <ExternalLink href="https://gravatar.com">Gravatar</ExternalLink>.
+            .
           </>
         }
       />

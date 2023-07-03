@@ -61,8 +61,6 @@ public class TasksApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 
     protected override IHost CreateHost(IHostBuilder builder)
     {
-        Environment.SetEnvironmentVariable(EnvVariables.CognitoAuthority,
-            "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_N5gpeDsBt");
         Environment.SetEnvironmentVariable(EnvVariables.CorsOrigin, "http://localhost:3000");
         Environment.SetEnvironmentVariable(EnvVariables.GoogleClientId,
             "103962427268-tcl37rkfkl20942mib207j7dk2v4or4d.apps.googleusercontent.com");

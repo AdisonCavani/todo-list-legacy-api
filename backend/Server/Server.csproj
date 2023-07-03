@@ -14,7 +14,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Amazon.AspNetCore.Identity.Cognito" Version="3.0.1" />
         <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.6.0" />
         <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.105" />
         <PackageReference Include="AWSXRayRecorder.Handlers.AwsSdk" Version="2.12.0" />

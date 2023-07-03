@@ -1,9 +1,6 @@
-import type { NextAuthOptions, TokenSet } from "next-auth";
-import type { JWT } from "next-auth/jwt";
-import CognitoProvider, {
-  type CognitoProfile,
-} from "next-auth/providers/cognito";
-import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
+import type { NextAuthOptions } from "next-auth";
+import Github, { type GithubProfile } from "next-auth/providers/github";
+import Google, { type GoogleProfile } from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -13,24 +10,24 @@ export const authOptions: NextAuthOptions = {
   },
 
   providers: [
-    CognitoProvider({
-      clientId: process.env.COGNITO_CLIENT_ID,
-      clientSecret: process.env.COGNITO_CLIENT_SECRET,
-      issuer: process.env.COGNITO_ISSUER,
+    Github({
+      clientId: process.env.AUTH_GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET,
 
-      profile(profile: CognitoProfile) {
+      profile(profile: GithubProfile) {
         return {
-          id: profile.sub,
-          firstName: profile.given_name,
-          lastName: profile.family_name,
-          email: profile.email,
-          access_token: profile.access_token,
+          id: profile.id.toString(),
+          firstName: profile.name!.split(" ")[0]!,
+          lastName: profile.name!.split(" ")[1]!,
+          email: profile.email!,
+          image: profile.avatar_url,
+          access_token: "",
         };
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
 
       profile(profile: GoogleProfile) {
         return {
@@ -67,9 +64,6 @@ export const authOptions: NextAuthOptions = {
       if (Date.now() < token.expires_at * 1000) return token;
 
       return token; // See: https://github.com/nextauthjs/next-auth/issues/7025
-
-      // Expired, try to update
-      // return await refreshAccessToken(token);
     },
     session({ session, token }) {
       session.error = token.error;
@@ -86,42 +80,3 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-
-// @ts-expect-error
-async function refreshAccessToken(token: JWT): Promise<JWT> {
-  try {
-    const response = await fetch(`${process.env.COGNITO_URL}/oauth2/token`, {
-      method: "POST",
-      headers: new Headers({
-        "content-type": "application/x-www-form-urlencoded",
-      }),
-      body: Object.entries({
-        grant_type: "refresh_token",
-        client_id: process.env.COGNITO_CLIENT_ID,
-        client_secret: process.env.COGNITO_CLIENT_SECRET,
-        refresh_token: token.refresh_token,
-      })
-        .map(([k, v]) => `${k}=${v}`)
-        .join("&"),
-    });
-
-    const tokens: TokenSet = await response.json();
-
-    if (!response.ok) throw tokens;
-
-    return {
-      ...token, // Keep the previous token properties
-      access_token: tokens.access_token!,
-      expires_at: Math.floor(Date.now() / 1000 + (tokens.expires_in as number)),
-      // Fall back to old refresh token, but note that
-      // many providers may only allow using a refresh token once.
-      refresh_token: tokens.refresh_token ?? token.refresh_token,
-    };
-  } catch (error) {
-    console.error("Error refreshing access token", error);
-    return {
-      ...token,
-      error: "RefreshAccessTokenError" as const,
-    };
-  }
-}

@@ -13,12 +13,7 @@ builder.Services.AddServices(builder.Environment);
 builder.Services.AddValidators();
 builder.Services.AddHealthChecks().AddCheck<DynamoDbHealthCheck>(nameof(DynamoDbHealthCheck));
 builder.Services.AddAuth();
-builder.Services.AddAuthorization(options =>
-{
-    options.DefaultPolicy = new AuthorizationPolicyBuilder("Cognito", "Google")
-        .RequireAuthenticatedUser()
-        .Build();
-});
+builder.Services.AddAuthorization();
 builder.Services.AddSwagger();
 builder.Services.AddCorsPolicy();
 builder.Services.AddProblemDetails();

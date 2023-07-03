@@ -13,7 +13,7 @@ public static class Cors
                     .AllowAnyHeader()
                     .WithOrigins(Environment.GetEnvironmentVariable(EnvVariables.CorsOrigin) ??
                                  throw new Exception(
-                                     $"${nameof(EnvVariables.CognitoAuthority)} env variable cannot be null"));
+                                     $"${nameof(EnvVariables.CorsOrigin)} env variable cannot be null"));
             });
         });
     }

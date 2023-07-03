@@ -1,8 +1,7 @@
-import { env } from "@lib/env";
 import type { MutationOptions, QueryOptions } from "./requests";
 import type { EndpointsSchema } from "./schema";
 
-const baseUrl = `${env.apiUrl}/api`;
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
 export function client<TPath extends keyof EndpointsSchema>(
   path: TPath,

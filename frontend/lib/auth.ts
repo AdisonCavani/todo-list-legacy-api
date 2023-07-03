@@ -1,9 +1,8 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
-import { env } from "./env";
 
 export const authOptions: NextAuthOptions = {
-  secret: env.auth.secret,
+  secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
     signIn: "/auth",
@@ -11,8 +10,8 @@ export const authOptions: NextAuthOptions = {
 
   providers: [
     GoogleProvider({
-      clientId: env.auth.googleId,
-      clientSecret: env.auth.googleSecret,
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
 
       profile(profile: GoogleProfile) {
         return {

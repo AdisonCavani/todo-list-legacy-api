@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
-import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
+import Github, { type GithubProfile } from "next-auth/providers/github";
+import Google, { type GoogleProfile } from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -9,7 +10,22 @@ export const authOptions: NextAuthOptions = {
   },
 
   providers: [
-    GoogleProvider({
+    Github({
+      clientId: process.env.AUTH_GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET,
+
+      profile(profile: GithubProfile) {
+        return {
+          id: profile.id.toString(),
+          firstName: profile.name!.split(" ")[0]!,
+          lastName: profile.name!.split(" ")[1]!,
+          email: profile.email!,
+          image: profile.avatar_url,
+          access_token: "",
+        };
+      },
+    }),
+    Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
 

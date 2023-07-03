@@ -1,4 +1,3 @@
-import { createHash } from "crypto";
 import Link from "@components/router/link";
 import { authOptions } from "@lib/auth";
 import { IconChecklist } from "@tabler/icons-react";
@@ -8,11 +7,6 @@ import ProfileMenu from "./profile-menu";
 
 async function Header() {
   const session = await getServerSession(authOptions);
-  const user = session!.user;
-
-  user.image ??= `https://www.gravatar.com/avatar/${createHash("md5")
-    .update(user.email)
-    .digest("hex")}`;
 
   return (
     <header className="sticky top-0 z-10 flex w-full items-center justify-between border-b bg-blue-600 px-4 py-2 dark:bg-neutral-800">
@@ -24,7 +18,7 @@ async function Header() {
         <IconChecklist className="h-6 w-6" />
         <h1 className="select-none font-semibold">To Do</h1>
       </Link>
-      <ProfileMenu {...user} />
+      <ProfileMenu {...session!.user} />
     </header>
   );
 }

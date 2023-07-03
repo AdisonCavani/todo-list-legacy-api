@@ -1,7 +1,6 @@
 "use client";
 
 import GoogleLogo from "@images/google.svg";
-import { IconBrandAmazon } from "@tabler/icons-react";
 import { Button } from "@ui/button";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
@@ -9,19 +8,6 @@ import Image from "next/image";
 function LoginButtons() {
   return (
     <>
-      {/* AWS Cognito */}
-      <Button
-        variant="yellow"
-        onClick={() =>
-          signIn("cognito", {
-            callbackUrl: "/app",
-          })
-        }
-      >
-        <IconBrandAmazon size={20} />
-        Continue with AWS Cognito
-      </Button>
-
       {/* Google */}
       <Button
         variant="outline"

@@ -1,4 +1,5 @@
 import HealthCheckComponent from "@components/health/health-check";
+import { env } from "@lib/env";
 import { mapToHealth } from "@lib/health";
 import { IconCheck, IconExclamationMark } from "@tabler/icons-react";
 import { Alert, AlertTitle } from "@ui/alert";
@@ -8,7 +9,7 @@ export const metadata = {
 };
 
 async function Page() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/health`);
+  const res = await fetch(`${env.apiUrl}/api/health`);
   const text = await res.text();
 
   const healthCheck = mapToHealth(

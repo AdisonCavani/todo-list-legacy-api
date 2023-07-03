@@ -24,7 +24,8 @@ CREATE TABLE `sessions` (
 --> statement-breakpoint
 CREATE TABLE `users` (
 	`id` varchar(255) PRIMARY KEY NOT NULL,
-	`name` varchar(255),
+	`first_name` varchar(255) NOT NULL,
+	`last_name` varchar(255) NOT NULL,
 	`email` varchar(255) NOT NULL,
 	`emailVerified` timestamp,
 	`image` varchar(255),

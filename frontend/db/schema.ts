@@ -57,8 +57,8 @@ export const users = mysqlTable(
   "users",
   {
     id: varchar("id", { length: 255 }).primaryKey().notNull(),
-    firstName: varchar("name", { length: 255 }).notNull(),
-    lastName: varchar("name", { length: 255 }).notNull(),
+    firstName: varchar("first_name", { length: 255 }).notNull(),
+    lastName: varchar("last_name", { length: 255 }).notNull(),
     email: varchar("email", { length: 255 }).notNull(),
     emailVerified: timestamp("emailVerified"),
     image: varchar("image", { length: 255 }),

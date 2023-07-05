@@ -60,6 +60,7 @@ export const {
         token.firstName = user.firstName;
         token.lastName = user.lastName;
         token.email = user.email;
+        token.image = user.image;
       }
 
       // Initial sign in
@@ -87,6 +88,7 @@ export const {
         session.user.firstName = token2.firstName;
         session.user.lastName = token2.lastName;
         session.user.email = token2.email;
+        session.user.image = token2.image;
       }
 
       return session;

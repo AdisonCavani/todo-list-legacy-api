@@ -12,6 +12,8 @@ declare namespace NodeJS {
     DATABASE_USERNAME: string;
     DATABASE_PASSWORD: string;
 
+    DATABASE_CONNECTION_STRING: string;
+
     NEXT_PUBLIC_API_URL: string;
   }
 }

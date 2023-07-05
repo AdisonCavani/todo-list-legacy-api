@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "55192cc1-1e6b-4b9a-8c23-626cf6aadbcf",
+  "id": "501e16a1-cf6c-4da9-85fc-1e949a444d3e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -14,8 +14,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -35,8 +35,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "providerAccountId": {
-          "name": "providerAccountId",
+        "provider_account_id": {
+          "name": "provider_account_id",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -91,16 +91,16 @@
           "notNull": false,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "(now())"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -112,12 +112,12 @@
       "indexes": {
         "accounts__provider__providerAccountId__idx": {
           "name": "accounts__provider__providerAccountId__idx",
-          "columns": ["provider", "providerAccountId"],
+          "columns": ["provider", "provider_account_id"],
           "isUnique": true
         },
         "accounts__userId__idx": {
           "name": "accounts__userId__idx",
-          "columns": ["userId"],
+          "columns": ["user_id"],
           "isUnique": false
         }
       },
@@ -134,15 +134,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "sessionToken": {
-          "name": "sessionToken",
+        "session_token": {
+          "name": "session_token",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -176,12 +176,12 @@
       "indexes": {
         "sessions__sessionToken__idx": {
           "name": "sessions__sessionToken__idx",
-          "columns": ["sessionToken"],
+          "columns": ["session_token"],
           "isUnique": true
         },
         "sessions__userId__idx": {
           "name": "sessions__userId__idx",
-          "columns": ["userId"],
+          "columns": ["user_id"],
           "isUnique": false
         }
       },
@@ -198,23 +198,23 @@
           "notNull": true,
           "autoincrement": false
         },
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "(now())"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -300,8 +300,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "emailVerified": {
-          "name": "emailVerified",
+        "email_verified": {
+          "name": "email_verified",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,

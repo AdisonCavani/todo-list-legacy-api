@@ -1,13 +1,12 @@
 import { tasks, type TaskType } from "@db/schema";
 import { db } from "@db/sql";
-import { authOptions } from "@lib/auth";
+import { auth } from "@lib/auth";
 import type { CreateTaskRequest, UpdateTaskRequest } from "@lib/types";
 import { and, eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
 import { v4 } from "uuid";
 
 async function POST(request: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const task = (await request.json()) as CreateTaskRequest;
 
   const entity = {
@@ -32,7 +31,7 @@ async function POST(request: Request) {
 }
 
 async function PATCH(request: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const task = (await request.json()) as UpdateTaskRequest;
   await db
     .update(tasks)

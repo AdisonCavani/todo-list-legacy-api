@@ -1,10 +1,13 @@
 import { db } from "@db/sql";
-import type { NextAuthOptions } from "next-auth";
-import Github, { type GithubProfile } from "next-auth/providers/github";
+import NextAuth from "next-auth";
+import Github, { type GitHubProfile } from "next-auth/providers/github";
 import Google, { type GoogleProfile } from "next-auth/providers/google";
 import { DrizzleAdapter } from "./drizzle-adapter";
 
-export const authOptions: NextAuthOptions = {
+export const {
+  handlers: { GET, POST },
+  auth,
+} = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
@@ -21,7 +24,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
 
-      profile(profile: GithubProfile) {
+      profile(profile: GitHubProfile) {
         return {
           id: profile.id.toString(),
           firstName: profile.name!.split(" ")[0]!,
@@ -48,6 +51,9 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
+    authorized({ auth }) {
+      return !!auth.user;
+    },
     jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
@@ -66,21 +72,24 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Not yet expired
-      if (Date.now() < token.expires_at * 1000) return token;
+      if (Date.now() < (token as any).expires_at * 1000) return token;
 
       return token; // See: https://github.com/nextauthjs/next-auth/issues/7025
     },
     session({ session, token }) {
-      session.error = token.error;
+      // TODO: refactor this
+      const token2 = token as any;
+
+      session.error = token2.error;
 
       if (token) {
-        session.user.id = token.id;
-        session.user.firstName = token.firstName;
-        session.user.lastName = token.lastName;
-        session.user.email = token.email;
+        session.user.id = token2.id;
+        session.user.firstName = token2.firstName;
+        session.user.lastName = token2.lastName;
+        session.user.email = token2.email;
       }
 
       return session;
     },
   },
-};
+});

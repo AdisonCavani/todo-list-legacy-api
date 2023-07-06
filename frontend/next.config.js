@@ -8,7 +8,7 @@ const withMDX = require("@next/mdx")();
 /** @type {import('next').NextConfig} */
 let nextConfig = {
   reactStrictMode: true,
-  pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+  pageExtensions: ["ts", "tsx", "mdx"],
   images: {
     formats: ["image/avif", "image/webp"],
   },
@@ -48,8 +48,8 @@ const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://insights.k1ng.dev;
   style-src 'self' 'unsafe-inline';
   font-src 'self';
-  img-src 'self' data: https://avatars.githubusercontent.com https://*.googleusercontent.com https://www.gravatar.com;
-  connect-src 'self' https://insights.k1ng.dev ${process.env.NEXT_PUBLIC_API_URL};
+  img-src 'self' data: https://avatars.githubusercontent.com https://*.googleusercontent.com;
+  connect-src 'self' https://insights.k1ng.dev;
 `;
 
 const securityHeaders = [

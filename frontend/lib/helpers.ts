@@ -4,7 +4,6 @@ import { cn } from "./utils";
 export const isUrlInternal = (href: string) =>
   href && (href.startsWith("/") || href.startsWith("#"));
 
-// TODO: refactor this
 export function getPriorityText(priority: TaskPriorityEnum, long?: boolean) {
   const prefix = long ? "Priority " : "P";
 
@@ -20,7 +19,6 @@ export function getPriorityText(priority: TaskPriorityEnum, long?: boolean) {
   }
 }
 
-// TODO: refactor this
 export function getPriorityColor(priority: TaskPriorityEnum) {
   switch (priority) {
     case "P3":

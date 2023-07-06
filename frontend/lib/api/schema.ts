@@ -1,24 +1,12 @@
-import type { TaskDto } from "./dtos/TaskDto";
-import type {
-  AuthQueryOptions,
-  CreateTaskOptions,
-  ListTasksOptions,
-  UpdateTaskOptions,
-} from "./requests";
-import type { HealthCheckRes } from "./res/HealthCheckRes";
-import type { PaginatedRes } from "./res/PaginatedRes";
+import type { TaskType } from "@db/schema";
+import type { CreateTaskOptions, UpdateTaskOptions } from "./requests";
 
 export interface EndpointsSchema {
-  "/health": {
-    get: () => Promise<HealthCheckRes>;
-  };
   "/tasks": {
-    get: (options: ListTasksOptions) => Promise<PaginatedRes<TaskDto>>;
-    post: (options: CreateTaskOptions) => Promise<TaskDto>;
-    patch: (options: UpdateTaskOptions) => Promise<TaskDto>;
+    post: (options: CreateTaskOptions) => Promise<TaskType>;
+    patch: (options: UpdateTaskOptions) => Promise<TaskType>;
   };
   "/tasks/{id}": {
-    get: (options: AuthQueryOptions) => Promise<TaskDto>;
-    delete: (options: AuthQueryOptions) => Promise<void>;
+    delete: () => Promise<void>;
   };
 }

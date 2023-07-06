@@ -1,10 +1,10 @@
 "use client";
 
-import type { TaskPriorityEnum } from "@api/dtos/TaskDto";
 import { addDays, getShortDayName } from "@lib/date";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
 import { useCreateTaskMutation } from "@lib/hooks/query";
 import { useToast } from "@lib/hooks/use-toast";
+import type { TaskPriorityEnum } from "@lib/types";
 import {
   IconBell,
   IconCalendar,
@@ -39,10 +39,10 @@ import DateComponent from "./date";
 function Form() {
   const [title, setTitle] = useState<string>("");
   const [date, setDate] = useState<Date | null>(null);
-  const [priority, setPriority] = useState<TaskPriorityEnum>();
+  const [priority, setPriority] = useState<TaskPriorityEnum>("P4");
 
-  const { mutate, isLoading } = useCreateTaskMutation();
-  const submitDisabled = title.trim().length === 0 || isLoading;
+  const { mutate, isPending } = useCreateTaskMutation();
+  const submitDisabled = title.trim().length === 0 || isPending;
 
   const { toast } = useToast();
 
@@ -53,13 +53,13 @@ function Form() {
 
     mutate({
       title: title,
-      dueDate: date?.toISOString().split("T")[0],
+      dueDate: date,
       priority: priority,
     });
 
     setTitle("");
     setDate(null);
-    setPriority(undefined);
+    setPriority("P4");
   };
 
   function handleNotSupportedFeature() {
@@ -242,11 +242,11 @@ function Form() {
                     <Button
                       type="button"
                       aria-label="Priority"
-                      variant={priority ? "outline" : "ghost"}
+                      variant={priority !== "P4" ? "outline" : "ghost"}
                       size="xxs"
                       className="h-7"
                     >
-                      {priority ? (
+                      {priority !== "P4" ? (
                         <>
                           <IconFlag2Filled
                             size={20}
@@ -272,28 +272,28 @@ function Form() {
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem onClick={() => setPriority(3)}>
+              <DropdownMenuItem onClick={() => setPriority("P1")}>
                 <IconFlag2Filled className="h-5 w-5 text-red-500" />
                 <div className="flex w-full justify-between">
                   <span>Priority 1</span>
                 </div>
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={() => setPriority(2)}>
+              <DropdownMenuItem onClick={() => setPriority("P2")}>
                 <IconFlag2Filled className="h-5 w-5 text-orange-400" />
                 <div className="flex w-full justify-between">
                   <span>Priority 2</span>
                 </div>
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={() => setPriority(1)}>
+              <DropdownMenuItem onClick={() => setPriority("P3")}>
                 <IconFlag2Filled className="h-5 w-5 text-blue-500" />
                 <div className="flex w-full justify-between">
                   <span>Priority 3</span>
                 </div>
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={() => setPriority(undefined)}>
+              <DropdownMenuItem onClick={() => setPriority("P4")}>
                 <IconFlag2 className="h-5 w-5" />
                 <div className="flex w-full justify-between">
                   <span>Priority 4</span>
@@ -309,7 +309,7 @@ function Form() {
           size="xs"
           variant="outline"
         >
-          {isLoading && <IconLoader2 className="h-4 w-4 animate-spin" />}
+          {isPending && <IconLoader2 className="h-4 w-4 animate-spin" />}
           Add
         </Button>
       </div>

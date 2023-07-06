@@ -1,7 +1,7 @@
 import type { MutationOptions, QueryOptions } from "./requests";
 import type { EndpointsSchema } from "./schema";
 
-const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/api`;
+const baseUrl = "/api";
 
 export function client<TPath extends keyof EndpointsSchema>(
   path: TPath,
@@ -19,7 +19,6 @@ export function client<TPath extends keyof EndpointsSchema>(
       .join("/");
 
   return {
-    get: (options?: any) => query(fullPath, options, "GET"),
     post: (options?: any) => mutate(fullPath, options, "POST"),
     patch: (options?: any) => mutate(fullPath, options, "PATCH"),
     delete: (options?: any) => query(fullPath, options, "DELETE"),
@@ -37,9 +36,6 @@ async function query<TReqOptions extends QueryOptions>(
 
   const headers = new Headers(options?.headers);
 
-  if (options?.jwtToken)
-    headers.append("Authorization", `Bearer ${options.jwtToken}`);
-
   return await fetchApi(newUrl, headers, method);
 }
 
@@ -49,9 +45,6 @@ async function mutate<TReqOptions extends MutationOptions>(
   method: HttpMethod
 ) {
   const headers = new Headers(options?.headers);
-
-  if (options?.jwtToken)
-    headers.append("Authorization", `Bearer ${options.jwtToken}`);
 
   return await fetchApi(url, headers, method, JSON.stringify(options?.body!));
 }
@@ -109,4 +102,4 @@ type PathParameter<TPath extends string> =
     : // If no parameters were found we get an empty tuple
       [];
 
-export type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
+export type HttpMethod = "POST" | "PATCH" | "DELETE";

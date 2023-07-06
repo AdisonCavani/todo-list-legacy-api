@@ -1,13 +1,8 @@
-import type { HealthCheckRes } from "@api/res/HealthCheckRes";
 import type { HealthCheck } from "@components/health/health-check";
 
 export type HealthStatus = "healthy" | "degraded" | "unhealthy";
 
-export function mapToHealth(
-  title: string,
-  description: string,
-  dto: HealthCheckRes
-) {
+export function mapToHealth(title: string, description: string, dto: any) {
   const status = dto.status.toLowerCase() as HealthStatus;
 
   const res: HealthCheck = {

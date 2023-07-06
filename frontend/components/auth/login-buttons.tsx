@@ -15,7 +15,6 @@ function LoginButtons() {
     <>
       {/* Github */}
       <Button
-        disabled
         onClick={() => {
           setLoadingGithub(true);
           signIn("github", {

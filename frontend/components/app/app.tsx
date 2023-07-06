@@ -1,10 +1,9 @@
 "use client";
 
-import { client } from "@api/client";
-import type { TaskDto } from "@api/dtos/TaskDto";
+import type { TaskType } from "@db/schema";
 import { queryKeys } from "@lib/hooks/query";
 import { sortMethods, type SortingOptions } from "@lib/sort";
-import type { TaskType } from "@lib/types";
+import type { TaskRenderType } from "@lib/types";
 import { useQuery } from "@tanstack/react-query";
 import {
   Accordion,
@@ -16,26 +15,16 @@ import { useState } from "react";
 import FlipMove from "react-flip-move";
 import Form from "./form";
 import Sort from "./sort";
-import TaskEdit from "./task-edit";
+import Task from "./task";
 
 type Props = {
-  initialData: TaskDto[];
-  token: string;
+  initialTasks: TaskType[];
 };
 
-function App({ initialData, token }: Props) {
+function App({ initialTasks }: Props) {
   const { data: tasks } = useQuery({
     queryKey: [queryKeys.tasks],
-    queryFn: () =>
-      client("/tasks")
-        .get({
-          jwtToken: token,
-          queryParameters: {
-            pageSize: 100,
-          },
-        })
-        .then((res) => (res ? res.data : [])),
-    initialData: initialData,
+    initialData: initialTasks,
   });
 
   const defaultSorting: SortingOptions = {
@@ -71,8 +60,8 @@ function App({ initialData, token }: Props) {
       {notFinishedTasks.length > 0 && (
         <ul className="relative flex flex-col gap-y-2">
           <FlipMove typeName={null}>
-            {notFinishedTasks.map(({ renderId, ...task }: TaskType) => (
-              <TaskEdit key={renderId ?? task.id} {...task} />
+            {notFinishedTasks.map(({ renderId, ...task }: TaskRenderType) => (
+              <Task key={renderId ?? task.id} {...task} />
             ))}
           </FlipMove>
         </ul>
@@ -92,9 +81,11 @@ function App({ initialData, token }: Props) {
             <AccordionContent>
               <ul className="relative flex flex-col gap-y-2">
                 <FlipMove typeName={null}>
-                  {finishedTasks.map(({ renderId, ...task }: TaskType) => (
-                    <TaskEdit key={renderId ?? task.id} {...task} />
-                  ))}
+                  {finishedTasks.map(
+                    ({ renderId, ...task }: TaskRenderType) => (
+                      <Task key={renderId ?? task.id} {...task} />
+                    )
+                  )}
                 </FlipMove>
               </ul>
             </AccordionContent>

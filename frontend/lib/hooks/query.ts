@@ -1,22 +1,21 @@
 import { client } from "@api/client";
-import type { TaskDto } from "@api/dtos/TaskDto";
-import type { CreateTaskReq } from "@api/req/CreateTaskReq";
-import type { UpdateTaskReq } from "@api/req/UpdateTaskReq";
+import type { TaskType } from "@db/schema";
 import { useToast } from "@lib/hooks/use-toast";
-import type { TaskType } from "@lib/types";
+import type {
+  CreateTaskRequest,
+  TaskRenderType,
+  UpdateTaskRequest,
+} from "@lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { v4 } from "uuid";
 
 function useCreateTaskMutation() {
   const queryClient = useQueryClient();
-  const session = useSession();
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: (req: CreateTaskReq) =>
+    mutationFn: (req: CreateTaskRequest) =>
       client("/tasks").post({
-        jwtToken: session.data?.user.access_token!,
         body: req,
       }),
     async onMutate(data) {
@@ -24,28 +23,32 @@ function useCreateTaskMutation() {
 
       const taskId = v4();
 
-      const newTask: TaskType = {
+      const newTask: TaskRenderType = {
         renderId: taskId,
         id: "",
         userId: "",
-        updatedAt: new Date().toISOString(),
+        description: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
         isCompleted: false,
         isImportant: false,
-        priority: data.priority ?? 0,
+        dueDate: data.dueDate ?? null,
         ...data,
       };
 
       const previousTasks =
-        queryClient.getQueryData<TaskDto[]>([queryKeys.tasks]) ?? [];
+        queryClient.getQueryData<TaskType[]>([queryKeys.tasks]) ?? [];
 
-      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => [
+      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (old) => [
         ...(old ?? []),
         newTask,
       ]);
 
       return { previousTasks, taskId };
     },
-    onError(_, __, context) {
+    onError(error, _, context) {
+      console.error(error);
+
       queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
       toast({
         variant: "destructive",
@@ -53,10 +56,10 @@ function useCreateTaskMutation() {
       });
     },
     onSuccess(data, _, context) {
-      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => {
+      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (old) => {
         if (!old) return [];
 
-        const updatedTasks = old.map((task: TaskType) => {
+        const updatedTasks = old.map((task: TaskRenderType) => {
           if (task.renderId === context?.taskId)
             return {
               renderId: task.renderId,
@@ -74,30 +77,29 @@ function useCreateTaskMutation() {
 
 function useUpdateTaskMutation() {
   const queryClient = useQueryClient();
-  const session = useSession();
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: (req: UpdateTaskReq) =>
+    mutationFn: (req: UpdateTaskRequest) =>
       client("/tasks").patch({
-        jwtToken: session.data?.user.access_token!,
         body: req,
       }),
-    async onMutate(newTask: TaskDto) {
+    async onMutate(newTask: TaskType) {
       await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
 
-      const previousTasks = queryClient.getQueryData<TaskDto[]>([
+      const previousTasks = queryClient.getQueryData<TaskType[]>([
         queryKeys.tasks,
       ]);
 
-      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (old) => [
+      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (old) => [
         ...old!.filter((task) => task.id !== newTask.id),
         newTask,
       ]);
 
       return { previousTasks };
     },
-    onError(_, __, context) {
+    onError(error, __, context) {
+      console.error(error);
       queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
 
       toast({
@@ -110,29 +112,26 @@ function useUpdateTaskMutation() {
 
 function useDeleteTaskMutation() {
   const queryClient = useQueryClient();
-  const session = useSession();
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: (req: string) =>
-      client("/tasks/{id}", req).delete({
-        jwtToken: session.data?.user.access_token!,
-      }),
+    mutationFn: (req: string) => client("/tasks/{id}", req).delete(),
     async onMutate(taskId) {
       await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
 
-      const previousTasks = queryClient.getQueryData<TaskDto[]>([
+      const previousTasks = queryClient.getQueryData<TaskType[]>([
         queryKeys.tasks,
       ]);
 
-      queryClient.setQueryData<TaskDto[]>([queryKeys.tasks], (tasks) =>
+      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (tasks) =>
         tasks!.filter((task) => task.id !== taskId)
       );
 
       return { previousTasks };
     },
-    onError(_, __, context) {
-      queryClient.setQueryData<TaskDto[]>(
+    onError(error, __, context) {
+      console.error(error);
+      queryClient.setQueryData<TaskType[]>(
         [queryKeys.tasks],
         context?.previousTasks
       );

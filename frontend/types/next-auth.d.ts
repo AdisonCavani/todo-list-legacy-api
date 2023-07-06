@@ -21,8 +21,6 @@ declare module "next-auth" {
     firstName: string;
     lastName: string;
     email: string;
-
-    access_token: string;
   }
 
   interface Session {

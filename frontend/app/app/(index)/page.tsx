@@ -1,10 +1,11 @@
-import { client } from "@api/client";
 import App from "@components/app/app";
 import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
-import { authOptions } from "@lib/auth";
+import { tasks } from "@db/schema";
+import { db } from "@db/sql";
+import { auth } from "@lib/auth";
 import { twindConfig, type ColorRecordType } from "@lib/twind";
-import { getServerSession } from "next-auth";
+import { eq } from "drizzle-orm";
 
 export const metadata = {
   title: "App",
@@ -21,22 +22,16 @@ export const metadata = {
 };
 
 async function Page() {
-  const session = await getServerSession(authOptions);
-
-  const response = await client("/tasks").get({
-    jwtToken: session?.user.access_token!,
-    queryParameters: {
-      pageSize: 100,
-    },
-  });
+  const session = await auth();
+  const response = await db
+    .select()
+    .from(tasks)
+    .where(eq(tasks.userId, session!.user.id));
 
   return (
     <AuthWrapper>
       <ReactQueryWrapper>
-        <App
-          initialData={response?.data ?? []}
-          token={session?.user.access_token!}
-        />
+        <App initialTasks={response} />
       </ReactQueryWrapper>
     </AuthWrapper>
   );

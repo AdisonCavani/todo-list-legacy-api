@@ -28,7 +28,6 @@ export const Colors: StoryFn<typeof Button> = (props) => (
     <Button {...props} variant="link" />
     <Button {...props} variant="outline" />
     <Button {...props} variant="subtle" />
-    <Button {...props} variant="yellow" />
   </>
 );
 

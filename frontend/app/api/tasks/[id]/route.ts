@@ -9,11 +9,15 @@ async function DELETE(
 ) {
   const session = await auth();
 
-  await db
-    .delete(tasks)
-    .where(and(eq(tasks.id, id), eq(tasks.userId, session!.user.id)));
+  if (!session) return new Response("Unauthorized", { status: 401 });
 
-  return new Response(null, { status: 204 });
+  const response = await db
+    .delete(tasks)
+    .where(and(eq(tasks.id, id), eq(tasks.userId, session.user.id)));
+
+  if (response.rowsAffected > 0) return new Response(null, { status: 204 });
+
+  return new Response(null, { status: 404 });
 }
 
 export { DELETE };

@@ -1,4 +1,5 @@
 import type { TaskType } from "@db/schema";
+import { z } from "zod";
 
 export type TaskPriorityEnum = "P1" | "P2" | "P3" | "P4";
 
@@ -6,15 +7,23 @@ export interface TaskRenderType extends TaskType {
   renderId?: string;
 }
 
-export type CreateTaskRequest = {
-  title: string;
-  dueDate?: Date | null;
-  priority: "P1" | "P2" | "P3" | "P4";
-};
+export const createTaskRequestValidator = z.object({
+  title: z.string(),
+  dueDate: z
+    .string()
+    .transform((str) => new Date(str))
+    .optional()
+    .nullable(),
+  priority: z.enum(["P1", "P2", "P3", "P4"]),
+});
 
-export interface UpdateTaskRequest extends CreateTaskRequest {
-  id: string;
-  description?: string | null;
-  isCompleted?: boolean;
-  isImportant?: boolean;
-}
+export type CreateTaskRequest = z.infer<typeof createTaskRequestValidator>;
+
+export const updateTaskRequestValidator = createTaskRequestValidator.extend({
+  id: z.string(),
+  description: z.string().nullish(),
+  isCompleted: z.boolean().optional(),
+  isImportant: z.boolean().optional(),
+});
+
+export type UpdateTaskRequest = z.infer<typeof updateTaskRequestValidator>;

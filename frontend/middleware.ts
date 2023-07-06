@@ -1,6 +1,6 @@
 export { auth as middleware } from "@lib/auth";
 
 export const config = {
-  matcher: ["/app", "/api/tasks/:path*"],
+  matcher: ["/app"],
   runtime: "experimental-edge",
 };

@@ -5,11 +5,14 @@
 This app is still WIP. Expect bugs!  
 If you found any - open new issue.
 
+Deployed on [`todo.k1ng.dev`](https://todo.k1ng.dev).
+
 ## Features
 - ✅ 100 Lighthouse score
 - 💨 Optimistic updates
 - 🛠️ Next.js 13 app directory
 - 🔑 Serverless, edge REST API
+- 📄 Managed MySql database
 - 🌗 Light & dark theme
 - 📱 Progressive Web App
 - ♥️ [Status page](https://todo.k1ng.dev/health) - health check
@@ -19,7 +22,6 @@ If you found any - open new issue.
 
 ## Architecture
 
-### Frontend:
 - **Language**: [TypeScript](https://www.typescriptlang.org)
 - **Framework**: [Next.js](https://nextjs.org)
 - **Library**: [React.js](https://reactjs.org)
@@ -29,6 +31,9 @@ If you found any - open new issue.
 - **Fetching**: [React Query](https://tanstack.com/query/latest)
 - **Auth**: [Auth.js (NextAuth.js)](https://next-auth.js.org)
 - **Auth providers**: [Github](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps) & [Google](https://developers.google.com/identity/protocols/oauth2)
+- **ORM**: [Drizzle ORM](https://orm.drizzle.team)
+- **Database**: MySql managed instance on [Planetscale](https://planetscale.com)
+- **API request validation**: [Zod](https://zod.dev)
 
 ## Pictures
 

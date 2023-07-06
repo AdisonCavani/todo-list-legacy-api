@@ -15,7 +15,7 @@ function Footer() {
       <p className="px-8 text-sm leading-6 sm:px-0 sm:text-center">
         © {new Date().getUTCFullYear()} Adrian Środoń. All rights reserved.
       </p>
-      <div className="mt-8 flex flex-col justify-center gap-y-1 px-8 text-sm font-semibold leading-6 text-muted-foreground sm:flex-row sm:items-center sm:space-x-4 sm:px-0">
+      <div className="mt-8 flex flex-col justify-center gap-y-2 px-8 text-sm font-semibold leading-6 text-muted-foreground sm:flex-row sm:items-center sm:space-x-4 sm:px-0">
         {FooterEntries.map(({ name, href }, index) => (
           <Fragment key={index}>
             {isUrlInternal(href) ? (

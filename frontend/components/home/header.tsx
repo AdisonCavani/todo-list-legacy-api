@@ -61,7 +61,7 @@ function Header({ session }: Props) {
           </li>
         </ul>
 
-        {open && <MobileMenu />}
+        {open && <MobileMenu onClick={() => setOpen(false)} />}
       </nav>
     </header>
   );

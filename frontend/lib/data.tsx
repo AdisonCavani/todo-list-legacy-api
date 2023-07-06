@@ -53,17 +53,16 @@ export const HomePageData: Data[] = [
         icon: <IconListCheck size={24} className="mt-[2px]" />,
       },
       {
-        title: "Due Date Reminders",
-        description: "Stay on track with timely notifications",
-        imageSrc: DueDateRemindersImage,
-        icon: <IconNotification size={24} className="mt-[2px]" />,
-        wip: true,
-      },
-      {
         title: "Priority Levels",
         description: "Assign importance to tasks for better focus",
         imageSrc: PriorityLevelsImage,
         icon: <IconUrgent size={24} className="mt-[2px]" />,
+      },
+      {
+        title: "Due Date Reminders",
+        description: "Stay on track with timely notifications",
+        imageSrc: DueDateRemindersImage,
+        icon: <IconNotification size={24} className="mt-[2px]" />,
         wip: true,
       },
       {

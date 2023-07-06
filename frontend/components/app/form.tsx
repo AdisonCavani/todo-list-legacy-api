@@ -204,6 +204,7 @@ function Form() {
                   variant="ghost"
                   size="xxs"
                   className="h-7"
+                  onClick={handleNotSupportedFeature}
                 >
                   <IconBell size={20} />
                 </Button>

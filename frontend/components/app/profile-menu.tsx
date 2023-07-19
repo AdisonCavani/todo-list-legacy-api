@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "@components/router/link";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import {
   IconDeviceLaptop,
@@ -23,7 +24,6 @@ import {
 import type { User } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
-import Link from "next/link";
 
 function ProfileMenu({ firstName, lastName, email, image }: User) {
   const { setTheme } = useTheme();

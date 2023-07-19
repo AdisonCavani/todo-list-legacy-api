@@ -1,6 +1,5 @@
 import SettingsCard from "@components/app/settings/card";
 import { auth } from "@lib/auth";
-import { ExternalLink } from "@ui/ext-link";
 
 async function Page() {
   const session = await auth();
@@ -21,7 +20,7 @@ async function Page() {
         type="input"
         title="Your Name"
         summary="This is your first and last name."
-        hint="You can change your name using selected OAuth2 provider."
+        hint="You can change your name in your OAuth2 provider."
         inputDisabled
         inputValue={`${firstName} ${lastName}`}
       />
@@ -32,15 +31,7 @@ async function Page() {
         summary="This is your avatar."
         avatarFallback={`${firstName} ${lastName}`}
         avatarSrc={image ?? undefined}
-        hint={
-          <>
-            If your using Google, read{" "}
-            <ExternalLink href="https://support.google.com/mail/answer/35529">
-              this
-            </ExternalLink>
-            .
-          </>
-        }
+        hint="You can change your avatar in your OAuth2 provider."
       />
     </>
   );

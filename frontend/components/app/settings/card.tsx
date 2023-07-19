@@ -1,6 +1,5 @@
 import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
-import { Button } from "@ui/button";
 import { Input } from "@ui/input";
 import type { ReactNode } from "react";
 
@@ -63,7 +62,6 @@ function SettingsCard({
       </div>
       <div className="flex w-full items-center justify-between rounded-b-md border bg-secondary px-6 py-3">
         <p className="text-sm text-muted-foreground">{hint}</p>
-        {!inputDisabled && <Button size="sm">Save</Button>}
       </div>
     </section>
   );

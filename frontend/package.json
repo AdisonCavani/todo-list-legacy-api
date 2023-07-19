@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier -w .",
+    "format:check": "prettier -c . --cache",
+    "format:write": "prettier -w . --cache",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

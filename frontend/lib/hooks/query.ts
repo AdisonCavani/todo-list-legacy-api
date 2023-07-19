@@ -124,7 +124,7 @@ function useDeleteTaskMutation() {
       ]);
 
       queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (tasks) =>
-        tasks!.filter((task) => task.id !== taskId)
+        tasks!.filter((task) => task.id !== taskId),
       );
 
       return { previousTasks };
@@ -133,7 +133,7 @@ function useDeleteTaskMutation() {
       console.error(error);
       queryClient.setQueryData<TaskType[]>(
         [queryKeys.tasks],
-        context?.previousTasks
+        context?.previousTasks,
       );
 
       toast({

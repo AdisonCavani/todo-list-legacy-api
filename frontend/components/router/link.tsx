@@ -34,7 +34,7 @@ const Link = forwardRef<HTMLAnchorElement, ComponentProps<typeof NextLink>>(
         ref={ref}
       />
     );
-  }
+  },
 );
 
 Link.displayName = "Link";

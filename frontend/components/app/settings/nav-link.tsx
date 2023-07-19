@@ -23,10 +23,12 @@ function NavLink({
           variant: "ghost",
           className: cn(
             "justify-start",
-            isActive ? "font-semibold text-foreground" : "text-muted-foreground"
+            isActive
+              ? "font-semibold text-foreground"
+              : "text-muted-foreground",
           ),
         }),
-        className
+        className,
       )}
       {...props}
     />

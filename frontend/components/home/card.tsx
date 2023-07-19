@@ -16,7 +16,7 @@ function Card({ title, description, icon, imageSrc, wip }: CardProps) {
     <li
       className={cn(
         styles.card,
-        "before:gradient-radial-before after:gradient-radial-after before:z-[3] after:z-[1] group-hover:after:opacity-100"
+        "before:gradient-radial-before after:gradient-radial-after before:z-[3] after:z-[1] group-hover:after:opacity-100",
       )}
     >
       <div className={styles.container}>

@@ -7,7 +7,7 @@ function sitemap(): MetadataRoute.Sitemap {
     (route) => ({
       url: "https://todo.k1ng.dev" + route,
       lastModified: new Date(),
-    })
+    }),
   );
 
   return [...routes];

@@ -14,7 +14,7 @@ export function client<TPath extends keyof EndpointsSchema>(
       .map((segment) =>
         segment.startsWith("{") && segment.endsWith("}")
           ? pathParam.shift() // Use pathParam values for path parameters
-          : segment
+          : segment,
       )
       .join("/");
 
@@ -28,7 +28,7 @@ export function client<TPath extends keyof EndpointsSchema>(
 async function query<TReqOptions extends QueryOptions>(
   url: string,
   options: TReqOptions | undefined,
-  method: HttpMethod
+  method: HttpMethod,
 ) {
   const newUrl = options?.queryParameters
     ? `${url}?${appendParams(options.queryParameters)}`
@@ -42,7 +42,7 @@ async function query<TReqOptions extends QueryOptions>(
 async function mutate<TReqOptions extends MutationOptions>(
   url: string,
   options: TReqOptions | undefined,
-  method: HttpMethod
+  method: HttpMethod,
 ) {
   const headers = new Headers(options?.headers);
 
@@ -53,7 +53,7 @@ async function fetchApi(
   url: string,
   headers: Headers,
   method: HttpMethod,
-  body?: BodyInit
+  body?: BodyInit,
 ) {
   headers.append("Content-Type", "application/json");
 

@@ -36,7 +36,7 @@ function SettingsCard({
           "flex w-full rounded-t-md border-x border-t p-6",
           type === "input"
             ? "flex-col"
-            : "flex-row items-center justify-between"
+            : "flex-row items-center justify-between",
         )}
       >
         <div>

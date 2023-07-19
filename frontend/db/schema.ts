@@ -50,10 +50,10 @@ export const accounts = mysqlTable(
   },
   (account) => ({
     providerProviderAccountIdIndex: uniqueIndex(
-      "accounts__provider__providerAccountId__idx"
+      "accounts__provider__providerAccountId__idx",
     ).on(account.provider, account.providerAccountId),
     userIdIndex: index("accounts__userId__idx").on(account.userId),
-  })
+  }),
 );
 
 export const sessions = mysqlTable(
@@ -68,10 +68,10 @@ export const sessions = mysqlTable(
   },
   (session) => ({
     sessionTokenIndex: uniqueIndex("sessions__sessionToken__idx").on(
-      session.sessionToken
+      session.sessionToken,
     ),
     userIdIndex: index("sessions__userId__idx").on(session.userId),
-  })
+  }),
 );
 
 export const users = mysqlTable(
@@ -88,7 +88,7 @@ export const users = mysqlTable(
   },
   (user) => ({
     emailIndex: uniqueIndex("users__email__idx").on(user.email),
-  })
+  }),
 );
 
 export const verificationTokens = mysqlTable(
@@ -102,7 +102,7 @@ export const verificationTokens = mysqlTable(
   },
   (verificationToken) => ({
     tokenIndex: uniqueIndex("verification_tokens__token__idx").on(
-      verificationToken.token
+      verificationToken.token,
     ),
-  })
+  }),
 );

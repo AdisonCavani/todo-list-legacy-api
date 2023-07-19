@@ -111,7 +111,7 @@ function Sort({ sorting, defaultSorting, setSorting }: Props) {
             size={24}
             className={cn(
               "stroke-1 transition-transform",
-              sorting.order === "asc" ? "rotate-0" : "rotate-180"
+              sorting.order === "asc" ? "rotate-0" : "rotate-180",
             )}
           />
         </Button>

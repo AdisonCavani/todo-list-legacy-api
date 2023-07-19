@@ -14,7 +14,7 @@ function SettingsNavigation() {
     <>
       <aside
         className={cn(
-          "sticky top-[72px] mt-8 hidden h-full w-full max-w-[16rem] flex-col lg:flex"
+          "sticky top-[72px] mt-8 hidden h-full w-full max-w-[16rem] flex-col lg:flex",
         )}
       >
         <NavLink href="/app/settings" altHref="/app/settings/general">
@@ -36,7 +36,7 @@ function SettingsNavigation() {
         <Link
           href="/app/settings"
           className={cn(
-            "-mx-6 flex items-center gap-x-2 border-b p-6 font-semibold lg:hidden"
+            "-mx-6 flex items-center gap-x-2 border-b p-6 font-semibold lg:hidden",
           )}
         >
           <IconChevronLeft size={20} />

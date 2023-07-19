@@ -25,7 +25,7 @@ function Page() {
                 href={`#${id}`}
                 className={cn(
                   "bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent sm:text-5xl",
-                  gradients[gradient]
+                  gradients[gradient],
                 )}
               >
                 {title}

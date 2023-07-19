@@ -21,7 +21,7 @@ function useOnComplete() {
   useEffect(() => onComplete(), [pathname, searchParams]);
 }
 
-function __RouterEvents() {
+function RouterEventsFn() {
   useOnComplete();
   return null;
 }
@@ -37,7 +37,7 @@ function __RouterEvents() {
 export function RouterEvents() {
   return (
     <Suspense>
-      <__RouterEvents />
+      <RouterEventsFn />
     </Suspense>
   );
 }

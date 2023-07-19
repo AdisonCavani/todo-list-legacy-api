@@ -84,7 +84,7 @@ function App({ initialTasks }: Props) {
                   {finishedTasks.map(
                     ({ renderId, ...task }: TaskRenderType) => (
                       <Task key={renderId ?? task.id} {...task} />
-                    )
+                    ),
                   )}
                 </FlipMove>
               </ul>

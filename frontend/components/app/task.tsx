@@ -54,10 +54,10 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
 
   const [dialogTitle, setDialogTitle] = useState<string>(title);
   const [dialogDescription, setDialogDescription] = useState<string>(
-    description ?? ""
+    description ?? "",
   );
   const [dialogDate, setDialogDate] = useState<Date | null>(
-    dueDate ? new Date(dueDate) : null
+    dueDate ? new Date(dueDate) : null,
   );
   const [dialogPriority, setDialogPriority] =
     useState<TaskPriorityEnum>(priority);
@@ -90,7 +90,7 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
   };
 
   const onImportantChange: MouseEventHandler<HTMLButtonElement> = async (
-    event
+    event,
   ) => {
     event.stopPropagation();
     updateTask({
@@ -119,7 +119,7 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
             onClick={handleOnClick}
             className={cn(
               "group ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer appearance-none items-center justify-center rounded-full border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              getColor(priority, isCompleted)
+              getColor(priority, isCompleted),
             )}
           >
             <IconCheck
@@ -127,7 +127,7 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
                 "ml-px h-3 w-3",
                 isCompleted
                   ? "text-white"
-                  : "text-inherit opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                  : "text-inherit opacity-0 transition-opacity duration-200 group-hover:opacity-100",
               )}
             />
           </button>
@@ -148,7 +148,7 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
                 <DateComponent
                   className={cn(
                     description &&
-                      "after:mx-1 after:text-xs after:leading-none after:text-neutral-500 after:content-['•'] after:dark:text-neutral-400"
+                      "after:mx-1 after:text-xs after:leading-none after:text-neutral-500 after:content-['•'] after:dark:text-neutral-400",
                   )}
                   date={new Date(dueDate)}
                   icon={<IconCalendarEvent size={13} />}
@@ -416,28 +416,28 @@ function getColor(priority: TaskPriorityEnum, completed: boolean) {
         "border-neutral-400 dark:border-neutral-500",
         completed
           ? "bg-neutral-400 dark:bg-neutral-500"
-          : "text-neutral-400 dark:text-neutral-500"
+          : "text-neutral-400 dark:text-neutral-500",
       );
     case "P3":
       return cn(
         "border-blue-500",
         completed
           ? "bg-blue-500"
-          : "bg-blue-50 text-blue-500 hover:bg-blue-100 dark:bg-blue-900/20"
+          : "bg-blue-50 text-blue-500 hover:bg-blue-100 dark:bg-blue-900/20",
       );
     case "P2":
       return cn(
         "border-orange-400",
         completed
           ? "bg-orange-400"
-          : "bg-orange-50 text-orange-400 hover:bg-orange-100 dark:bg-orange-900/20"
+          : "bg-orange-50 text-orange-400 hover:bg-orange-100 dark:bg-orange-900/20",
       );
     default:
       return cn(
         "border-red-500",
         completed
           ? "bg-red-500"
-          : "bg-red-50 text-red-500 hover:bg-red-100 dark:bg-red-900/20"
+          : "bg-red-50 text-red-500 hover:bg-red-100 dark:bg-red-900/20",
       );
   }
 }

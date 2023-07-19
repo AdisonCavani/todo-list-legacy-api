@@ -42,7 +42,7 @@ function HealthCheck({
         topLeft && "rounded-tl",
         topRight && "rounded-tr",
         bottomLeft && "rounded-bl",
-        bottomRight && "rounded-br"
+        bottomRight && "rounded-br",
       )}
     >
       <div className="space-y-1">

@@ -5,7 +5,7 @@ import { and, eq } from "drizzle-orm";
 
 async function DELETE(
   _: Request,
-  { params: { id } }: { params: { id: string } }
+  { params: { id } }: { params: { id: string } },
 ) {
   const session = await auth();
 

@@ -12,7 +12,7 @@ function ReactQueryWrapper({ children }: PropsWithChildren) {
             refetchOnWindowFocus: false,
           },
         },
-      })
+      }),
   );
 
   return (

@@ -38,7 +38,7 @@ function Cards({ id, gradient, items }: Props) {
         className={cn(
           "pointer-events-none absolute inset-0 z-50 select-none overflow-visible",
           "before:absolute before:left-1/2 before:top-1/2 before:h-screen before:w-[calc(100vw-50px)] before:-translate-x-1/2 before:-translate-y-1/2 before:opacity-[0.03] before:blur-3xl",
-          gradients[gradient]
+          gradients[gradient],
         )}
       />
       <ul

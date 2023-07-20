@@ -106,6 +106,7 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
           setDialogTitle(title);
           setDialogDescription(description ?? "");
           setDialogDate(dueDate ? new Date(dueDate) : null);
+          setDialogPriority(priority);
         }
       }}
     >

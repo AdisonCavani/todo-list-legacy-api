@@ -14,7 +14,6 @@ import {
   IconCalendarStats,
   IconFlag2,
   IconFlag2Filled,
-  IconLoader2,
   IconRepeat,
   IconTrash,
 } from "@tabler/icons-react";
@@ -41,8 +40,8 @@ function Form() {
   const [date, setDate] = useState<Date | null>(null);
   const [priority, setPriority] = useState<TaskPriorityEnum>("P4");
 
-  const { mutate, isPending } = useCreateTaskMutation();
-  const submitDisabled = title.trim().length === 0 || isPending;
+  const { mutate } = useCreateTaskMutation();
+  const submitDisabled = title.trim().length === 0;
 
   const { toast } = useToast();
 
@@ -311,7 +310,6 @@ function Form() {
           size="xs"
           variant="outline"
         >
-          {isPending && <IconLoader2 className="h-4 w-4 animate-spin" />}
           Add
         </Button>
       </div>

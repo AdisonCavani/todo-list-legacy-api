@@ -1,5 +1,7 @@
 "use client";
 
+import { client } from "@api/client";
+import { queryKeys } from "@lib/hooks/query";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -20,6 +22,15 @@ function ReactQueryWrapper({ children }: PropsWithChildren) {
         },
       }),
   );
+
+  queryClient.setMutationDefaults([queryKeys.tasks], {
+    mutationFn: async (req) => {
+      await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
+      return await client("/tasks").post({
+        body: req,
+      });
+    },
+  });
 
   const [persister] = useState(() =>
     createSyncStoragePersister({

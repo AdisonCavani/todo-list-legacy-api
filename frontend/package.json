@@ -10,7 +10,8 @@
     "format:check": "prettier -c . --cache",
     "format:write": "prettier -w . --cache",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.3.0",

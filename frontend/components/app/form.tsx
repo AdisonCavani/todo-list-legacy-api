@@ -79,6 +79,7 @@ function Form() {
       <div className="flex flex-row items-center gap-x-2 px-4">
         <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />
         <input
+          type="text"
           placeholder="Add a task"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -195,46 +196,6 @@ function Form() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type="button"
-                  aria-label="Remind me"
-                  variant="ghost"
-                  size="xxs"
-                  className="h-7"
-                  onClick={handleNotSupportedFeature}
-                >
-                  <IconBell size={20} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" sideOffset={10}>
-                <p>Remind me</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type="button"
-                  aria-label="Repeat"
-                  variant="ghost"
-                  size="xxs"
-                  className="h-7"
-                  onClick={handleNotSupportedFeature}
-                >
-                  <IconRepeat size={20} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" sideOffset={10}>
-                <p>Repeat</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
           <DropdownMenu>
             <TooltipProvider>
               <Tooltip>
@@ -302,6 +263,46 @@ function Form() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  aria-label="Remind me"
+                  variant="ghost"
+                  size="xxs"
+                  className="h-7"
+                  onClick={handleNotSupportedFeature}
+                >
+                  <IconBell size={20} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" sideOffset={10}>
+                <p>Remind me</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  aria-label="Repeat"
+                  variant="ghost"
+                  size="xxs"
+                  className="h-7"
+                  onClick={handleNotSupportedFeature}
+                >
+                  <IconRepeat size={20} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" sideOffset={10}>
+                <p>Repeat</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
 
         <Button

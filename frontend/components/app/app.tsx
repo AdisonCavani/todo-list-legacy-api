@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import FlipMove from "react-flip-move";
 import Form from "./form";
+import MobileForm from "./mobile-form";
 import Sort from "./sort";
 import Task from "./task";
 
@@ -56,6 +57,7 @@ function App({ initialTasks }: Props) {
       />
 
       <Form />
+      <MobileForm />
 
       {notFinishedTasks.length > 0 && (
         <ul className="relative flex flex-col gap-y-2">

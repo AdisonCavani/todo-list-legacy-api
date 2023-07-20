@@ -74,7 +74,7 @@ function Form() {
   return (
     <form
       onSubmit={handleOnSubmit}
-      className="mb-3 rounded-md bg-white shadow-ms dark:bg-neutral-800"
+      className="mb-3 hidden rounded-md bg-white shadow-ms dark:bg-neutral-800 sm:block"
     >
       <div className="flex flex-row items-center gap-x-2 px-4">
         <div className="ml-[6px] min-h-[18px] min-w-[18px] cursor-pointer rounded-full border border-neutral-400" />

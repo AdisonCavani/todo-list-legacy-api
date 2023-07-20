@@ -46,9 +46,7 @@ function useCreateTaskMutation() {
 
       return { previousTasks, taskId };
     },
-    onError(error, _, context) {
-      console.error(error);
-
+    onError(_, __, context) {
       queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
       toast({
         variant: "destructive",
@@ -98,8 +96,7 @@ function useUpdateTaskMutation() {
 
       return { previousTasks };
     },
-    onError(error, __, context) {
-      console.error(error);
+    onError(_, __, context) {
       queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
 
       toast({
@@ -129,8 +126,7 @@ function useDeleteTaskMutation() {
 
       return { previousTasks };
     },
-    onError(error, __, context) {
-      console.error(error);
+    onError(_, __, context) {
       queryClient.setQueryData<TaskType[]>(
         [queryKeys.tasks],
         context?.previousTasks,

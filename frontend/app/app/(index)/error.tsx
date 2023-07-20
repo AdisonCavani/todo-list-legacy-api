@@ -11,7 +11,7 @@ type Props = {
 // TODO: replace this with proper Next.js type
 function ErrorComponent({ reset }: Props) {
   return (
-    <div className="-mx-6 -my-8 flex h-full grow flex-col items-center justify-center bg-destructive text-destructive-foreground">
+    <div className="-mx-3 -mb-24 -mt-8 flex h-full grow flex-col items-center justify-center bg-destructive p-4 text-destructive-foreground sm:-mx-6 sm:-mb-8">
       <p className="font-semibold">Oops!</p>
       <p>Something went wrong...</p>
       <Button

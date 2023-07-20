@@ -20,7 +20,7 @@ export const createTaskRequestValidator = z.object({
 export type CreateTaskRequest = z.infer<typeof createTaskRequestValidator>;
 
 export const updateTaskRequestValidator = createTaskRequestValidator.extend({
-  id: z.string(),
+  id: z.string().uuid(),
   description: z.string().nullish(),
   isCompleted: z.boolean().optional(),
   isImportant: z.boolean().optional(),

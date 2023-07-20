@@ -3,7 +3,7 @@ import { cn } from "@lib/utils";
 import type { PropsWithChildren } from "react";
 
 function Layout({ children }: PropsWithChildren) {
-  const css = cn("mx-auto w-full max-w-7xl px-6");
+  const css = cn("mx-auto w-full max-w-7xl px-3 md:px-6");
 
   return (
     <main className="flex h-full w-full grow flex-col py-8">

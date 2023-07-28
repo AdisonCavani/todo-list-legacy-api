@@ -1,6 +1,7 @@
 "use client";
 
 import type { TaskType } from "@db/schema";
+import { addDays, getShortDayName } from "@lib/date";
 import { getPriorityColor, getPriorityText } from "@lib/helpers";
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "@lib/hooks/query";
 import type { TaskPriorityEnum } from "@lib/types";
@@ -282,7 +283,9 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
                   <IconCalendarDue className="h-5 w-5" />
                   <div className="flex w-full justify-between">
                     <span>Tomorrow</span>
-                    <span className="pl-8 text-neutral-500">Thu</span>
+                    <span className="pl-8 text-neutral-500">
+                      {getShortDayName(addDays(new Date(), 1))}
+                    </span>
                   </div>
                 </DropdownMenuItem>
 
@@ -296,7 +299,9 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
                   <IconCalendarPlus className="h-5 w-5" />
                   <div className="flex w-full justify-between">
                     <span>Next week</span>
-                    <span className="pl-8 text-neutral-500">Mon</span>
+                    <span className="pl-8 text-neutral-500">
+                      {getShortDayName(addDays(new Date(), 7))}
+                    </span>
                   </div>
                 </DropdownMenuItem>
 

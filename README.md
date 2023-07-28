@@ -1,4 +1,5 @@
 # To-Do List App
+
 [![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=todo-list)](https://todo.k1ng.dev)
 [![Storybook](https://api.netlify.com/api/v1/badges/56f0a50f-291d-4b20-a038-45890ebafbf6/deploy-status)](https://storybook.todo.k1ng.dev)
 
@@ -8,6 +9,7 @@ If you found any - open new issue.
 Deployed on [`todo.k1ng.dev`](https://todo.k1ng.dev).
 
 ## Features
+
 - ✅ 100 Lighthouse score
 - 💨 Optimistic updates
 - 🛠️ Next.js 13 app directory
@@ -15,7 +17,6 @@ Deployed on [`todo.k1ng.dev`](https://todo.k1ng.dev).
 - 📄 Managed MySql database
 - 🌗 Light & dark theme
 - 📱 Progressive Web App
-- ♥️ [Status page](https://todo.k1ng.dev/health) - health check
 - 🙍‍♂️ Github & Google OAuth 2.0 login
 - 📈 Self-hosted Plausible Analytics
 - 📕 Storybook - on [storybook.todo.k1ng.dev](https://storybook.todo.k1ng.dev)

@@ -5,7 +5,6 @@ import { Fragment } from "react";
 
 const FooterEntries: MenuEntry[] = [
   { name: "Analytics", href: "https://insights.k1ng.dev" },
-  { name: "Health", href: "/health" },
   ...MenuEntries,
 ];
 

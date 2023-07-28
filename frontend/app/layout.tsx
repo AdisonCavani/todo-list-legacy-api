@@ -8,7 +8,7 @@ import Script from "next/script";
 import type { PropsWithChildren } from "react";
 
 export const dynamic = "force-dynamic";
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export const metadata = {
   title: {

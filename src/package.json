@@ -12,7 +12,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "studio": "drizzle-kit studio",
-    "prepare": "cd .. && husky install frontend/.husky"
+    "prepare": "cd .. && husky install src/.husky"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.4.0",

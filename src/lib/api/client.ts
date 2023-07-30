@@ -66,19 +66,6 @@ async function fetchApi(
   if (response.status === 204) return;
 
   if (response.ok) return await response.json();
-
-  const text = await response.text();
-
-  const errorObj = {
-    message: "Fetch failed",
-    queryUrl: url,
-    method: method,
-    statusCode: response.status,
-    statusText: response.statusText,
-    ...(text.length > 0 && { reason: text }),
-  };
-
-  throw new Error(JSON.stringify(errorObj, null, 2));
 }
 
 function appendParams(obj: any): URLSearchParams {

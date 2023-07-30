@@ -14,7 +14,7 @@ function ReactQueryWrapper({ children }: PropsWithChildren) {
           queries: {
             refetchOnWindowFocus: false,
             gcTime: 1000 * 60 * 60 * 24, // 24 hours
-            retry: 0,
+            retry: 3,
             networkMode: "offlineFirst",
           },
         },

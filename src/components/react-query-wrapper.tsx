@@ -15,12 +15,12 @@ function ReactQueryWrapper({ children }: PropsWithChildren) {
             refetchOnWindowFocus: false,
             gcTime: 1000 * 60 * 60 * 24, // 24 hours
             retry: 1,
-            networkMode: "offlineFirst",
+            networkMode: "online",
           },
           mutations: {
             gcTime: 1000 * 60 * 60 * 24, // 24 hours
             retry: 1,
-            networkMode: "offlineFirst",
+            networkMode: "online",
           },
         },
       }),

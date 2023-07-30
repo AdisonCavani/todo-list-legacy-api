@@ -11,7 +11,8 @@
     "format:write": "prettier -w . --cache",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "studio": "drizzle-kit studio"
+    "studio": "drizzle-kit studio",
+    "prepare": "cd .. && husky install frontend/.husky"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.4.0",
@@ -72,6 +73,7 @@
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-storybook": "^0.6.13",
     "eslint-plugin-tailwindcss": "^3.13.0",
+    "husky": "^8.0.3",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.27",
     "prettier": "^3.0.0",

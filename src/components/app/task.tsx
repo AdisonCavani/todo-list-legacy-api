@@ -49,7 +49,7 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
     task;
 
   const { mutate: deleteTask, isPending: deleteTaskLoading } =
-    useDeleteTaskMutation();
+    useDeleteTaskMutation(task.listId);
   const { mutate: updateTask, isPending: updateTaskLoading } =
     useUpdateTaskMutation();
 

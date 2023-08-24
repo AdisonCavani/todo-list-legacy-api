@@ -1,12 +1,57 @@
-import Header from "@components/app/header";
+import ProfileMenu from "@components/app/profile-menu";
+import Link from "@components/router/link";
+import { Button, buttonVariants } from "@components/ui/button";
+import { auth } from "@lib/auth";
+import { twindConfig, type ColorRecordType } from "@lib/twind";
+import { IconChecklist, IconMenu2 } from "@tabler/icons-react";
 import { Toaster } from "@ui/toaster";
 import type { PropsWithChildren } from "react";
 
-function Layout({ children }: PropsWithChildren) {
+export const metadata = {
+  title: "App",
+  themeColor: [
+    {
+      color: (twindConfig.colors.blue as ColorRecordType)[600],
+      media: "(prefers-color-scheme: light)",
+    },
+    {
+      color: (twindConfig.colors.neutral as ColorRecordType)[800],
+      media: "(prefers-color-scheme: dark)",
+    },
+  ],
+};
+
+async function Layout({ children }: PropsWithChildren) {
+  const session = await auth();
+
   return (
     <>
-      <Header />
+      <header className="sticky top-0 z-10 flex w-full items-center justify-between border-b bg-blue-600 px-4 py-2 dark:bg-neutral-800">
+        <div className="flex items-center gap-x-2">
+          <Button
+            variant="ghost"
+            size="xs"
+            className="text-white"
+            icon={<IconMenu2 size={20} />}
+          />
+          <Link
+            href="/app"
+            prefetch={false}
+            className={buttonVariants({
+              variant: "link",
+              className: "text-white",
+            })}
+          >
+            <IconChecklist className="h-6 w-6" />
+            <h1 className="select-none font-semibold">To Do</h1>
+          </Link>
+        </div>
+
+        <ProfileMenu {...session.user} />
+      </header>
+
       {children}
+
       <Toaster />
     </>
   );

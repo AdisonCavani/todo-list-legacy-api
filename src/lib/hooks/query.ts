@@ -2,6 +2,7 @@ import { client } from "@api/client";
 import type { TaskType } from "@db/schema";
 import { useToast } from "@lib/hooks/use-toast";
 import type {
+  CreateListRequest,
   CreateTaskRequest,
   TaskRenderType,
   UpdateTaskRequest,
@@ -19,14 +20,17 @@ function useCreateTaskMutation() {
         body: req,
       }),
     async onMutate(data) {
-      await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
+      const queryKey = `${queryKeys.tasks}-${data.listId}`;
+
+      await queryClient.cancelQueries({
+        queryKey: [queryKey],
+      });
 
       const taskId = v4();
 
       const newTask: TaskRenderType = {
         renderId: taskId,
         id: "",
-        userId: "",
         description: null,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -37,38 +41,44 @@ function useCreateTaskMutation() {
       };
 
       const previousTasks =
-        queryClient.getQueryData<TaskType[]>([queryKeys.tasks]) ?? [];
+        queryClient.getQueryData<TaskType[]>([queryKey]) ?? [];
 
-      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (old) => [
+      queryClient.setQueryData<TaskType[]>([queryKey], (old) => [
         ...(old ?? []),
         newTask,
       ]);
 
       return { previousTasks, taskId };
     },
-    onError(_, __, context) {
-      queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
+    onError(_, data, context) {
+      queryClient.setQueryData(
+        [`${queryKeys.tasks}-${data.listId}`],
+        context?.previousTasks,
+      );
       toast({
         variant: "destructive",
         title: "Failed to create task.",
       });
     },
     onSuccess(data, _, context) {
-      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (old) => {
-        if (!old) return [];
+      queryClient.setQueryData<TaskType[]>(
+        [`${queryKeys.tasks}-${data.listId}`],
+        (old) => {
+          if (!old) return [];
 
-        const updatedTasks = old.map((task: TaskRenderType) => {
-          if (task.renderId === context?.taskId)
-            return {
-              renderId: task.renderId,
-              ...data,
-            };
+          const updatedTasks = old.map((task: TaskRenderType) => {
+            if (task.renderId === context?.taskId)
+              return {
+                renderId: task.renderId,
+                ...data,
+              };
 
-          return task;
-        });
+            return task;
+          });
 
-        return updatedTasks;
-      });
+          return updatedTasks;
+        },
+      );
     },
   });
 }
@@ -83,21 +93,24 @@ function useUpdateTaskMutation() {
         body: req,
       }),
     async onMutate(newTask: TaskType) {
-      await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
+      const queryKey = `${queryKeys.tasks}-${newTask.listId}`;
 
-      const previousTasks = queryClient.getQueryData<TaskType[]>([
-        queryKeys.tasks,
-      ]);
+      await queryClient.cancelQueries({ queryKey: [queryKey] });
 
-      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (old) => [
+      const previousTasks = queryClient.getQueryData<TaskType[]>([queryKey]);
+
+      queryClient.setQueryData<TaskType[]>([queryKey], (old) => [
         ...old!.filter((task) => task.id !== newTask.id),
         newTask,
       ]);
 
       return { previousTasks };
     },
-    onError(_, __, context) {
-      queryClient.setQueryData([queryKeys.tasks], context?.previousTasks);
+    onError(_, data, context) {
+      queryClient.setQueryData(
+        [`${queryKeys.tasks}-${data.listId}`],
+        context?.previousTasks,
+      );
 
       toast({
         variant: "destructive",
@@ -107,30 +120,27 @@ function useUpdateTaskMutation() {
   });
 }
 
-function useDeleteTaskMutation() {
+function useDeleteTaskMutation(listId: string) {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+
+  const queryKey = `${queryKeys.tasks}-${listId}`;
 
   return useMutation({
     mutationFn: (req: string) => client("/tasks/{id}", req).delete(),
     async onMutate(taskId) {
-      await queryClient.cancelQueries({ queryKey: [queryKeys.tasks] });
+      await queryClient.cancelQueries({ queryKey: [queryKey] });
 
-      const previousTasks = queryClient.getQueryData<TaskType[]>([
-        queryKeys.tasks,
-      ]);
+      const previousTasks = queryClient.getQueryData<TaskType[]>([queryKey]);
 
-      queryClient.setQueryData<TaskType[]>([queryKeys.tasks], (tasks) =>
+      queryClient.setQueryData<TaskType[]>([queryKey], (tasks) =>
         tasks!.filter((task) => task.id !== taskId),
       );
 
       return { previousTasks };
     },
     onError(_, __, context) {
-      queryClient.setQueryData<TaskType[]>(
-        [queryKeys.tasks],
-        context?.previousTasks,
-      );
+      queryClient.setQueryData<TaskType[]>([queryKey], context?.previousTasks);
 
       toast({
         variant: "destructive",
@@ -140,9 +150,32 @@ function useDeleteTaskMutation() {
   });
 }
 
-export { useCreateTaskMutation, useUpdateTaskMutation, useDeleteTaskMutation };
+function useCreateListMutation() {
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: (req: CreateListRequest) =>
+      client("/lists").post({
+        body: req,
+      }),
+    onError() {
+      toast({
+        variant: "destructive",
+        title: "Failed to create task.",
+      });
+    },
+  });
+}
+
+export {
+  useCreateTaskMutation,
+  useUpdateTaskMutation,
+  useDeleteTaskMutation,
+  useCreateListMutation,
+};
 
 const queryKeys = {
+  lists: "lists" as const,
   tasks: "tasks" as const,
 };
 

@@ -1,4 +1,9 @@
-import type { CreateTaskRequest, UpdateTaskRequest } from "@lib/types";
+import type {
+  CreateListRequest,
+  CreateTaskRequest,
+  UpdateListRequest,
+  UpdateTaskRequest,
+} from "@lib/types";
 
 interface RequestOptions {
   headers?: HeadersInit;
@@ -10,6 +15,14 @@ export interface QueryOptions extends RequestOptions {
 
 export interface MutationOptions extends RequestOptions {
   body: unknown;
+}
+
+export interface CreateListOptions extends MutationOptions {
+  body: CreateListRequest;
+}
+
+export interface UpdateListOptions extends MutationOptions {
+  body: UpdateListRequest;
 }
 
 export interface CreateTaskOptions extends MutationOptions {

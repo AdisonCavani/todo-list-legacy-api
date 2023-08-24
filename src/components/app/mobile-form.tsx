@@ -31,7 +31,11 @@ import {
 import { createRef, useState, type FormEventHandler } from "react";
 import DateComponent from "./date";
 
-function MobileForm() {
+type Props = {
+  listId: string;
+};
+
+function MobileForm({ listId }: Props) {
   const [title, setTitle] = useState<string>("");
   const [date, setDate] = useState<Date | null>(null);
   const [priority, setPriority] = useState<TaskPriorityEnum>("P4");
@@ -55,6 +59,7 @@ function MobileForm() {
     if (submitDisabled) return;
 
     mutate({
+      listId: listId,
       title: title,
       dueDate: date,
       priority: priority,

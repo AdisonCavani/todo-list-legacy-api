@@ -18,7 +18,7 @@ async function Layout({ children }: PropsWithChildren) {
     <main className="flex grow flex-row">
       <AuthWrapper>
         <ReactQueryWrapper>
-          <nav className="sticky top-[72px] hidden h-full w-72 flex-col gap-y-3 border-r bg-secondary px-4 py-7 lg:flex">
+          <nav className="sticky flex w-72 flex-col gap-y-3 border-r bg-secondary px-4 py-7">
             <SideNav initialLists={response} />
           </nav>
           <section className="flex w-full grow flex-col px-3 pb-24 pt-8 sm:px-6 sm:pb-8">

@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "@components/router/link";
-import { Button, buttonVariants } from "@components/ui/button";
+import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import type { ListType } from "@db/schema";
 import { queryKeys, useCreateListMutation } from "@lib/hooks/query";
-import { IconTextPlus } from "@tabler/icons-react";
+import { cn } from "@lib/utils";
+import { IconList, IconTextPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
 import { useState, type FormEventHandler } from "react";
 
 type Props = {
@@ -19,6 +21,7 @@ function SideNav({ initialLists }: Props) {
     initialData: initialLists,
   });
 
+  const pathname = usePathname();
   const [name, setName] = useState<string>("");
 
   const { mutate } = useCreateListMutation();
@@ -26,11 +29,14 @@ function SideNav({ initialLists }: Props) {
   const handleOnSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    if (name.trim().length === 0) return;
-
-    mutate({
-      name: name,
-    });
+    if (name.trim().length === 0)
+      mutate({
+        name: "Untitled list",
+      });
+    else
+      mutate({
+        name: name,
+      });
 
     setName("");
   };
@@ -41,11 +47,14 @@ function SideNav({ initialLists }: Props) {
         <Link
           key={id}
           href={`/app/${id}`}
-          className={buttonVariants({
-            size: "sm",
-            variant: "ghost",
-          })}
+          className={cn(
+            "inline-flex items-center gap-x-8 rounded-md px-3 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            pathname === `/app/${id}`
+              ? "bg-neutral-100 font-semibold text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-600 dark:text-neutral-100 dark:hover:bg-neutral-700"
+              : "hover:bg-accent hover:text-accent-foreground",
+          )}
         >
+          <IconList size={22} />
           {name}
         </Link>
       ))}
@@ -58,10 +67,11 @@ function SideNav({ initialLists }: Props) {
           variant="ghost"
           size="sm"
           icon={<IconTextPlus size={22} />}
+          className="text-blue-600 dark:text-blue-400"
         />
         <Input
           placeholder="New list"
-          className="border-none placeholder:text-black dark:placeholder:text-white"
+          className="border-none placeholder:font-semibold placeholder:text-blue-600 dark:placeholder:text-blue-400"
           value={name}
           onChange={(event) => setName(event.target.value)}
         />

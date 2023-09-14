@@ -1,5 +1,5 @@
 import { client } from "@api/client";
-import type { TaskType } from "@db/schema";
+import type { ListType, TaskType } from "@db/schema";
 import { useToast } from "@lib/hooks/use-toast";
 import type {
   CreateListRequest,
@@ -151,6 +151,7 @@ function useDeleteTaskMutation(listId: string) {
 }
 
 function useCreateListMutation() {
+  const queryClient = useQueryClient();
   const { toast } = useToast();
 
   return useMutation({
@@ -161,7 +162,15 @@ function useCreateListMutation() {
     onError() {
       toast({
         variant: "destructive",
-        title: "Failed to create task.",
+        title: "Failed to create list.",
+      });
+    },
+    onSuccess(data) {
+      queryClient.setQueryData<ListType[]>([queryKeys.lists], (lists) => {
+        if (!lists) return [];
+
+        lists.push(data);
+        return lists;
       });
     },
   });

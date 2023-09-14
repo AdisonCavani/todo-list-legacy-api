@@ -1,5 +1,5 @@
 function Page() {
-  return <p>Select a list</p>;
+  return <p>Select or create new list</p>;
 }
 
 export default Page;

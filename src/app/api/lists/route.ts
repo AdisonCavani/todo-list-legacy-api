@@ -1,9 +1,9 @@
-import { tasks, type TaskType } from "@db/schema";
+import { lists, type ListType } from "@db/schema";
 import { db } from "@db/sql";
 import { auth } from "@lib/auth";
 import {
-  createTaskRequestValidator,
-  updateTaskRequestValidator,
+  createListRequestValidator,
+  updateListRequestValidator,
 } from "@lib/types";
 import { and, eq } from "drizzle-orm";
 import { v4 } from "uuid";
@@ -15,23 +15,20 @@ async function POST(request: Request) {
   if (!session) return new Response("Unauthorized", { status: 401 });
 
   try {
-    const task = createTaskRequestValidator.parse(await request.json());
+    const list = createListRequestValidator.parse(await request.json());
 
     const entity = {
-      ...task,
+      ...list,
       id: v4(),
-      isCompleted: false,
-      isImportant: false,
+      userId: session.user.id,
     };
 
-    await db.insert(tasks).values(entity);
+    await db.insert(lists).values(entity);
 
-    const response: TaskType = {
+    const response: ListType = {
       ...entity,
-      description: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-      dueDate: entity.dueDate ?? null,
     };
 
     return new Response(JSON.stringify(response), { status: 201 });
@@ -51,19 +48,16 @@ async function PATCH(request: Request) {
   if (!session) return new Response("Unauthorized", { status: 401 });
 
   try {
-    const task = updateTaskRequestValidator.parse(await request.json());
+    const list = updateListRequestValidator.parse(await request.json());
 
     await db
-      .update(tasks)
-      .set(task)
-      .where(and(eq(tasks.id, task.id)));
+      .update(lists)
+      .set(list)
+      .where(and(eq(lists.id, list.id), eq(lists.userId, session.user.id)));
 
-    const response: TaskType = {
-      ...task,
-      description: task.description ?? null,
-      dueDate: task.dueDate ?? null,
-      isCompleted: task.isCompleted ?? false,
-      isImportant: task.isImportant ?? false,
+    const response: ListType = {
+      ...list,
+      userId: session.user.id,
       createdAt: new Date(),
       updatedAt: new Date(),
     };

@@ -15,7 +15,7 @@ import {
 
 export const tasks = mysqlTable("tasks", {
   id: varchar("id", { length: 255 }).primaryKey().notNull(),
-  userId: varchar("user_id", { length: 255 }).notNull(),
+  listId: varchar("list_id", { length: 255 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
   title: text("title").notNull(),
@@ -27,6 +27,16 @@ export const tasks = mysqlTable("tasks", {
 });
 
 export type TaskType = InferModel<typeof tasks>;
+
+export const lists = mysqlTable("lists", {
+  id: varchar("id", { length: 255 }).primaryKey().notNull(),
+  userId: varchar("user_id", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+  name: text("name").notNull(),
+});
+
+export type ListType = InferModel<typeof lists>;
 
 export const accounts = mysqlTable(
   "accounts",

@@ -20,11 +20,12 @@ import Task from "./task";
 
 type Props = {
   initialTasks: TaskType[];
+  listId: string;
 };
 
-function App({ initialTasks }: Props) {
+function App({ initialTasks, listId }: Props) {
   const { data: tasks } = useQuery({
-    queryKey: [queryKeys.tasks],
+    queryKey: [`${queryKeys.tasks}-${listId}`],
     initialData: initialTasks,
   });
 
@@ -56,8 +57,8 @@ function App({ initialTasks }: Props) {
         setSorting={setSorting}
       />
 
-      <Form />
-      <MobileForm />
+      <Form listId={listId} />
+      <MobileForm listId={listId} />
 
       {notFinishedTasks.length > 0 && (
         <ul className="relative flex flex-col gap-y-2">

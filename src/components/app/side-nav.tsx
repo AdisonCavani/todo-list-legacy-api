@@ -3,10 +3,16 @@
 import Link from "@components/router/link";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@components/ui/popover";
 import type { ListType } from "@db/schema";
 import { queryKeys, useCreateListMutation } from "@lib/hooks/query";
 import { cn } from "@lib/utils";
-import { IconList, IconTextPlus } from "@tabler/icons-react";
+import { PopoverClose } from "@radix-ui/react-popover";
+import { IconList, IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useState, type FormEventHandler } from "react";
@@ -24,25 +30,70 @@ function SideNav({ initialLists }: Props) {
   const pathname = usePathname();
   const [name, setName] = useState<string>("");
 
-  const { mutate } = useCreateListMutation();
+  const { mutate, isPending } = useCreateListMutation();
 
   const handleOnSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    if (name.trim().length === 0)
-      mutate({
-        name: "Untitled list",
-      });
-    else
-      mutate({
-        name: name,
-      });
+    mutate({
+      name: name,
+    });
 
     setName("");
   };
 
   return (
     <>
+      <div className="flex w-full items-center justify-between">
+        <h3 className="text-sm font-semibold">Projects</h3>
+
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              size="xxs"
+              variant="ghost"
+              icon={<IconPlus size={22} />}
+              className="text-muted-foreground"
+            />
+          </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <div className="space-y-2">
+                <h4 className="font-medium leading-none">Lists</h4>
+                <p className="text-sm text-muted-foreground">
+                  Set the name for the new list.
+                </p>
+              </div>
+              <div className="grid gap-2">
+                <form
+                  onSubmit={handleOnSubmit}
+                  className="grid grid-cols-3 items-center gap-4"
+                >
+                  <Input
+                    onChange={(event) => setName(event.currentTarget.value)}
+                    placeholder="My projects"
+                    className="col-span-2 h-8"
+                  />
+
+                  <PopoverClose asChild>
+                    <Button
+                      size="xs"
+                      disabled={name.trim().length === 0}
+                      loading={isPending}
+                      type="submit"
+                    >
+                      Save
+                    </Button>
+                  </PopoverClose>
+                </form>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+
+      <hr className="my-1 w-full" />
+
       {lists.map(({ id, name }) => (
         <Link
           key={id}
@@ -58,24 +109,6 @@ function SideNav({ initialLists }: Props) {
           {name}
         </Link>
       ))}
-
-      {lists.length > 0 && <hr className="w-full" />}
-
-      <form onSubmit={handleOnSubmit} className="flex items-center gap-x-2">
-        <Button
-          type="submit"
-          variant="ghost"
-          size="sm"
-          icon={<IconTextPlus size={22} />}
-          className="text-blue-600 dark:text-blue-400"
-        />
-        <Input
-          placeholder="New list"
-          className="border-none placeholder:font-semibold placeholder:text-blue-600 dark:placeholder:text-blue-400"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-      </form>
     </>
   );
 }

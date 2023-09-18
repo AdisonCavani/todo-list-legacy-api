@@ -1,9 +1,9 @@
 import ProfileMenu from "@components/app/profile-menu";
 import Link from "@components/router/link";
-import { Button, buttonVariants } from "@components/ui/button";
+import { buttonVariants } from "@components/ui/button";
 import { auth } from "@lib/auth";
 import { twindConfig, type ColorRecordType } from "@lib/twind";
-import { IconChecklist, IconMenu2 } from "@tabler/icons-react";
+import { IconChecklist } from "@tabler/icons-react";
 import { Toaster } from "@ui/toaster";
 import type { PropsWithChildren } from "react";
 
@@ -28,12 +28,6 @@ async function Layout({ children }: PropsWithChildren) {
     <>
       <header className="sticky top-0 z-10 flex w-full items-center justify-between border-b bg-blue-600 px-4 py-2 dark:bg-neutral-800">
         <div className="flex items-center gap-x-2">
-          <Button
-            variant="ghost"
-            size="xs"
-            className="text-white"
-            icon={<IconMenu2 size={20} />}
-          />
           <Link
             href="/app"
             prefetch={false}

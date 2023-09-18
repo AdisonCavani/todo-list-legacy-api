@@ -34,7 +34,7 @@ function ProfileMenu({ firstName, lastName, email, image }: User) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-8 w-8 rounded-full hover:bg-transparent"
+          className="h-8 w-8 rounded-full hover:bg-transparent"
         >
           <Avatar>
             <AvatarImage src={image ?? undefined} alt="User avatar" />

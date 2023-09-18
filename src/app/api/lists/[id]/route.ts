@@ -1,4 +1,4 @@
-import { lists } from "@db/schema";
+import { lists, tasks } from "@db/schema";
 import { db } from "@db/sql";
 import { auth } from "@lib/auth";
 import { and, eq } from "drizzle-orm";
@@ -11,9 +11,16 @@ async function DELETE(
 
   if (!session) return new Response("Unauthorized", { status: 401 });
 
-  const response = await db.delete(lists).where(and(eq(lists.id, id)));
+  const [listsResponse, __] = await Promise.all([
+    db
+      .delete(lists)
+      .where(and(eq(lists.id, id), eq(lists.userId, session.user.id))),
 
-  if (response.rowsAffected > 0) return new Response(null, { status: 204 });
+    db.delete(tasks).where(eq(tasks.listId, id)),
+  ]);
+
+  if (listsResponse.rowsAffected > 0)
+    return new Response(null, { status: 204 });
 
   return new Response(null, { status: 404 });
 }

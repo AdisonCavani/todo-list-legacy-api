@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "@components/router/link";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import {
@@ -10,12 +9,11 @@ import {
 } from "@components/ui/popover";
 import type { ListType } from "@db/schema";
 import { queryKeys, useCreateListMutation } from "@lib/hooks/query";
-import { cn } from "@lib/utils";
 import { PopoverClose } from "@radix-ui/react-popover";
-import { IconList, IconPlus } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import { usePathname } from "next/navigation";
 import { useState, type FormEventHandler } from "react";
+import SideNavItem from "./side-nav-item";
 
 type Props = {
   initialLists: ListType[];
@@ -27,7 +25,6 @@ function SideNav({ initialLists }: Props) {
     initialData: initialLists,
   });
 
-  const pathname = usePathname();
   const [name, setName] = useState<string>("");
 
   const { mutate, isPending } = useCreateListMutation();
@@ -95,19 +92,7 @@ function SideNav({ initialLists }: Props) {
       <hr className="my-1 w-full" />
 
       {lists.map(({ id, name }) => (
-        <Link
-          key={id}
-          href={`/app/${id}`}
-          className={cn(
-            "inline-flex items-center gap-x-8 rounded-md px-3 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            pathname === `/app/${id}`
-              ? "bg-neutral-100 font-semibold text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-600 dark:text-neutral-100 dark:hover:bg-neutral-700"
-              : "hover:bg-accent hover:text-accent-foreground",
-          )}
-        >
-          <IconList size={22} />
-          {name}
-        </Link>
+        <SideNavItem key={id} id={id} name={name} />
       ))}
     </>
   );

@@ -1,4 +1,4 @@
-import { tasks, type TaskType } from "@db/schema";
+import { lists, tasks, type TaskType } from "@db/schema";
 import { db } from "@db/sql";
 import { auth } from "@lib/auth";
 import {
@@ -16,6 +16,14 @@ async function POST(request: Request) {
 
   try {
     const task = createTaskRequestValidator.parse(await request.json());
+
+    const listExists = await db
+      .selectDistinct()
+      .from(lists)
+      .where(and(eq(lists.id, task.listId), eq(lists.userId, session.user.id)));
+
+    if (!listExists.length)
+      return new Response("List with this id does not exists", { status: 403 });
 
     const entity = {
       ...task,

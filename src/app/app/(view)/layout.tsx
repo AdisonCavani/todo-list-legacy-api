@@ -1,3 +1,4 @@
+import MobileSideNav from "@components/app/mobile-side-nav";
 import SideNav from "@components/app/side-nav";
 import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
@@ -18,12 +19,10 @@ async function Layout({ children }: PropsWithChildren) {
     <main className="flex grow flex-row">
       <AuthWrapper>
         <ReactQueryWrapper>
-          <nav className="sticky top-[57px] flex max-h-[calc(100vh-57px)] w-72 flex-col gap-y-3 border-r bg-secondary px-4 py-7">
-            <SideNav initialLists={response} />
-          </nav>
-          <section className="flex w-full grow flex-col px-3 pb-24 pt-8 sm:px-6 sm:pb-8">
-            {children}
-          </section>
+          <SideNav initialLists={response} />
+          <MobileSideNav initialLists={response} />
+
+          {children}
         </ReactQueryWrapper>
       </AuthWrapper>
     </main>

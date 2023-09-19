@@ -40,7 +40,7 @@ function SideNav({ initialLists }: Props) {
   };
 
   return (
-    <>
+    <nav className="sticky top-[57px] hidden max-h-[calc(100vh-57px)] w-72 flex-col gap-y-3 border-r bg-secondary px-4 py-7 lg:flex">
       <div className="flex w-full items-center justify-between">
         <h3 className="text-sm font-semibold">Projects</h3>
 
@@ -96,7 +96,7 @@ function SideNav({ initialLists }: Props) {
           <SideNavItem key={id} id={id} name={name} />
         ))}
       </div>
-    </>
+    </nav>
   );
 }
 

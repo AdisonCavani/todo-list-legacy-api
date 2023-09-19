@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "@components/router/link";
 import { Button } from "@components/ui/button";
 import {
   DropdownMenu,
@@ -12,7 +13,6 @@ import { useDeleteListMutation } from "@lib/hooks/query";
 import { useToast } from "@lib/hooks/use-toast";
 import { cn } from "@lib/utils";
 import { IconDots, IconEdit, IconList, IconTrash } from "@tabler/icons-react";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { MouseEventHandler } from "react";
 

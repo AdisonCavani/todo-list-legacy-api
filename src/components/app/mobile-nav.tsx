@@ -12,7 +12,7 @@ type Props = {
   initialLists: ListType[];
 };
 
-function MobileSideNav({ initialLists }: Props) {
+function MobileNav({ initialLists }: Props) {
   const pathname = usePathname();
   const { data: lists } = useQuery<ListType[]>({
     queryKey: [queryKeys.lists],
@@ -22,15 +22,15 @@ function MobileSideNav({ initialLists }: Props) {
   if (pathname !== "/app") return;
 
   return (
-    <nav className="flex w-full grow flex-col gap-y-2 py-8 lg:hidden">
-      <h2 className="mb-4 ml-5 text-xl font-semibold">Projects</h2>
+    <nav className="flex w-full grow flex-col py-8 lg:hidden">
+      <h2 className="mb-8 ml-5 text-xl font-semibold">Projects</h2>
       <hr className="w-full" />
 
       {lists.map(({ id, name }) => (
         <Fragment key={id}>
           <Link
             href={`/app/${id}`}
-            className="flex items-center gap-x-5 px-4 py-2 font-medium transition-all duration-300 hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="flex items-center gap-x-5 p-4 font-medium transition-all duration-300 hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:bg-accent active:text-accent-foreground"
           >
             <IconList size={20} />
             {name}
@@ -43,4 +43,4 @@ function MobileSideNav({ initialLists }: Props) {
   );
 }
 
-export default MobileSideNav;
+export default MobileNav;

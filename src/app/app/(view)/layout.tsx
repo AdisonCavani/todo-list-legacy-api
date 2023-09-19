@@ -1,4 +1,4 @@
-import MobileSideNav from "@components/app/mobile-side-nav";
+import MobileNav from "@components/app/mobile-nav";
 import SideNav from "@components/app/side-nav";
 import AuthWrapper from "@components/auth-wrapper";
 import ReactQueryWrapper from "@components/react-query-wrapper";
@@ -20,7 +20,7 @@ async function Layout({ children }: PropsWithChildren) {
       <AuthWrapper>
         <ReactQueryWrapper>
           <SideNav initialLists={response} />
-          <MobileSideNav initialLists={response} />
+          <MobileNav initialLists={response} />
 
           {children}
         </ReactQueryWrapper>

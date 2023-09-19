@@ -13,7 +13,7 @@ import { useToast } from "@lib/hooks/use-toast";
 import { cn } from "@lib/utils";
 import { IconDots, IconEdit, IconList, IconTrash } from "@tabler/icons-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { MouseEventHandler } from "react";
 
 type Props = {
@@ -23,6 +23,7 @@ type Props = {
 
 function SideNavItem({ id, name }: Props) {
   const { toast } = useToast();
+  const { push } = useRouter();
   const pathname = usePathname();
   const { mutate: deleteList } = useDeleteListMutation();
 
@@ -30,6 +31,8 @@ function SideNavItem({ id, name }: Props) {
     event.preventDefault();
 
     deleteList(id);
+
+    if (pathname === `/app/${id}`) push("/app");
   };
 
   return (

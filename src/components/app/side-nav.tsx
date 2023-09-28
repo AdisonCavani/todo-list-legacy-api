@@ -35,8 +35,6 @@ function SideNav({ initialLists }: Props) {
     mutate({
       name: name,
     });
-
-    setName("");
   };
 
   return (
@@ -92,9 +90,11 @@ function SideNav({ initialLists }: Props) {
       <hr className="my-1 w-full" />
 
       <div className="flex max-h-[calc(100vh-120px)] w-full flex-col gap-y-3 overflow-y-auto">
-        {lists.map(({ id, name }) => (
-          <SideNavItem key={id} id={id} name={name} />
-        ))}
+        {lists
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(({ id, name }) => (
+            <SideNavItem key={id} id={id} name={name} />
+          ))}
       </div>
     </nav>
   );

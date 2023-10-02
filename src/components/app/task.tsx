@@ -184,7 +184,7 @@ const Task = forwardRef<HTMLLIElement, TaskType>((task, ref) => {
         </li>
       </DialogTrigger>
 
-      <DialogContent className="dark:bg-neutral-800">
+      <DialogContent className="max-w-lg dark:bg-neutral-800">
         <DialogHeader>
           <div className="flex justify-between">
             <DialogTitle>Update task</DialogTitle>

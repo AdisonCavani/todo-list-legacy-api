@@ -16,7 +16,7 @@ function Loading() {
       </div>
 
       {/* Form component */}
-      <div className="mb-3 hidden h-24 rounded-md bg-secondary shadow-ms sm:block">
+      <div className="mb-3 hidden h-24 rounded-md bg-secondary shadow-ms lg:block">
         {/* Top */}
         <div className="flex h-[52px] flex-row items-center gap-x-2 px-4">
           <div className="ml-[6px] min-h-[18px] min-w-[18px] animate-pulse rounded-full bg-muted" />

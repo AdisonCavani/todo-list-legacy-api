@@ -4,6 +4,7 @@ import NextThemeProvider from "@components/theme-provider";
 import { fontInter } from "@lib/font";
 import { twindConfig, type ColorRecordType } from "@lib/twind";
 import { cn } from "@lib/utils";
+import { AxiomWebVitals } from "next-axiom";
 import Script from "next/script";
 import type { PropsWithChildren } from "react";
 
@@ -67,6 +68,7 @@ function RootLayout({ children }: PropsWithChildren) {
             <Script strategy="lazyOnload" id="plausible-script">
               {`window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`}
             </Script>
+            <AxiomWebVitals />
           </>
         )}
       </head>

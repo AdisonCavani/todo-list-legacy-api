@@ -5,6 +5,8 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 
 const withMDX = require("@next/mdx")();
 
+const { withAxiom } = require("next-axiom");
+
 /** @type {import('next').NextConfig} */
 let nextConfig = {
   reactStrictMode: true,
@@ -90,4 +92,4 @@ const securityHeaders = [
   },
 ];
 
-module.exports = withPWA(withMDX(nextConfig));
+module.exports = withAxiom(withPWA(withMDX(nextConfig)));

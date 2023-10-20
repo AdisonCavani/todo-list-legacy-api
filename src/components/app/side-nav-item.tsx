@@ -2,14 +2,7 @@
 
 import Link from "@components/router/link";
 import { Button } from "@components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@components/ui/dialog";
+import { DialogTrigger } from "@components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,13 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
-import { Input } from "@components/ui/input";
-import { useDeleteListMutation } from "@lib/hooks/query";
 import { useToast } from "@lib/hooks/use-toast";
 import { cn } from "@lib/utils";
 import { IconDots, IconEdit, IconList, IconTrash } from "@tabler/icons-react";
-import { usePathname, useRouter } from "next/navigation";
-import { useState, type MouseEventHandler } from "react";
+import { usePathname } from "next/navigation";
+import RemoveList from "./remove-list";
 
 type Props = {
   id: string;
@@ -32,23 +23,7 @@ type Props = {
 
 function SideNavItem({ id, name }: Props) {
   const { toast } = useToast();
-  const { push } = useRouter();
   const pathname = usePathname();
-  const { mutate: deleteList, isPending: deleteListLoading } =
-    useDeleteListMutation();
-
-  const [list, setList] = useState<string>("");
-
-  const removeDisabled = list.trim() !== name.trim();
-
-  // TODO: use <form />
-  const handleOnRemove: MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.preventDefault();
-
-    deleteList(id);
-
-    if (pathname === `/app/${id}`) push("/app");
-  };
 
   return (
     <Link
@@ -66,11 +41,7 @@ function SideNavItem({ id, name }: Props) {
         {name}
       </div>
 
-      <Dialog
-        onOpenChange={() => {
-          setList("");
-        }}
-      >
+      <RemoveList listId={id} listName={name}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -108,30 +79,7 @@ function SideNavItem({ id, name }: Props) {
             </DialogTrigger>
           </DropdownMenuContent>
         </DropdownMenu>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Delete list</DialogTitle>
-            <DialogDescription>
-              To confirm, type &quot;<b>{name}</b>&quot; in the box below
-            </DialogDescription>
-          </DialogHeader>
-
-          <Input
-            placeholder={name}
-            value={list}
-            onChange={(event) => setList(event.currentTarget.value)}
-          />
-          <Button
-            variant="destructive"
-            className="w-full"
-            disabled={removeDisabled}
-            loading={deleteListLoading}
-            onClick={handleOnRemove}
-          >
-            Delete this list
-          </Button>
-        </DialogContent>
-      </Dialog>
+      </RemoveList>
     </Link>
   );
 }

@@ -9,26 +9,16 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@components/ui/context-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@components/ui/dialog";
+import { DialogTrigger } from "@components/ui/dialog";
 import { Input } from "@components/ui/input";
 import type { ListType } from "@db/schema";
-import {
-  queryKeys,
-  useCreateListMutation,
-  useDeleteListMutation,
-} from "@lib/hooks/query";
+import { queryKeys, useCreateListMutation } from "@lib/hooks/query";
 import { useToast } from "@lib/hooks/use-toast";
 import { IconEdit, IconList, IconPlus, IconTrash } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Fragment, useState, type FormEventHandler } from "react";
+import RemoveList from "./remove-list";
 
 type Props = {
   initialLists: ListType[];
@@ -36,7 +26,6 @@ type Props = {
 
 function MobileNav({ initialLists }: Props) {
   const { toast } = useToast();
-  const { push } = useRouter();
   const pathname = usePathname();
   const { data: lists } = useQuery<ListType[]>({
     queryKey: [queryKeys.lists],
@@ -47,10 +36,6 @@ function MobileNav({ initialLists }: Props) {
   const submitDisabled = name.trim().length === 0;
 
   const { mutate, isPending } = useCreateListMutation();
-  const { mutate: deleteList, isPending: deleteListLoading } =
-    useDeleteListMutation();
-
-  const [list, setList] = useState<string>("");
 
   if (pathname !== "/app") return;
 
@@ -73,11 +58,7 @@ function MobileNav({ initialLists }: Props) {
         .sort((a, b) => a.name.localeCompare(b.name))
         .map(({ id, name }) => (
           <Fragment key={id}>
-            <Dialog
-              onOpenChange={() => {
-                setList("");
-              }}
-            >
+            <RemoveList listId={id} listName={name}>
               <ContextMenu>
                 <ContextMenuTrigger asChild>
                   <Link
@@ -116,37 +97,7 @@ function MobileNav({ initialLists }: Props) {
                   </DialogTrigger>
                 </ContextMenuContent>
               </ContextMenu>
-
-              <DialogContent className="max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Delete list</DialogTitle>
-                  <DialogDescription>
-                    To confirm, type &quot;<b>{name}</b>&quot; in the box below
-                  </DialogDescription>
-                </DialogHeader>
-
-                <Input
-                  placeholder={name}
-                  value={list}
-                  onChange={(event) => setList(event.currentTarget.value)}
-                />
-                <Button
-                  variant="destructive"
-                  className="w-full"
-                  disabled={list.trim() !== name.trim()}
-                  loading={deleteListLoading}
-                  onClick={(event) => {
-                    event.preventDefault();
-
-                    deleteList(id);
-
-                    if (pathname === `/app/${id}`) push("/app");
-                  }}
-                >
-                  Delete this list
-                </Button>
-              </DialogContent>
-            </Dialog>
+            </RemoveList>
 
             <hr className="w-full" />
           </Fragment>

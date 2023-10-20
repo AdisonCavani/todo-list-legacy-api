@@ -2,7 +2,7 @@
 
 This repository contains a legacy backend API written in C# using .NET.
 
-## Features
+### Features
 
 - Github Actions - test & deploy to AWS
 
@@ -14,7 +14,7 @@ This repository contains a legacy backend API written in C# using .NET.
 - Unit tests
 - Integration tests
 
-## Architecture
+### Architecture
 
 - **Language**: [C# .NET](https://learn.microsoft.com/dotnet/csharp)
 - **Framework**: [ASP.NET](https://www.asp.net)

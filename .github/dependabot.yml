@@ -3,4 +3,4 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/backend"
     schedule:
-      interval: "monthly"
+      interval: "never" # Change this to "monthly", if you want dependabot
